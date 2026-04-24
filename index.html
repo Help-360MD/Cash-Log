@@ -180,6 +180,48 @@
         line-height: 1.75;
     }
 
+    .brand-actions {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .resource-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 13px 18px;
+        border-radius: 16px;
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        color: #fff;
+        background: linear-gradient(135deg, var(--brand-red), #c81f22 60%, #991b1b 100%);
+        box-shadow: 0 16px 26px rgba(239, 43, 45, 0.18);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    }
+
+    .resource-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 20px 32px rgba(239, 43, 45, 0.24);
+        filter: saturate(1.03);
+    }
+
+    .resource-btn::before {
+        content: "PDF";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 38px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+        font-size: 0.76rem;
+        letter-spacing: 0.08em;
+    }
+
     .feature-list {
         display: grid;
         gap: 12px;
@@ -701,6 +743,9 @@
                     </div>
                     <h1>Fast, polished cash logging for the front desk.</h1>
                     <p>Capture walk-in payments cleanly, reduce entry errors, and send every record straight to your existing Google Sheet through the same Apps Script link you already use.</p>
+                    <div class="brand-actions">
+                        <a class="resource-btn" href="Selfpay%20List%20Updated%2004142026%201.pdf" target="_blank" rel="noopener noreferrer">View Service Pricing Sheet</a>
+                    </div>
                 </div>
 
                 <div class="feature-list" aria-label="Highlights">
@@ -708,21 +753,21 @@
                         <div class="feature-badge">1</div>
                         <div>
                             <strong>Fixed-price services auto-fill</strong>
-                            <span>Standard visit prices lock in automatically, while manual entries stay flexible for copays and custom balances.</span>
+                            <span>Engineered an auto-fill system that locks standard visit prices while maintaining manual overrides for copays and custom balances.</span>
                         </div>
                     </div>
                     <div class="feature">
                         <div class="feature-badge">2</div>
                         <div>
                             <strong>Cleaner, faster daily intake</strong>
-                            <span>Improved spacing, grouping, and mobile responsiveness make the form feel more professional on any screen.</span>
+                            <span>Redesigned the daily intake form with improved grouping and mobile responsiveness, significantly increasing professional appeal and user speed.</span>
                         </div>
                     </div>
                     <div class="feature">
                         <div class="feature-badge">3</div>
                         <div>
                             <strong>Same sheet integration</strong>
-                            <span>Your existing Apps Script endpoint stays the same, and the original submitted fields are preserved while new fields are appended for richer tracking.</span>
+                            <span>Maintained full compatibility with existing Apps Script endpoints while expanding data collection through appended tracking fields.</span>
                         </div>
                     </div>
                 </div>
@@ -784,32 +829,78 @@
                             <label for="serviceSelect">Service</label>
                             <select name="service" id="serviceSelect" required>
                                 <option value="">-- Select Service --</option>
-                                <optgroup label="Exams & Evaluations">
-                                    <option value="120">DOT Phys: $120</option>
-                                    <option value="70">School Phys: $70 (per person)</option>
-                                    <option value="70">Sports Phys: $70 (per person)</option>
-                                    <option value="440">Immigration Phys: $440 with labs no vaccines</option>
-                                    <option value="225">Class G Firearm: $225</option>
-                                    <option value="50">ESA (Emotional Support Animal) Letter: $50</option>
-                                    <option value="295">Cosmetic Pre-Op Clearance (EKG, Paperwork): $295</option>
-                                    <option value="100">Travel Rapid: $100</option>
-                                    <option value="65">FL Shots Upload: $65</option>
-                                    <option value="500">ASL Form: $500</option>
-                                    <option value="50">Vaccine Transfer: $50</option>
+                                <optgroup label="Regular Office Visits">
+                                    <option value="180">New PT - 99203: $180 Flat Fee</option>
+                                    <option value="150">Est PT - 99213: $150 Flat Fee</option>
                                 </optgroup>
-                                <optgroup label="Labs, Medications & Treatments">
+                                <optgroup label="Physicals">
+                                    <option value="205">New &amp; Established Physical (including Lab Convenience Fee): $205 Flat Fee</option>
+                                </optgroup>
+                                <optgroup label="Cash Only Appointments">
+                                    <option value="120">DOT Phys: $120</option>
+                                    <option value="70">School Phys/Sports Phys: $70</option>
+                                    <option value="444">Immigration Phys (with labs, no vaccines): $444</option>
+                                    <option value="295">Cosmetic Pre Op: $295</option>
+                                    <option value="225">Class G Firearm: $225</option>
+                                </optgroup>
+                                <optgroup label="Procedures">
+                                    <option value="25">Pap Smear (Q0091): $25</option>
+                                    <option value="113">Cryotherapy (177110): $113</option>
+                                    <option value="35">EKG w/ Interpretation (93000): $35</option>
+                                    <option value="5">Vision Screen (99173): $5</option>
+                                    <option value="15">Hearing Screen (92551): $15</option>
+                                    <option value="50">Ear Irrigation (69210): $50</option>
+                                    <option value="100">Ear Irrigation (69210) - Bilateral: $100</option>
+                                    <option value="125">Abscess Drainage (10060): $125</option>
+                                    <option value="60">Suture Removal: $60</option>
+                                </optgroup>
+                                <optgroup label="Point of Care Test">
+                                    <option value="46">Covid (87426): $46</option>
+                                    <option value="20">Strep Test (87880): $20</option>
+                                    <option value="34">Flu Test (87804): $34</option>
+                                    <option value="10">HCG Test (Pregnancy Test) (81025): $10</option>
+                                    <option value="10">Urine Dipstick (81002): $10</option>
                                     <option value="15">Mononucleosis: $15</option>
+                                </optgroup>
+                                <optgroup label="Medications / Injections">
                                     <option value="25">Ondansetron (4mg/2ml): $25</option>
                                     <option value="12">Ketorolac (30mg/ml): $12</option>
+                                    <option value="12">Ceftriaxone (500 MG): $12</option>
+                                    <option value="15">Ceftriaxone (1 G): $15</option>
+                                    <option value="25">Solu-Medrol (125mg): $25</option>
+                                    <option value="15">Solu-Medrol (40mg): $15</option>
+                                    <option value="15">Albuterol Nebulizer (J7613): $15</option>
                                     <option value="15">Vit B12: $15</option>
-                                    <option value="96">IV Fluids (NS): $96</option>
-                                    <option value="91">IV meds: $91</option>
-                                    <option value="135">Joint Injection: $135</option>
-                                    <option value="5">Triamcinolone: $5</option>
-                                    <option value="250">Semaglutide (1ml): $250</option>
-                                    <option value="300">Semaglutide (5ml): $300</option>
-                                    <option value="460">Tirzepatide (5ml): $460</option>
-                                    <option value="60">Semaglutide: $60 per week</option>
+                                    <option value="96">IV Fluids (NSS) (96360): $96</option>
+                                    <option value="91">IV Meds (96374): $91</option>
+                                    <option value="135">Joint Injection (20610): $135</option>
+                                    <option value="3">Triamcinolone (T3301): $3</option>
+                                    <option value="300">Semaglutide (Small): $300</option>
+                                    <option value="60">Semaglutide Weekly Shot: $60</option>
+                                    <option value="90">Tirzepatide Weekly Shot: $90</option>
+                                    <option value="400">Tirzepatide 1-4 ML: $400</option>
+                                    <option value="460">Tirzepatide 5 ML &amp; &gt;: $460</option>
+                                </optgroup>
+                                <optgroup label="Vaccines">
+                                    <option value="60">Fluzone (90686): $60</option>
+                                    <option value="125">High Dose Fluzone (90662): $125</option>
+                                    <option value="75">Tdap (90715): $75</option>
+                                    <option value="125">MMR: $125</option>
+                                    <option value="320">Gardasil (90651): $320</option>
+                                    <option value="300">Prevnar 20 (90677): $300</option>
+                                    <option value="400">MenQuadfi: $400</option>
+                                </optgroup>
+                                <optgroup label="Administration & Athena Codes">
+                                    <option value="21">Injections (90471): $21</option>
+                                    <option value="50">Forms Fee (MISCMEDFORM): $50</option>
+                                    <option value="15">Lab Fee (MISCLABSVCFEE): $15</option>
+                                    <option value="50">No Show (MiscNoShow): $50</option>
+                                </optgroup>
+                                <optgroup label="Extras">
+                                    <option value="50">ESA (Emotional Support Animal) Letter: $50</option>
+                                    <option value="50">Form Fee: $50</option>
+                                    <option value="100">Antigen Travel (Rapid): $100</option>
+                                    <option value="50">FL Shots Upload: $50</option>
                                 </optgroup>
                                 <optgroup label="Manual Amount Entries">
                                     <option value="manual">Copay</option>
