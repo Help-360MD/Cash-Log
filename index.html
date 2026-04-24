@@ -3,311 +3,1369 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CashLog</title>
+<title>ClinicSnap | Cash Entry Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
+    :root {
+        --brand-blue: #19ade8;
+        --brand-red: #ef2b2d;
+        --ink-900: #0f172a;
+        --ink-700: #334155;
+        --ink-500: #64748b;
+        --ink-300: #cbd5e1;
+        --surface: rgba(255, 255, 255, 0.9);
+        --surface-strong: #ffffff;
+        --surface-soft: #f8fbff;
+        --success: #0f9d6c;
+        --warning: #c2410c;
+        --shadow-xl: 0 30px 80px rgba(15, 23, 42, 0.18);
+        --shadow-md: 0 18px 40px rgba(15, 23, 42, 0.08);
+        --radius-xl: 28px;
+        --radius-lg: 18px;
+        --radius-md: 14px;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #74ABE2, #5563DE);
         margin: 0;
-        padding: 0;
+        min-height: 100%;
+    }
+
+    body {
+        font-family: "Manrope", "Segoe UI", sans-serif;
+        color: var(--ink-900);
+        background:
+            radial-gradient(circle at top left, rgba(25, 173, 232, 0.28), transparent 36%),
+            radial-gradient(circle at bottom right, rgba(239, 43, 45, 0.15), transparent 30%),
+            linear-gradient(135deg, #ecf7ff 0%, #f7faff 45%, #ffffff 100%);
+        padding: 32px 20px;
+    }
+
+    body.receipt-open {
+        overflow: hidden;
+    }
+
+    .page-shell {
+        width: min(1160px, 100%);
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(10px);
+        z-index: 0;
+    }
+
+    .page-shell::before {
+        width: 220px;
+        height: 220px;
+        background: rgba(25, 173, 232, 0.14);
+        top: -18px;
+        left: -28px;
+    }
+
+    .page-shell::after {
+        width: 180px;
+        height: 180px;
+        background: rgba(239, 43, 45, 0.12);
+        bottom: -24px;
+        right: -18px;
+    }
+
+    .app-card {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        overflow: hidden;
+        border-radius: var(--radius-xl);
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .brand-panel {
+        position: relative;
+        padding: 42px 38px;
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 249, 255, 0.94)),
+            linear-gradient(155deg, rgba(25, 173, 232, 0.12), rgba(255, 255, 255, 0));
+        border-right: 1px solid rgba(148, 163, 184, 0.18);
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 28px;
+    }
+
+    .brand-panel::before {
+        content: "";
+        position: absolute;
+        inset: 20px auto auto 20px;
+        width: 90px;
+        height: 90px;
+        background: linear-gradient(135deg, rgba(25, 173, 232, 0.12), rgba(239, 43, 45, 0.08));
+        border-radius: 24px;
+        transform: rotate(10deg);
+    }
+
+    .brand-panel > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .eyebrow {
+        display: inline-flex;
         align-items: center;
-        min-height: 100vh;
+        gap: 10px;
+        padding: 10px 14px;
+        width: fit-content;
+        border-radius: 999px;
+        background: rgba(25, 173, 232, 0.1);
+        color: #0078a8;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
     }
 
-    .container {
-        background: white;
-        padding: 2rem;
-        border-radius: 20px;
-        box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
-        width: 100%;
-        max-width: 450px;
+    .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--brand-blue);
+        box-shadow: 0 0 0 6px rgba(25, 173, 232, 0.12);
     }
 
-    .logo-container {
-        text-align: center;
-        margin-bottom: 1rem;
+    .logo-wrap {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 20px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: var(--shadow-md);
+        width: fit-content;
     }
 
     .logo {
-        max-width: 250px;
-    }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 1.5rem;
-        color: #333;
-    }
-
-    form label {
+        width: min(100%, 360px);
         display: block;
-        margin-top: 1rem;
-        font-weight: 600;
     }
 
-    form input, form select, form textarea, form button {
-        width: 100%;
-        padding: 0.8rem;
-        margin-top: 0.3rem;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 1rem;
-        box-sizing: border-box; 
+    .brand-copy h1 {
+        margin: 18px 0 12px;
+        font-family: "Space Grotesk", "Manrope", sans-serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
     }
-    
-    /* Give the readonly date field a slightly gray background so users know it's locked */
+
+    .brand-copy p {
+        margin: 0;
+        max-width: 33ch;
+        color: var(--ink-700);
+        font-size: 1.02rem;
+        line-height: 1.75;
+    }
+
+    .feature-list {
+        display: grid;
+        gap: 12px;
+    }
+
+    .feature {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 16px 18px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(203, 213, 225, 0.55);
+    }
+
+    .feature-badge {
+        flex: 0 0 auto;
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        color: var(--surface-strong);
+        background: linear-gradient(135deg, var(--brand-blue), #118bc7);
+    }
+
+    .feature strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 0.98rem;
+    }
+
+    .feature span {
+        color: var(--ink-500);
+        font-size: 0.93rem;
+        line-height: 1.5;
+    }
+
+    .form-panel {
+        padding: 36px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 252, 255, 0.96));
+    }
+
+    .form-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 18px;
+        margin-bottom: 24px;
+    }
+
+    .form-header h2 {
+        margin: 0;
+        font-family: "Space Grotesk", "Manrope", sans-serif;
+        font-size: 1.7rem;
+        letter-spacing: -0.03em;
+    }
+
+    .form-header p {
+        margin: 8px 0 0;
+        color: var(--ink-500);
+        max-width: 48ch;
+        line-height: 1.65;
+    }
+
+    .summary-chip {
+        min-width: 170px;
+        padding: 14px 16px;
+        border-radius: 20px;
+        background: linear-gradient(160deg, rgba(25, 173, 232, 0.09), rgba(255, 255, 255, 0.9));
+        border: 1px solid rgba(25, 173, 232, 0.14);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .summary-chip small {
+        display: block;
+        color: var(--ink-500);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 800;
+        margin-bottom: 6px;
+    }
+
+    .summary-chip strong {
+        display: block;
+        font-size: 1.18rem;
+        line-height: 1.35;
+    }
+
+    .status-banner {
+        display: none;
+        margin-bottom: 18px;
+        padding: 14px 16px;
+        border-radius: var(--radius-md);
+        font-size: 0.95rem;
+        line-height: 1.55;
+        border: 1px solid transparent;
+    }
+
+    .status-banner.show {
+        display: block;
+    }
+
+    .status-banner.success {
+        color: #0d5f46;
+        background: rgba(15, 157, 108, 0.09);
+        border-color: rgba(15, 157, 108, 0.22);
+    }
+
+    .status-banner.error {
+        color: #8a2800;
+        background: rgba(239, 68, 68, 0.09);
+        border-color: rgba(239, 68, 68, 0.18);
+    }
+
+    form {
+        display: grid;
+        gap: 20px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 16px;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .field.full {
+        grid-column: 1 / -1;
+    }
+
+    .field label {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--ink-700);
+        letter-spacing: 0.01em;
+    }
+
+    .helper {
+        color: var(--ink-500);
+        font-size: 0.82rem;
+        line-height: 1.4;
+    }
+
+    .input-shell {
+        position: relative;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        font: inherit;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.96);
+        padding: 15px 16px;
+        color: var(--ink-900);
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #94a3b8;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: rgba(25, 173, 232, 0.8);
+        box-shadow: 0 0 0 4px rgba(25, 173, 232, 0.12);
+        background: #fff;
+    }
+
     input[readonly] {
-        background-color: #f5f5f5;
-        color: #666;
+        color: var(--ink-700);
+        background: #f8fbff;
         cursor: not-allowed;
     }
 
-    form textarea {
-        resize: none;
-        height: 80px;
+    textarea {
+        min-height: 128px;
+        resize: vertical;
     }
 
-    form button {
-        background: #5563DE;
-        color: white;
-        border: none;
-        margin-top: 1.5rem;
-        cursor: pointer;
-        transition: background 0.3s;
+    .field-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        min-height: 21px;
     }
 
-    form button:hover {
-        background: #3c4ab7;
+    .field-note {
+        color: var(--ink-500);
+        font-size: 0.82rem;
     }
 
     .warning {
-        color: red;
-        font-size: 0.9rem;
-        margin-top: 0.3rem;
+        display: none;
+        color: var(--warning);
+        font-size: 0.84rem;
+        font-weight: 700;
+    }
+
+    .warning.show {
+        display: inline;
     }
 
     .input-warning {
-        border-color: red !important;
+        border-color: rgba(194, 65, 12, 0.55) !important;
+        box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.12) !important;
     }
 
-    /* 🎯 Custom widths for specific fields */
-    input[name="staffName"] { width: 420px; } 
-    select[name="department"] { width: 420px; } 
-    input[name="patientId"] { width: 420px; }
-    select[name="service"] { width: 420px; }
-    input[name="amount"] { width: 420px; }
-    input[name="paymentDate"] { width: 420px; }
-    select[name="paymentMethod"] { width: 420px; }
-    textarea[name="note"] { width: 420px; height: 100px; } 
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding-top: 4px;
+    }
+
+    .privacy-note {
+        max-width: 38ch;
+        color: var(--ink-500);
+        font-size: 0.84rem;
+        line-height: 1.5;
+    }
+
+    .submit-btn {
+        border: 0;
+        border-radius: 18px;
+        padding: 16px 24px;
+        min-width: 180px;
+        cursor: pointer;
+        color: #fff;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        background: linear-gradient(135deg, var(--brand-blue), #0f8fca 60%, #0b6aa6 100%);
+        box-shadow: 0 16px 26px rgba(17, 139, 199, 0.28);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 20px 34px rgba(17, 139, 199, 0.32);
+        filter: saturate(1.02);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+        cursor: progress;
+        transform: none;
+        opacity: 0.85;
+        box-shadow: 0 10px 18px rgba(17, 139, 199, 0.18);
+    }
+
+    .receipt-modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(15, 23, 42, 0.62);
+        backdrop-filter: blur(10px);
+        z-index: 20;
+    }
+
+    .receipt-modal.show {
+        display: flex;
+    }
+
+    .receipt-dialog {
+        width: min(980px, 100%);
+        max-height: calc(100vh - 48px);
+        overflow: auto;
+        border-radius: 26px;
+        background: #f3f6fb;
+        box-shadow: 0 36px 80px rgba(15, 23, 42, 0.34);
+    }
+
+    .receipt-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 22px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.94));
+    }
+
+    .receipt-toolbar strong {
+        display: block;
+        font-size: 1rem;
+    }
+
+    .receipt-toolbar span {
+        color: var(--ink-500);
+        font-size: 0.88rem;
+    }
+
+    .receipt-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .receipt-btn {
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 14px;
+        padding: 12px 16px;
+        background: #fff;
+        color: var(--ink-900);
+        font-weight: 800;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .receipt-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 22px rgba(15, 23, 42, 0.08);
+        border-color: rgba(100, 116, 139, 0.45);
+    }
+
+    .receipt-btn.primary {
+        border: 0;
+        color: #fff;
+        background: linear-gradient(135deg, var(--brand-blue), #0f8fca 60%, #0b6aa6 100%);
+        box-shadow: 0 14px 26px rgba(17, 139, 199, 0.22);
+    }
+
+    .receipt-paper-wrap {
+        padding: 26px;
+    }
+
+    .receipt-paper {
+        width: 100%;
+        background: #fff;
+        border-radius: 10px;
+        min-height: 780px;
+        padding: 38px 56px 46px;
+        color: #111827;
+        font-family: "Courier New", Courier, monospace;
+        box-shadow: 0 22px 40px rgba(15, 23, 42, 0.09);
+    }
+
+    .receipt-topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        font-size: 1rem;
+        margin-bottom: 74px;
+    }
+
+    .receipt-topline span:last-child {
+        text-align: center;
+        flex: 1;
+        margin-right: 80px;
+    }
+
+    .receipt-brand {
+        text-align: center;
+        font-size: clamp(2.1rem, 4vw, 2.8rem);
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        margin-bottom: 8px;
+    }
+
+    .receipt-divider {
+        text-align: center;
+        font-size: clamp(1.4rem, 3vw, 2.1rem);
+        letter-spacing: 0.02em;
+        margin-bottom: 34px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .receipt-divider::before {
+        content: "----------------------------------------";
+    }
+
+    .receipt-rows {
+        width: min(780px, 100%);
+        margin: 0 auto 26px;
+        display: grid;
+        gap: 22px;
+        font-size: clamp(1.1rem, 2.1vw, 1.45rem);
+        line-height: 1.35;
+    }
+
+    .receipt-row {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .receipt-label {
+        font-weight: 700;
+    }
+
+    .receipt-value {
+        text-align: right;
+        word-break: break-word;
+    }
+
+    .receipt-thank-you {
+        text-align: center;
+        font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+        font-weight: 700;
+        margin-top: 8px;
+    }
+
+    @media (max-width: 980px) {
+        .app-card {
+            grid-template-columns: 1fr;
+        }
+
+        .brand-panel {
+            border-right: 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+        }
+    }
+
+    @media (max-width: 680px) {
+        body {
+            padding: 18px 12px;
+        }
+
+        .brand-panel,
+        .form-panel {
+            padding: 24px 20px;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-header,
+        .form-footer {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .summary-chip {
+            min-width: 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+        }
+
+        .receipt-toolbar,
+        .receipt-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .receipt-paper-wrap {
+            padding: 14px;
+        }
+
+        .receipt-paper {
+            min-height: auto;
+            padding: 24px 20px 28px;
+        }
+
+        .receipt-topline {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .receipt-topline span:last-child {
+            margin-right: 0;
+            flex: none;
+        }
+
+        .receipt-row {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .receipt-value {
+            text-align: left;
+        }
+    }
 </style>
 </head>
 <body>
+    <div class="page-shell">
+        <div class="app-card">
+            <aside class="brand-panel">
+                <div class="brand-copy">
+                    <div class="eyebrow">ClinicSnap Workflow</div>
+                    <div class="logo-wrap">
+                        <img src="logo.png" alt="Stetho MD Primary Care and Walk-In" class="logo">
+                    </div>
+                    <h1>Fast, polished cash logging for the front desk.</h1>
+                    <p>Capture walk-in payments cleanly, reduce entry errors, and send every record straight to your existing Google Sheet through the same Apps Script link you already use.</p>
+                </div>
 
-<div class="container">
-    <div class="logo-container">
-        <img src="logo.png" alt="My Logo" class="logo">
-    </div>
+                <div class="feature-list" aria-label="Highlights">
+                    <div class="feature">
+                        <div class="feature-badge">1</div>
+                        <div>
+                            <strong>Fixed-price services auto-fill</strong>
+                            <span>Standard visit prices lock in automatically, while manual entries stay flexible for copays and custom balances.</span>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-badge">2</div>
+                        <div>
+                            <strong>Cleaner, faster daily intake</strong>
+                            <span>Improved spacing, grouping, and mobile responsiveness make the form feel more professional on any screen.</span>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-badge">3</div>
+                        <div>
+                            <strong>Same sheet integration</strong>
+                            <span>Your existing Apps Script endpoint stays the same, and the original submitted fields are preserved while new fields are appended for richer tracking.</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
 
-    <h1>Cash Log</h1>
+            <section class="form-panel">
+                <div class="form-header">
+                    <div>
+                        <h2>Cash Entry Form</h2>
+                        <p>Enter the payment details below. Service, amount, and payment method stay clearly aligned so each submission is quick to review before it is sent.</p>
+                    </div>
+                    <div class="summary-chip" aria-live="polite">
+                        <small>Current selection</small>
+                        <strong id="summaryService">No service selected</strong>
+                        <span id="summaryAmount" class="helper">Amount will appear here</span>
+                    </div>
+                </div>
 
-    <form id="dataForm">
-        <label>Staff Name</label>
-        <input type="text" name="staffName" required>
+                <div id="statusBanner" class="status-banner" role="status" aria-live="polite"></div>
 
-        <label>Department</label>
-        <select name="department" required>
-            <option value="">-- Select Department --</option>
-            <option value="STETHO MD - Tampa">STETHO MD - Tampa</option>
-            <option value="STETHO MD - Zephyrhills">STETHO MD - Zephyrhills</option>
-        </select>
+                <form id="dataForm">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="department">Department</label>
+                            <select id="department" name="department" required>
+                                <option value="">-- Select Department --</option>
+                                <option value="STETHO MD - Tampa">STETHO MD - Tampa</option>
+                                <option value="STETHO MD - Zephyrhills">STETHO MD - Zephyrhills</option>
+                            </select>
+                        </div>
 
-        <label>Patient ID</label>
-        <input type="text" name="patientId" maxlength="8" pattern="\d{8}" title="Patient ID must be exactly 8 digits" required>
+                        <div class="field">
+                            <label for="staffName">Staff Name</label>
+                            <input type="text" id="staffName" name="staffName" placeholder="Enter full staff name" autocomplete="off" required>
+                        </div>
 
-        <label>Service</label>
-        <select name="service" id="serviceSelect" required>
-            <option value="">-- Select Service --</option>
-            <option value="120">DOT Phys: $120</option>
-            <option value="70">School Phys: $70 (per person)</option>
-            <option value="70">Sports Phys: $70 (per person)</option>
-            <option value="440">Immigration Phys: $440 with labs no vaccines</option>
-            <option value="225">Class G Firearm: $225</option>
-            <option value="15">Mononucleosis: $15</option>
-            <option value="25">Ondansetron (4mg/2ml): $25</option>
-            <option value="12">Ketorolac (30mg/ml): $12</option>
-            <option value="15">Vit B12: $15</option>
-            <option value="96">IV Fluids (NS): $96</option>
-            <option value="91">IV meds: $91</option>
-            <option value="135">Joint Injection: $135</option>
-            <option value="5">Triamcinolone: $5</option>
-            <option value="250">Semaglutide (1ml): $250</option>
-            <option value="300">Semaglutide (5ml): $300</option>
-            <option value="460">Tirzepatide (5ml): $460</option>
-            <option value="60">Semaglutide: $60 per week</option>
-            <option value="50">ESA (Emotional Support Animal) Letter: $50</option>
-            <option value="295">Cosmetic Pre-Op Clearance (EKG, Paperwork): $295</option>
-            <option value="100">Travel Rapid: $100</option>
-            <option value="65">FL Shots Upload: $65</option>
-            <option value="500">ASL Form: $500</option>
-            <option value="50">Vaccine Transfer: $50</option>
-            <option value="manual">Copay</option>
-            <option value="manual">Deductibles</option>
-            <option value="manual">Co-Insurance</option>
-            <option value="manual">Miscellaneous</option>
-        </select>
+                        <div class="field">
+                            <label for="patientId">Patient ID</label>
+                            <input type="text" id="patientId" name="patientId" placeholder="Enter 8-digit patient ID" inputmode="numeric" maxlength="8" autocomplete="off" required>
+                            <div class="field-meta">
+                                <span class="field-note">Exactly 8 digits are required.</span>
+                                <span id="patientIdWarning" class="warning">Patient ID must be exactly 8 digits.</span>
+                            </div>
+                        </div>
 
-        <label>Amount</label>
-        <input type="number" name="amount" id="amountInput" step="0.01" inputmode="decimal" required>
-        <div id="priceWarning" class="warning" style="display:none;">
-            ⚠ The entered amount does not match the default service price.
+                        <div class="field">
+                            <label for="paymentDateDisplay">Auto Date</label>
+                            <input type="text" id="paymentDateDisplay" placeholder="Auto-filled on submit" readonly>
+                            <div class="helper">Filled automatically using the current local date.</div>
+                        </div>
+
+                        <div class="field">
+                            <label for="paymentTimeDisplay">Auto Time</label>
+                            <input type="text" id="paymentTimeDisplay" placeholder="Auto-filled on submit" readonly>
+                            <div class="helper">Filled automatically using the current local time.</div>
+                        </div>
+
+                        <div class="field full">
+                            <label for="serviceSelect">Service</label>
+                            <select name="service" id="serviceSelect" required>
+                                <option value="">-- Select Service --</option>
+                                <optgroup label="Exams & Evaluations">
+                                    <option value="120">DOT Phys: $120</option>
+                                    <option value="70">School Phys: $70 (per person)</option>
+                                    <option value="70">Sports Phys: $70 (per person)</option>
+                                    <option value="440">Immigration Phys: $440 with labs no vaccines</option>
+                                    <option value="225">Class G Firearm: $225</option>
+                                    <option value="50">ESA (Emotional Support Animal) Letter: $50</option>
+                                    <option value="295">Cosmetic Pre-Op Clearance (EKG, Paperwork): $295</option>
+                                    <option value="100">Travel Rapid: $100</option>
+                                    <option value="65">FL Shots Upload: $65</option>
+                                    <option value="500">ASL Form: $500</option>
+                                    <option value="50">Vaccine Transfer: $50</option>
+                                </optgroup>
+                                <optgroup label="Labs, Medications & Treatments">
+                                    <option value="15">Mononucleosis: $15</option>
+                                    <option value="25">Ondansetron (4mg/2ml): $25</option>
+                                    <option value="12">Ketorolac (30mg/ml): $12</option>
+                                    <option value="15">Vit B12: $15</option>
+                                    <option value="96">IV Fluids (NS): $96</option>
+                                    <option value="91">IV meds: $91</option>
+                                    <option value="135">Joint Injection: $135</option>
+                                    <option value="5">Triamcinolone: $5</option>
+                                    <option value="250">Semaglutide (1ml): $250</option>
+                                    <option value="300">Semaglutide (5ml): $300</option>
+                                    <option value="460">Tirzepatide (5ml): $460</option>
+                                    <option value="60">Semaglutide: $60 per week</option>
+                                </optgroup>
+                                <optgroup label="Manual Amount Entries">
+                                    <option value="manual">Copay</option>
+                                    <option value="manual">Deductibles</option>
+                                    <option value="manual">Co-Insurance</option>
+                                    <option value="manual">Miscellaneous</option>
+                                </optgroup>
+                            </select>
+                            <div class="helper">Choose a service to auto-fill pricing or enable a manual amount.</div>
+                        </div>
+
+                        <div class="field">
+                            <label for="amountInput">Amount</label>
+                            <div class="input-shell">
+                                <input type="number" name="amount" id="amountInput" step="0.01" inputmode="decimal" placeholder="0.00" required>
+                            </div>
+                            <div class="field-meta">
+                                <span id="amountMode" class="field-note">Select a service to populate the amount.</span>
+                                <span id="priceWarning" class="warning">Entered amount does not match the default service price.</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="paymentMethod">Payment Method</label>
+                            <select name="paymentMethod" id="paymentMethod" required>
+                                <option value="">-- Select Payment Method --</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Zelle">Zelle</option>
+                            </select>
+                        </div>
+
+                        <div class="field full">
+                            <label for="note">Note</label>
+                            <textarea name="note" id="note" placeholder="Add any visit notes, price context, or payment details if needed."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <div class="privacy-note">Submission still goes to your current Apps Script endpoint. Original fields are preserved and the new fields are appended to the payload.</div>
+                        <button type="submit" id="submitBtn" class="submit-btn">Submit Entry</button>
+                    </div>
+
+                    <input type="hidden" id="paymentDate" name="paymentDate">
+                    <input type="hidden" id="paymentTime" name="paymentTime">
+                </form>
+            </section>
         </div>
 
-        <label>Payment Date</label>
-        <input type="date" name="paymentDate" id="paymentDateInput" required readonly>
+        <div id="receiptModal" class="receipt-modal" aria-hidden="true">
+            <div class="receipt-dialog" role="dialog" aria-modal="true" aria-labelledby="receiptTitle">
+                <div class="receipt-toolbar">
+                    <div>
+                        <strong id="receiptTitle">Receipt Ready</strong>
+                        <span>Review the receipt and print it for the patient if needed.</span>
+                    </div>
+                    <div class="receipt-actions">
+                        <button type="button" id="printReceiptBtn" class="receipt-btn primary">Print Receipt</button>
+                        <button type="button" id="closeReceiptBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
 
-        <label>Payment Method</label>
-        <select name="paymentMethod" required>
-            <option value="">-- Select Payment Method --</option>
-            <option value="Cash">Cash</option>
-            <option value="Zelle">Zelle</option>
-        </select>
+                <div class="receipt-paper-wrap">
+                    <div id="receiptPaper" class="receipt-paper">
+                        <div class="receipt-topline">
+                            <span id="receiptDateTime">--</span>
+                            <span>Receipt</span>
+                        </div>
 
-        <label>Note</label>
-        <textarea name="note"></textarea>
+                        <div class="receipt-brand">STETHO MD Cash Receipt</div>
+                        <div class="receipt-divider" aria-hidden="true"></div>
 
-        <button type="submit">Submit</button>
-    </form>
-</div>
+                        <div class="receipt-rows">
+                            <div class="receipt-row">
+                                <div class="receipt-label">Patient ID:</div>
+                                <div id="receiptPatientId" class="receipt-value">--</div>
+                            </div>
+                            <div class="receipt-row">
+                                <div class="receipt-label">DOS:</div>
+                                <div id="receiptDos" class="receipt-value">--</div>
+                            </div>
+                            <div class="receipt-row">
+                                <div class="receipt-label">Department:</div>
+                                <div id="receiptDepartment" class="receipt-value">--</div>
+                            </div>
+                            <div class="receipt-row">
+                                <div class="receipt-label">Service:</div>
+                                <div id="receiptService" class="receipt-value">--</div>
+                            </div>
+                            <div class="receipt-row">
+                                <div class="receipt-label">Amount Paid:</div>
+                                <div id="receiptAmount" class="receipt-value">--</div>
+                            </div>
+                            <div class="receipt-row">
+                                <div class="receipt-label">Method:</div>
+                                <div id="receiptMethod" class="receipt-value">--</div>
+                            </div>
+                        </div>
+
+                        <div class="receipt-divider" aria-hidden="true"></div>
+                        <div class="receipt-thank-you">Thank You!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script>
-// Automatically set the Payment Date to today's local date
-const today = new Date();
-const yyyy = today.getFullYear();
-const mm = String(today.getMonth() + 1).padStart(2, '0');
-const dd = String(today.getDate()).padStart(2, '0');
-document.getElementById('paymentDateInput').value = `${yyyy}-${mm}-${dd}`;
-
-// Enforce exactly 8 numbers only while typing
-const patientIdInput = document.querySelector('input[name="patientId"]');
-patientIdInput.addEventListener('input', function() {
-    this.value = this.value.replace(/\D/g, '').substring(0, 8);
-});
-
+const departmentInput = document.getElementById("department");
+const patientIdInput = document.getElementById("patientId");
+const patientIdWarning = document.getElementById("patientIdWarning");
 const serviceSelect = document.getElementById("serviceSelect");
 const amountInput = document.getElementById("amountInput");
 const priceWarning = document.getElementById("priceWarning");
+const amountMode = document.getElementById("amountMode");
+const paymentDateInput = document.getElementById("paymentDate");
+const paymentTimeInput = document.getElementById("paymentTime");
+const paymentDateDisplayInput = document.getElementById("paymentDateDisplay");
+const paymentTimeDisplayInput = document.getElementById("paymentTimeDisplay");
+const statusBanner = document.getElementById("statusBanner");
+const summaryService = document.getElementById("summaryService");
+const summaryAmount = document.getElementById("summaryAmount");
+const submitBtn = document.getElementById("submitBtn");
+const receiptModal = document.getElementById("receiptModal");
+const printReceiptBtn = document.getElementById("printReceiptBtn");
+const closeReceiptBtn = document.getElementById("closeReceiptBtn");
+const receiptDateTime = document.getElementById("receiptDateTime");
+const receiptPatientId = document.getElementById("receiptPatientId");
+const receiptDos = document.getElementById("receiptDos");
+const receiptDepartment = document.getElementById("receiptDepartment");
+const receiptService = document.getElementById("receiptService");
+const receiptAmount = document.getElementById("receiptAmount");
+const receiptMethod = document.getElementById("receiptMethod");
+let lastReceiptData = null;
 
-serviceSelect.addEventListener("change", function() {
-    const defaultPrice = this.value;
+function getDateTimeParts(now = new Date()) {
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    return {
+        paymentDate: `${year}-${month}-${day}`,
+        paymentTime: `${hours}:${minutes}:${seconds}`,
+        displayDate: now.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        }),
+        displayTime: now.toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit"
+        }),
+        receiptDateTime: now.toLocaleString("en-US", {
+            month: "numeric",
+            day: "numeric",
+            year: "2-digit",
+            hour: "numeric",
+            minute: "2-digit"
+        })
+    };
+}
+
+function syncDateTimeFields() {
+    const parts = getDateTimeParts();
+    paymentDateInput.value = parts.paymentDate;
+    paymentTimeInput.value = parts.paymentTime;
+    paymentDateDisplayInput.value = parts.displayDate;
+    paymentTimeDisplayInput.value = parts.displayTime;
+}
+
+function showBanner(message, type) {
+    statusBanner.textContent = message;
+    statusBanner.className = `status-banner show ${type}`;
+}
+
+function clearBanner() {
+    statusBanner.textContent = "";
+    statusBanner.className = "status-banner";
+}
+
+function updateSummary() {
+    const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+    const hasSelection = selectedOption && selectedOption.value;
+    const departmentLabel = departmentInput.value ? `${departmentInput.value} | ` : "";
+
+    summaryService.textContent = hasSelection ? `${departmentLabel}${selectedOption.text}` : "No service selected";
+
+    if (amountInput.value) {
+        const amountValue = Number.parseFloat(amountInput.value);
+        summaryAmount.textContent = Number.isFinite(amountValue)
+            ? `Amount: $${amountValue.toFixed(2)}`
+            : "Amount will appear here";
+    } else {
+        summaryAmount.textContent = "Amount will appear here";
+    }
+}
+
+function clearPriceWarning() {
+    priceWarning.classList.remove("show");
+    amountInput.classList.remove("input-warning");
+}
+
+function clearPatientIdWarning() {
+    patientIdWarning.classList.remove("show");
+    patientIdInput.classList.remove("input-warning");
+    patientIdInput.setCustomValidity("");
+}
+
+function formatCurrency(amount) {
+    const normalizedAmount = String(amount).replace(/[$,]/g, "");
+    const numericAmount = Number.parseFloat(normalizedAmount);
+    return Number.isFinite(numericAmount)
+        ? numericAmount.toLocaleString("en-US", { style: "currency", currency: "USD" })
+        : "$0.00";
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+function buildReceiptData(formData, submissionClock) {
+    return {
+        dateTime: submissionClock.receiptDateTime,
+        patientId: formData.patientId,
+        dos: formData.paymentDate,
+        department: formData.department,
+        service: formData.service,
+        amount: formatCurrency(formData.amount),
+        method: formData.paymentMethod
+    };
+}
+
+function populateReceipt(receiptData) {
+    receiptDateTime.textContent = receiptData.dateTime;
+    receiptPatientId.textContent = receiptData.patientId;
+    receiptDos.textContent = receiptData.dos;
+    receiptDepartment.textContent = receiptData.department;
+    receiptService.textContent = receiptData.service;
+    receiptAmount.textContent = receiptData.amount;
+    receiptMethod.textContent = receiptData.method;
+}
+
+function toggleReceiptModal(isOpen) {
+    receiptModal.classList.toggle("show", isOpen);
+    receiptModal.setAttribute("aria-hidden", String(!isOpen));
+    document.body.classList.toggle("receipt-open", isOpen);
+}
+
+function getReceiptPrintMarkup(receiptData) {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Receipt</title>
+<style>
+    body {
+        margin: 0;
+        padding: 22px;
+        background: #ffffff;
+        color: #111827;
+        font-family: "Courier New", Courier, monospace;
+    }
+
+    .paper {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 34px 52px 44px;
+        min-height: 720px;
+        box-sizing: border-box;
+    }
+
+    .topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        font-size: 18px;
+        margin-bottom: 76px;
+    }
+
+    .topline span:last-child {
+        flex: 1;
+        text-align: center;
+        margin-right: 84px;
+    }
+
+    .brand {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .divider {
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 34px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .divider::before {
+        content: "----------------------------------------";
+    }
+
+    .rows {
+        width: min(780px, 100%);
+        margin: 0 auto 28px;
+        display: grid;
+        gap: 24px;
+        font-size: 28px;
+        line-height: 1.35;
+    }
+
+    .row {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 28px;
+        align-items: start;
+    }
+
+    .label {
+        font-weight: 700;
+    }
+
+    .value {
+        text-align: right;
+        word-break: break-word;
+    }
+
+    .thanks {
+        text-align: center;
+        font-size: 30px;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+    <div class="paper">
+        <div class="topline">
+            <span>${escapeHtml(receiptData.dateTime)}</span>
+            <span>Receipt</span>
+        </div>
+
+        <div class="brand">STETHO MD Cash Receipt</div>
+        <div class="divider"></div>
+
+        <div class="rows">
+            <div class="row"><div class="label">Patient ID:</div><div class="value">${escapeHtml(receiptData.patientId)}</div></div>
+            <div class="row"><div class="label">DOS:</div><div class="value">${escapeHtml(receiptData.dos)}</div></div>
+            <div class="row"><div class="label">Department:</div><div class="value">${escapeHtml(receiptData.department)}</div></div>
+            <div class="row"><div class="label">Service:</div><div class="value">${escapeHtml(receiptData.service)}</div></div>
+            <div class="row"><div class="label">Amount Paid:</div><div class="value">${escapeHtml(receiptData.amount)}</div></div>
+            <div class="row"><div class="label">Method:</div><div class="value">${escapeHtml(receiptData.method)}</div></div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="thanks">Thank You!</div>
+    </div>
+</body>
+</html>`;
+}
+
+function printReceipt() {
+    if (!lastReceiptData) {
+        return;
+    }
+
+    const printWindow = window.open("", "_blank", "width=1100,height=900");
+
+    if (!printWindow) {
+        showBanner("Popup blocked. Please allow popups to print the receipt.", "error");
+        return;
+    }
+
+    printWindow.document.open();
+    printWindow.document.write(getReceiptPrintMarkup(lastReceiptData));
+    printWindow.document.close();
+    printWindow.focus();
+
+    setTimeout(() => {
+        printWindow.print();
+    }, 250);
+}
+
+function validatePatientId() {
+    const isValid = /^\d{8}$/.test(patientIdInput.value);
+
+    if (isValid) {
+        clearPatientIdWarning();
+        return true;
+    }
+
+    patientIdWarning.classList.add("show");
+    patientIdInput.classList.add("input-warning");
+    patientIdInput.setCustomValidity("Patient ID must be exactly 8 digits.");
+    return false;
+}
+
+function updateAmountBehavior() {
+    const defaultPrice = serviceSelect.value;
 
     if (defaultPrice && defaultPrice !== "manual") {
         amountInput.value = defaultPrice;
-        priceWarning.style.display = "none";
-        amountInput.classList.remove("input-warning");
-        amountInput.readOnly = true; 
+        amountInput.readOnly = true;
+        amountMode.textContent = "Fixed-price service selected. Amount is locked to the standard charge.";
+        clearPriceWarning();
     } else if (defaultPrice === "manual") {
         amountInput.value = "";
-        priceWarning.style.display = "none";
-        amountInput.classList.remove("input-warning");
-        amountInput.readOnly = false; 
+        amountInput.readOnly = false;
+        amountMode.textContent = "Manual pricing enabled. Enter the amount received.";
+        clearPriceWarning();
     } else {
         amountInput.value = "";
         amountInput.readOnly = false;
-        priceWarning.style.display = "none";
-        amountInput.classList.remove("input-warning");
+        amountMode.textContent = "Select a service to populate the amount.";
+        clearPriceWarning();
     }
-});
 
-amountInput.addEventListener("input", function() {
+    updateSummary();
+}
+
+function validateAmountAgainstService() {
     const selectedPrice = serviceSelect.value;
 
     if (selectedPrice && selectedPrice !== "manual") {
-        const expected = parseFloat(selectedPrice);
-        const entered = parseFloat(this.value);
+        const expected = Number.parseFloat(selectedPrice);
+        const entered = Number.parseFloat(amountInput.value);
 
-        if (!isNaN(entered) && !isNaN(expected) && Math.abs(entered - expected) > 0.009) {
-            priceWarning.style.display = "block";
+        if (!Number.isNaN(entered) && !Number.isNaN(expected) && Math.abs(entered - expected) > 0.009) {
+            priceWarning.classList.add("show");
             amountInput.classList.add("input-warning");
-        } else {
-            priceWarning.style.display = "none";
-            amountInput.classList.remove("input-warning");
+            return;
         }
-    } else {
-        priceWarning.style.display = "none";
-        amountInput.classList.remove("input-warning");
+    }
+
+    clearPriceWarning();
+}
+
+patientIdInput.addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "").slice(0, 8);
+
+    if (!this.value) {
+        clearPatientIdWarning();
+        return;
+    }
+
+    if (this.value.length < 8) {
+        validatePatientId();
+        return;
+    }
+
+    clearPatientIdWarning();
+});
+
+departmentInput.addEventListener("change", updateSummary);
+
+serviceSelect.addEventListener("change", function() {
+    clearBanner();
+    updateAmountBehavior();
+});
+
+amountInput.addEventListener("input", function() {
+    validateAmountAgainstService();
+    updateSummary();
+});
+
+closeReceiptBtn.addEventListener("click", function() {
+    toggleReceiptModal(false);
+});
+
+receiptModal.addEventListener("click", function(event) {
+    if (event.target === receiptModal) {
+        toggleReceiptModal(false);
     }
 });
 
-document.getElementById("dataForm").addEventListener("submit", function(e) {
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape" && receiptModal.classList.contains("show")) {
+        toggleReceiptModal(false);
+    }
+});
+
+printReceiptBtn.addEventListener("click", printReceipt);
+
+document.getElementById("dataForm").addEventListener("submit", async function(e) {
     e.preventDefault();
+    clearBanner();
+
+    syncDateTimeFields();
+
+    if (!validatePatientId()) {
+        showBanner("Please enter a valid 8-digit patient ID before submitting.", "error");
+        patientIdInput.focus();
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+    const submissionClock = getDateTimeParts();
+    const formattedAmount = formatCurrency(this.amount.value);
 
     const formData = {
-        staffName: this.staffName.value, 
-        department: this.department.value, 
-        patientId: this.patientId.value,
+        staffInitial: "",
+        patientId: this.patientId.value.trim(),
         service: serviceSelect.options[serviceSelect.selectedIndex].text,
-        amount: this.amount.value,
-        paymentDate: this.paymentDate.value,
+        amount: formattedAmount,
+        paymentDate: submissionClock.paymentDate,
         paymentMethod: this.paymentMethod.value,
-        note: this.note.value
+        note: this.note.value.trim(),
+        timestamp: new Date().toISOString(),
+        department: this.department.value.trim(),
+        staffName: this.staffName.value.trim(),
+        paymentTime: submissionClock.paymentTime
     };
 
-    // 🚨 PASTE YOUR NEW WEB APP URL HERE 🚨
-    fetch("https://script.google.com/macros/s/AKfycbzeacn_Z_RRSk_KtwcZ03A0TznxuMF4HO3CYD4oHB1zXEjdAUOdOw4_NmNbpVlJQ5yd8w/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-    });
+    try {
+        await fetch("https://script.google.com/macros/s/AKfycbzeacn_Z_RRSk_KtwcZ03A0TznxuMF4HO3CYD4oHB1zXEjdAUOdOw4_NmNbpVlJQ5yd8w/exec", {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        });
 
-    alert("Data sent!");
-
-    // Auto-Print Receipt functionality
-    const receiptHtml = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Receipt</title>
-            <style>
-                body { font-family: monospace; padding: 20px; max-width: 400px; margin: auto; color: #000; }
-                h2 { text-align: center; border-bottom: 2px dashed #000; padding-bottom: 10px; margin-bottom: 20px; }
-                .row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
-                .bold { font-weight: bold; }
-                .footer { text-align: center; border-top: 2px dashed #000; padding-top: 15px; margin-top: 20px; font-weight: bold; }
-            </style>
-        </head>
-        <body>
-            <h2>STETHO MD Cash Receipt</h2>
-            <div class="row"><span class="bold">Patient ID:</span> <span>${formData.patientId}</span></div>
-            <div class="row"><span class="bold">DOS:</span> <span>${formData.paymentDate}</span></div>
-            <div class="row"><span class="bold">Department:</span> <span>${formData.department}</span></div>
-            <div class="row"><span class="bold">Service:</span> <span>${formData.service}</span></div>
-            <div class="row"><span class="bold">Amount Paid:</span> <span>$${parseFloat(formData.amount).toFixed(2)}</span></div>
-            <div class="row"><span class="bold">Method:</span> <span>${formData.paymentMethod}</span></div>
-            <div class="footer">Thank You!</div>
-        </body>
-        </html>
-    `;
-    
-    const printWin = window.open('', '_blank', 'width=450,height=600');
-    printWin.document.open();
-    printWin.document.write(receiptHtml);
-    printWin.document.close();
-    
-    setTimeout(() => {
-        printWin.print();
-        printWin.close(); 
-    }, 250);
-
-    // After printing/submitting, reset the form AND refill today's date so it's ready for the next patient!
-    this.reset();
-    document.getElementById('paymentDateInput').value = `${yyyy}-${mm}-${dd}`;
-    priceWarning.style.display = "none";
-    amountInput.classList.remove("input-warning");
-    amountInput.readOnly = false;
+        lastReceiptData = buildReceiptData(formData, submissionClock);
+        populateReceipt(lastReceiptData);
+        toggleReceiptModal(true);
+        showBanner("Entry sent successfully to your existing Google Sheet.", "success");
+        this.reset();
+        syncDateTimeFields();
+        amountInput.readOnly = false;
+        amountMode.textContent = "Select a service to populate the amount.";
+        clearPriceWarning();
+        clearPatientIdWarning();
+        updateSummary();
+    } catch (error) {
+        showBanner("The form could not reach the Apps Script endpoint. Please try again.", "error");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Entry";
+    }
 });
-</script>
 
+syncDateTimeFields();
+setInterval(syncDateTimeFields, 1000);
+updateSummary();
+</script>
 </body>
 </html>
