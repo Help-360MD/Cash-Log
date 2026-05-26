@@ -20,11 +20,14 @@
         --surface-soft: #f8fbff;
         --success: #0f9d6c;
         --warning: #c2410c;
-        --shadow-xl: 0 30px 80px rgba(15, 23, 42, 0.18);
-        --shadow-md: 0 18px 40px rgba(15, 23, 42, 0.08);
-        --radius-xl: 28px;
+        --shadow-xl: 0 26px 68px rgba(15, 23, 42, 0.16);
+        --shadow-md: 0 14px 34px rgba(15, 23, 42, 0.08);
+        --shadow-sm: 0 10px 22px rgba(15, 23, 42, 0.06);
+        --radius-xl: 26px;
         --radius-lg: 18px;
         --radius-md: 14px;
+        --radius-sm: 12px;
+        --control-height: 44px;
     }
 
     * {
@@ -48,7 +51,7 @@
             radial-gradient(circle at top left, rgba(25, 173, 232, 0.28), transparent 36%),
             radial-gradient(circle at bottom right, rgba(239, 43, 45, 0.15), transparent 30%),
             linear-gradient(135deg, #ecf7ff 0%, #f7faff 45%, #ffffff 100%);
-        padding: 18px 16px;
+        padding: clamp(10px, 0.9vw, 14px) clamp(10px, 0.85vw, 12px);
     }
 
     body.receipt-open,
@@ -57,10 +60,10 @@
     }
 
     .page-shell {
-        width: min(1180px, 100%);
+        width: min(1328px, calc(100vw - 24px));
         margin: 0 auto;
         position: relative;
-        min-height: calc(100vh - 36px);
+        min-height: calc(100vh - 20px);
         display: flex;
         align-items: stretch;
     }
@@ -75,19 +78,19 @@
     }
 
     .page-shell::before {
-        width: 220px;
-        height: 220px;
+        width: 200px;
+        height: 200px;
         background: rgba(25, 173, 232, 0.14);
-        top: -18px;
-        left: -28px;
+        top: -14px;
+        left: -24px;
     }
 
     .page-shell::after {
-        width: 180px;
-        height: 180px;
+        width: 160px;
+        height: 160px;
         background: rgba(239, 43, 45, 0.12);
-        bottom: -24px;
-        right: -18px;
+        bottom: -18px;
+        right: -14px;
     }
 
     .app-card {
@@ -95,19 +98,19 @@
         position: relative;
         z-index: 1;
         display: grid;
-        grid-template-columns: 0.95fr 1.05fr;
+        grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
         overflow: hidden;
         border-radius: var(--radius-xl);
         background: rgba(255, 255, 255, 0.62);
         border: 1px solid rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(18px);
         box-shadow: var(--shadow-xl);
-        min-height: min(820px, calc(100vh - 36px));
+        min-height: min(728px, calc(100vh - 20px));
     }
 
     .brand-panel {
         position: relative;
-        padding: 34px 32px;
+        padding: clamp(20px, 1.8vw, 26px) clamp(20px, 1.7vw, 24px);
         background:
             linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 249, 255, 0.94)),
             linear-gradient(155deg, rgba(25, 173, 232, 0.12), rgba(255, 255, 255, 0));
@@ -115,17 +118,17 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        gap: 24px;
+        gap: 16px;
     }
 
     .brand-panel::before {
         content: "";
         position: absolute;
-        inset: 20px auto auto 20px;
-        width: 90px;
-        height: 90px;
+        inset: 18px auto auto 18px;
+        width: 78px;
+        height: 78px;
         background: linear-gradient(135deg, rgba(25, 173, 232, 0.12), rgba(239, 43, 45, 0.08));
-        border-radius: 24px;
+        border-radius: 20px;
         transform: rotate(10deg);
     }
 
@@ -137,13 +140,13 @@
     .eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
+        gap: 8px;
+        padding: 8px 12px;
         width: fit-content;
         border-radius: 999px;
         background: rgba(25, 173, 232, 0.1);
         color: #0078a8;
-        font-size: 0.82rem;
+        font-size: 0.76rem;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -162,39 +165,44 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 16px 20px;
-        border-radius: 24px;
+        padding: 10px 12px;
+        border-radius: 20px;
         background: rgba(255, 255, 255, 0.94);
         box-shadow: var(--shadow-md);
         width: fit-content;
     }
 
     .logo {
-        width: min(100%, 360px);
+        width: min(100%, 286px);
         display: block;
     }
 
+    .brand-copy {
+        display: grid;
+        gap: 12px;
+    }
+
     .brand-copy h1 {
-        margin: 18px 0 12px;
+        margin: 6px 0 2px;
         font-family: "Space Grotesk", "Manrope", sans-serif;
-        font-size: clamp(2rem, 4vw, 3rem);
-        line-height: 1.05;
+        font-size: clamp(1.68rem, 2.15vw, 2.28rem);
+        line-height: 1.08;
         letter-spacing: -0.04em;
     }
 
     .brand-copy p {
         margin: 0;
-        max-width: 36ch;
+        max-width: 42ch;
         color: var(--ink-700);
-        font-size: 0.98rem;
-        line-height: 1.62;
+        font-size: 0.9rem;
+        line-height: 1.5;
     }
 
     .brand-actions {
-        margin-top: 16px;
+        margin-top: 4px;
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 10px;
     }
 
     .resource-btn {
@@ -202,14 +210,16 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        padding: 13px 18px;
-        border-radius: 16px;
+        min-height: 42px;
+        padding: 11px 16px;
+        border-radius: 14px;
         text-decoration: none;
         font-weight: 800;
+        font-size: 0.9rem;
         letter-spacing: 0.01em;
         color: #fff;
         background: linear-gradient(135deg, var(--brand-red), #c81f22 60%, #991b1b 100%);
-        box-shadow: 0 16px 26px rgba(239, 43, 45, 0.18);
+        box-shadow: 0 12px 24px rgba(239, 43, 45, 0.18);
         transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
     }
 
@@ -224,28 +234,31 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 38px;
-        padding: 4px 8px;
+        min-width: 34px;
+        padding: 4px 7px;
         border-radius: 999px;
         background: rgba(255, 255, 255, 0.18);
-        font-size: 0.76rem;
+        font-size: 0.72rem;
         letter-spacing: 0.08em;
     }
 
     .support-panel {
         margin-top: auto;
-        display: grid;
-        gap: 16px;
-        padding: 18px 20px;
-        border-radius: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px 12px;
+        padding: 14px 16px;
+        border-radius: 20px;
         color: #f8fafc;
         background: linear-gradient(160deg, #04070c 0%, #0f172a 100%);
-        box-shadow: 0 20px 36px rgba(15, 23, 42, 0.24);
+        box-shadow: 0 16px 30px rgba(15, 23, 42, 0.22);
     }
 
     .support-kicker {
+        width: 100%;
         color: rgba(226, 232, 240, 0.72);
-        font-size: 0.76rem;
+        font-size: 0.71rem;
         font-weight: 800;
         letter-spacing: 0.12em;
         text-transform: uppercase;
@@ -255,25 +268,28 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 12px 16px;
-        border-radius: 18px;
+        flex: 0 0 164px;
+        padding: 8px 12px;
+        border-radius: 16px;
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .support-logo {
-        width: min(100%, 290px);
+        width: min(100%, 164px);
         display: block;
     }
 
     .support-copy {
         display: grid;
+        flex: 1 1 200px;
         gap: 4px;
     }
 
     .support-copy strong {
-        font-size: 1.02rem;
+        font-size: 0.95rem;
         letter-spacing: 0.01em;
+        line-height: 1.35;
     }
 
     .support-phone {
@@ -281,17 +297,19 @@
         align-items: center;
         justify-content: center;
         width: fit-content;
-        padding: 10px 14px;
+        margin-left: auto;
+        padding: 9px 12px;
         border-radius: 999px;
         text-decoration: none;
         font-weight: 800;
+        font-size: 0.86rem;
         color: #081018;
         background: linear-gradient(135deg, #d7b16f, #efd093 72%, #f8e0b0 100%);
-        box-shadow: 0 12px 24px rgba(215, 177, 111, 0.22);
+        box-shadow: 0 10px 20px rgba(215, 177, 111, 0.22);
     }
 
     .form-panel {
-        padding: 30px;
+        padding: clamp(20px, 1.8vw, 24px);
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 252, 255, 0.96));
     }
 
@@ -299,34 +317,39 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        gap: 14px;
-        margin-bottom: 18px;
+        gap: 10px;
+        margin-bottom: 12px;
     }
 
     .form-header h2 {
         margin: 0;
         font-family: "Space Grotesk", "Manrope", sans-serif;
-        font-size: 1.7rem;
+        font-size: 1.42rem;
         letter-spacing: -0.03em;
+        line-height: 1.1;
     }
 
     .form-header p {
-        margin: 8px 0 0;
+        margin: 4px 0 0;
         color: var(--ink-500);
-        max-width: 48ch;
-        line-height: 1.58;
+        max-width: 52ch;
+        font-size: 0.88rem;
+        line-height: 1.45;
     }
 
     .form-sidecar {
         display: grid;
-        gap: 10px;
-        min-width: 214px;
+        grid-template-columns: minmax(0, 1fr) 154px;
+        gap: 8px;
+        min-width: min(100%, 350px);
+        align-items: stretch;
     }
 
     .summary-chip {
         min-width: 0;
-        padding: 14px 16px;
-        border-radius: 20px;
+        min-height: 44px;
+        padding: 11px 12px;
+        border-radius: 16px;
         background: linear-gradient(160deg, rgba(25, 173, 232, 0.09), rgba(255, 255, 255, 0.9));
         border: 1px solid rgba(25, 173, 232, 0.14);
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
@@ -335,16 +358,16 @@
     .summary-chip small {
         display: block;
         color: var(--ink-500);
-        font-size: 0.78rem;
+        font-size: 0.72rem;
         text-transform: uppercase;
         letter-spacing: 0.08em;
         font-weight: 800;
-        margin-bottom: 6px;
+        margin-bottom: 5px;
     }
 
     .summary-chip strong {
         display: block;
-        font-size: 1.06rem;
+        font-size: 0.96rem;
         line-height: 1.35;
     }
 
@@ -352,16 +375,17 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: 10px;
         width: 100%;
-        padding: 13px 15px;
+        min-height: 44px;
+        padding: 11px 12px;
         border: 1px solid rgba(148, 163, 184, 0.28);
-        border-radius: 18px;
+        border-radius: 16px;
         background: rgba(255, 255, 255, 0.94);
         color: var(--ink-900);
         cursor: pointer;
         font-weight: 800;
-        box-shadow: 0 14px 24px rgba(15, 23, 42, 0.06);
+        box-shadow: var(--shadow-sm);
         transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
@@ -372,7 +396,7 @@
     }
 
     .history-launch-label {
-        font-size: 0.94rem;
+        font-size: 0.88rem;
         letter-spacing: 0.01em;
     }
 
@@ -380,21 +404,21 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 38px;
-        padding: 5px 10px;
+        min-width: 32px;
+        padding: 4px 8px;
         border-radius: 999px;
         color: #0f8fca;
         background: rgba(25, 173, 232, 0.12);
-        font-size: 0.84rem;
+        font-size: 0.8rem;
     }
 
     .status-banner {
         display: none;
-        margin-bottom: 18px;
-        padding: 14px 16px;
+        margin-bottom: 12px;
+        padding: 11px 12px;
         border-radius: var(--radius-md);
-        font-size: 0.95rem;
-        line-height: 1.55;
+        font-size: 0.88rem;
+        line-height: 1.45;
         border: 1px solid transparent;
     }
 
@@ -414,21 +438,101 @@
         border-color: rgba(239, 68, 68, 0.18);
     }
 
+    .dashboard-shell {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 12px;
+        padding: 12px;
+        border-radius: 18px;
+        background: linear-gradient(155deg, rgba(15, 23, 42, 0.04), rgba(25, 173, 232, 0.08));
+        border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .dashboard-header strong {
+        display: block;
+        font-size: 0.95rem;
+        margin-bottom: 3px;
+    }
+
+    .shared-data-status {
+        color: var(--ink-500);
+        font-size: 0.82rem;
+        line-height: 1.4;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .dashboard-card {
+        padding: 12px 13px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(203, 213, 225, 0.62);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .dashboard-card small {
+        display: block;
+        color: var(--ink-500);
+        font-size: 0.71rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+
+    .dashboard-card strong {
+        display: block;
+        font-size: 1.22rem;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+    }
+
+    .dashboard-card span {
+        display: block;
+        margin-top: 4px;
+        color: var(--ink-500);
+        font-size: 0.78rem;
+        line-height: 1.38;
+    }
+
+    .dashboard-card.cash strong {
+        color: #0d7a54;
+    }
+
+    .dashboard-card.zelle strong {
+        color: #1d4ed8;
+    }
+
+    .dashboard-card.entries strong {
+        color: #b45309;
+    }
+
     form {
         display: grid;
-        gap: 16px;
+        gap: 12px;
     }
 
     .form-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px 14px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px 12px;
     }
 
     .field {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 4px;
     }
 
     .field.full {
@@ -436,16 +540,17 @@
     }
 
     .field label {
-        font-size: 0.92rem;
-        font-weight: 800;
+        font-size: 0.84rem;
+        font-weight: 700;
         color: var(--ink-700);
         letter-spacing: 0.01em;
+        line-height: 1.2;
     }
 
     .helper {
         color: var(--ink-500);
-        font-size: 0.82rem;
-        line-height: 1.4;
+        font-size: 0.76rem;
+        line-height: 1.34;
     }
 
     .input-shell {
@@ -463,11 +568,14 @@
     select,
     textarea {
         width: 100%;
+        min-height: var(--control-height);
         border: 1px solid rgba(148, 163, 184, 0.35);
-        border-radius: 16px;
+        border-radius: 14px;
         background: rgba(255, 255, 255, 0.96);
-        padding: 13px 14px;
+        padding: 10px 12px;
         color: var(--ink-900);
+        font-size: 0.93rem;
+        line-height: 1.25;
         outline: none;
         transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
@@ -493,27 +601,28 @@
     }
 
     textarea {
-        min-height: 96px;
+        min-height: 78px;
         resize: vertical;
     }
 
     .field-meta {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        min-height: 21px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 6px 10px;
+        min-height: 18px;
     }
 
     .field-note {
         color: var(--ink-500);
-        font-size: 0.82rem;
+        font-size: 0.76rem;
     }
 
     .warning {
         display: none;
         color: var(--warning);
-        font-size: 0.84rem;
+        font-size: 0.78rem;
         font-weight: 700;
     }
 
@@ -529,7 +638,7 @@
     .service-combobox {
         position: relative;
         display: grid;
-        gap: 10px;
+        gap: 8px;
     }
 
     .service-search-shell {
@@ -537,7 +646,7 @@
     }
 
     .service-search-input {
-        padding-right: 60px;
+        padding-right: 52px;
     }
 
     .service-search-input[aria-invalid="true"] {
@@ -548,12 +657,12 @@
     .service-search-toggle {
         position: absolute;
         top: 50%;
-        right: 10px;
+        right: 8px;
         transform: translateY(-50%);
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
         border: 0;
-        border-radius: 12px;
+        border-radius: 10px;
         padding: 0;
         display: grid;
         place-items: center;
@@ -585,15 +694,15 @@
 
     .service-dropdown {
         position: absolute;
-        top: calc(100% + 10px);
+        top: calc(100% + 8px);
         left: 0;
         right: 0;
         z-index: 12;
-        padding: 10px;
+        padding: 8px;
         border: 1px solid rgba(148, 163, 184, 0.2);
-        border-radius: 20px;
+        border-radius: 18px;
         background: rgba(255, 255, 255, 0.98);
-        box-shadow: 0 26px 42px rgba(15, 23, 42, 0.16);
+        box-shadow: 0 18px 32px rgba(15, 23, 42, 0.14);
         opacity: 0;
         transform: translateY(10px) scale(0.98);
         visibility: hidden;
@@ -610,16 +719,16 @@
 
     .service-suggestions {
         display: grid;
-        gap: 8px;
-        max-height: 320px;
+        gap: 6px;
+        max-height: 300px;
         overflow-y: auto;
         padding-right: 4px;
     }
 
     .service-suggestion,
     .service-empty-state {
-        border-radius: 16px;
-        padding: 13px 14px;
+        border-radius: 14px;
+        padding: 11px 12px;
         background: #fff;
     }
 
@@ -642,25 +751,25 @@
     }
 
     .service-suggestion-title {
-        font-size: 0.94rem;
+        font-size: 0.9rem;
         font-weight: 800;
         color: var(--ink-900);
-        line-height: 1.45;
+        line-height: 1.38;
     }
 
     .service-suggestion-meta {
-        margin-top: 6px;
+        margin-top: 4px;
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
         color: var(--ink-500);
-        font-size: 0.78rem;
+        font-size: 0.75rem;
     }
 
     .service-suggestion-chip {
         display: inline-flex;
         align-items: center;
-        padding: 5px 9px;
+        padding: 4px 8px;
         border-radius: 999px;
         background: rgba(15, 23, 42, 0.06);
         font-weight: 700;
@@ -681,10 +790,10 @@
     }
 
     .service-search-status {
-        padding: 8px 4px 2px;
+        padding: 6px 4px 2px;
         color: var(--ink-500);
-        font-size: 0.79rem;
-        min-height: 20px;
+        font-size: 0.76rem;
+        min-height: 18px;
     }
 
     .service-native-select {
@@ -707,28 +816,30 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 16px;
-        padding-top: 4px;
+        gap: 10px;
+        padding-top: 2px;
     }
 
     .privacy-note {
-        max-width: 38ch;
+        max-width: 42ch;
         color: var(--ink-500);
-        font-size: 0.84rem;
-        line-height: 1.5;
+        font-size: 0.78rem;
+        line-height: 1.42;
     }
 
     .submit-btn {
         border: 0;
-        border-radius: 18px;
-        padding: 16px 24px;
-        min-width: 180px;
+        min-height: 46px;
+        border-radius: 14px;
+        padding: 12px 18px;
+        min-width: 160px;
         cursor: pointer;
         color: #fff;
         font-weight: 800;
+        font-size: 0.93rem;
         letter-spacing: 0.01em;
         background: linear-gradient(135deg, var(--brand-blue), #0f8fca 60%, #0b6aa6 100%);
-        box-shadow: 0 16px 26px rgba(17, 139, 199, 0.28);
+        box-shadow: 0 12px 24px rgba(17, 139, 199, 0.24);
         transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
     }
 
@@ -756,7 +867,7 @@
         display: none;
         align-items: center;
         justify-content: center;
-        padding: 24px;
+        padding: 20px;
         background: rgba(15, 23, 42, 0.62);
         backdrop-filter: blur(10px);
         z-index: 20;
@@ -770,11 +881,11 @@
     .receipt-dialog,
     .history-dialog {
         width: min(980px, 100%);
-        max-height: calc(100vh - 48px);
+        max-height: calc(100vh - 40px);
         overflow: auto;
-        border-radius: 26px;
+        border-radius: 24px;
         background: #f3f6fb;
-        box-shadow: 0 36px 80px rgba(15, 23, 42, 0.34);
+        box-shadow: 0 30px 64px rgba(15, 23, 42, 0.3);
     }
 
     .history-dialog {
@@ -787,7 +898,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 16px;
-        padding: 18px 22px;
+        padding: 16px 18px;
         border-bottom: 1px solid rgba(148, 163, 184, 0.18);
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.94));
     }
@@ -795,13 +906,13 @@
     .receipt-toolbar strong,
     .history-toolbar strong {
         display: block;
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .receipt-toolbar span,
     .history-toolbar span {
         color: var(--ink-500);
-        font-size: 0.88rem;
+        font-size: 0.82rem;
     }
 
     .receipt-actions,
@@ -814,11 +925,13 @@
 
     .receipt-btn {
         border: 1px solid rgba(148, 163, 184, 0.35);
-        border-radius: 14px;
-        padding: 12px 16px;
+        min-height: 40px;
+        border-radius: 12px;
+        padding: 10px 14px;
         background: #fff;
         color: var(--ink-900);
         font-weight: 800;
+        font-size: 0.88rem;
         cursor: pointer;
         transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
@@ -838,8 +951,8 @@
 
     .history-body {
         display: grid;
-        gap: 16px;
-        padding: 22px;
+        gap: 14px;
+        padding: 18px;
     }
 
     .history-intro {
@@ -847,35 +960,57 @@
         justify-content: space-between;
         align-items: flex-start;
         gap: 14px;
-        padding: 16px 18px;
-        border-radius: 18px;
+        padding: 14px 16px;
+        border-radius: 16px;
         background: linear-gradient(150deg, rgba(25, 173, 232, 0.08), rgba(255, 255, 255, 0.94));
         border: 1px solid rgba(25, 173, 232, 0.12);
     }
 
     .history-intro strong {
         display: block;
-        font-size: 0.98rem;
-        margin-bottom: 4px;
+        font-size: 0.92rem;
+        margin-bottom: 3px;
     }
 
     .history-intro span {
         color: var(--ink-500);
-        font-size: 0.88rem;
-        line-height: 1.55;
+        font-size: 0.82rem;
+        line-height: 1.46;
+    }
+
+    .history-controls {
+        display: grid;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(203, 213, 225, 0.58);
+    }
+
+    .history-controls-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 14px;
+    }
+
+    .history-filter-actions {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
     .history-list {
         display: grid;
-        gap: 12px;
+        gap: 10px;
     }
 
     .history-card {
-        padding: 18px;
-        border-radius: 22px;
+        padding: 16px;
+        border-radius: 18px;
         background: rgba(255, 255, 255, 0.94);
         border: 1px solid rgba(203, 213, 225, 0.6);
-        box-shadow: 0 14px 28px rgba(15, 23, 42, 0.06);
+        box-shadow: var(--shadow-sm);
     }
 
     .history-card-top {
@@ -883,16 +1018,16 @@
         justify-content: space-between;
         align-items: flex-start;
         gap: 12px;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
 
     .history-card-top strong {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .history-card-time {
         color: var(--ink-500);
-        font-size: 0.86rem;
+        font-size: 0.8rem;
         font-weight: 700;
         white-space: nowrap;
     }
@@ -900,7 +1035,7 @@
     .history-card-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px 16px;
+        gap: 10px 14px;
     }
 
     .history-detail {
@@ -910,7 +1045,7 @@
 
     .history-detail-label {
         color: var(--ink-500);
-        font-size: 0.73rem;
+        font-size: 0.69rem;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -918,9 +1053,9 @@
 
     .history-detail-value {
         color: var(--ink-900);
-        font-size: 0.92rem;
+        font-size: 0.88rem;
         font-weight: 700;
-        line-height: 1.45;
+        line-height: 1.4;
         word-break: break-word;
     }
 
@@ -929,17 +1064,17 @@
         justify-content: flex-end;
         flex-wrap: wrap;
         gap: 10px;
-        margin-top: 16px;
+        margin-top: 14px;
     }
 
     .history-empty-state {
-        padding: 34px 22px;
-        border-radius: 22px;
+        padding: 28px 20px;
+        border-radius: 18px;
         text-align: center;
         border: 1px dashed rgba(148, 163, 184, 0.42);
         background: rgba(255, 255, 255, 0.88);
         color: var(--ink-500);
-        line-height: 1.65;
+        line-height: 1.55;
     }
 
     .receipt-paper-wrap {
@@ -1025,6 +1160,38 @@
         margin-top: 8px;
     }
 
+    @media (min-width: 1680px) {
+        .page-shell {
+            width: min(1368px, calc(100vw - 36px));
+        }
+    }
+
+    @media (max-width: 1440px) {
+        .page-shell {
+            width: min(1288px, calc(100vw - 20px));
+        }
+
+        .app-card {
+            grid-template-columns: minmax(292px, 0.74fr) minmax(0, 1.26fr);
+        }
+    }
+
+    @media (max-width: 1180px) {
+        .app-card {
+            grid-template-columns: 0.88fr 1.12fr;
+            min-height: auto;
+        }
+
+        .form-sidecar {
+            grid-template-columns: 1fr;
+            min-width: 220px;
+        }
+
+        .form-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
     @media (max-width: 980px) {
         .app-card {
             grid-template-columns: 1fr;
@@ -1039,38 +1206,38 @@
 
     @media (max-height: 860px) and (min-width: 981px) {
         body {
-            padding: 14px;
+            padding: 10px;
         }
 
         .page-shell {
-            min-height: calc(100vh - 28px);
+            min-height: calc(100vh - 20px);
         }
 
         .app-card {
-            min-height: min(780px, calc(100vh - 28px));
+            min-height: min(700px, calc(100vh - 20px));
         }
 
         .brand-panel,
         .form-panel {
-            padding: 26px;
+            padding: 20px;
         }
 
         .form-header {
-            margin-bottom: 14px;
+            margin-bottom: 10px;
         }
 
         .form-grid {
-            gap: 12px;
+            gap: 10px 12px;
         }
 
         input,
         select,
         textarea {
-            padding: 12px 13px;
+            padding: 10px 12px;
         }
 
         textarea {
-            min-height: 84px;
+            min-height: 74px;
         }
     }
 
@@ -1092,6 +1259,17 @@
         .form-footer {
             flex-direction: column;
             align-items: stretch;
+        }
+
+        .dashboard-header,
+        .history-filter-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .dashboard-grid,
+        .history-controls-grid {
+            grid-template-columns: 1fr;
         }
 
         .form-sidecar {
@@ -1226,6 +1404,33 @@
                 </div>
 
                 <div id="statusBanner" class="status-banner" role="status" aria-live="polite"></div>
+
+                <div class="dashboard-shell" aria-live="polite">
+                    <div class="dashboard-header">
+                        <div>
+                            <strong>Today's Shared Totals</strong>
+                            <span id="sharedDataStatus" class="shared-data-status">Connecting to the shared Google Sheets dashboard...</span>
+                        </div>
+                        <button type="button" id="refreshSharedDataBtn" class="receipt-btn">Refresh</button>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card cash">
+                            <small>Cash Today</small>
+                            <strong id="totalCashToday">$0.00</strong>
+                            <span>Shared total across all front desk staff.</span>
+                        </div>
+                        <div class="dashboard-card zelle">
+                            <small>Zelle Today</small>
+                            <strong id="totalZelleToday">$0.00</strong>
+                            <span>Updated from the same Google Sheet used for submissions.</span>
+                        </div>
+                        <div class="dashboard-card entries">
+                            <small>Entries Today</small>
+                            <strong id="totalEntriesToday">0</strong>
+                            <span>Counts all payment entries recorded for today.</span>
+                        </div>
+                    </div>
+                </div>
 
                 <form id="dataForm">
                     <div class="form-grid">
@@ -1483,7 +1688,7 @@
                 <div class="history-toolbar">
                     <div>
                         <strong id="historyTitle">Receipt History</strong>
-                        <span>View successful submissions saved on this browser and reprint receipts anytime.</span>
+                        <span>View shared Google Sheets submissions and reprint receipts from any front desk workstation.</span>
                     </div>
                     <div class="history-actions">
                         <button type="button" id="closeHistoryBtn" class="receipt-btn">Close</button>
@@ -1493,8 +1698,25 @@
                 <div class="history-body">
                     <div class="history-intro">
                         <div>
-                            <strong id="historySavedCount">0 saved receipts</strong>
-                            <span>Each successful Google Sheets submission is stored locally here so staff can reopen or reprint receipts later.</span>
+                            <strong id="historySavedCount">0 shared receipts</strong>
+                            <span>Shared receipt history loads from Google Sheets so all front desk staff can view and reprint the same submissions.</span>
+                        </div>
+                    </div>
+                    <div class="history-controls">
+                        <div class="history-controls-grid">
+                            <div class="field">
+                                <label for="historyPatientIdFilter">Patient ID</label>
+                                <input type="text" id="historyPatientIdFilter" placeholder="Search by patient ID" inputmode="numeric" maxlength="8" autocomplete="off">
+                            </div>
+                            <div class="field">
+                                <label for="historyDateFilter">DOS / Payment Date</label>
+                                <input type="date" id="historyDateFilter">
+                            </div>
+                        </div>
+                        <div class="history-filter-actions">
+                            <button type="button" id="clearHistoryFiltersBtn" class="receipt-btn">Clear</button>
+                            <button type="button" id="refreshHistoryBtn" class="receipt-btn">Refresh</button>
+                            <button type="button" id="applyHistoryFiltersBtn" class="receipt-btn primary">Search</button>
                         </div>
                     </div>
                     <div id="historyList" class="history-list" aria-live="polite"></div>
@@ -1526,6 +1748,11 @@ const paymentTimeInput = document.getElementById("paymentTime");
 const paymentDateDisplayInput = document.getElementById("paymentDateDisplay");
 const paymentTimeDisplayInput = document.getElementById("paymentTimeDisplay");
 const statusBanner = document.getElementById("statusBanner");
+const sharedDataStatus = document.getElementById("sharedDataStatus");
+const refreshSharedDataBtn = document.getElementById("refreshSharedDataBtn");
+const totalCashToday = document.getElementById("totalCashToday");
+const totalZelleToday = document.getElementById("totalZelleToday");
+const totalEntriesToday = document.getElementById("totalEntriesToday");
 const summaryService = document.getElementById("summaryService");
 const summaryAmount = document.getElementById("summaryAmount");
 const openHistoryBtn = document.getElementById("openHistoryBtn");
@@ -1538,6 +1765,11 @@ const historyModal = document.getElementById("historyModal");
 const closeHistoryBtn = document.getElementById("closeHistoryBtn");
 const historySavedCount = document.getElementById("historySavedCount");
 const historyList = document.getElementById("historyList");
+const historyPatientIdFilter = document.getElementById("historyPatientIdFilter");
+const historyDateFilter = document.getElementById("historyDateFilter");
+const clearHistoryFiltersBtn = document.getElementById("clearHistoryFiltersBtn");
+const refreshHistoryBtn = document.getElementById("refreshHistoryBtn");
+const applyHistoryFiltersBtn = document.getElementById("applyHistoryFiltersBtn");
 const receiptDateTime = document.getElementById("receiptDateTime");
 const receiptPatientId = document.getElementById("receiptPatientId");
 const receiptPatientNameRow = document.getElementById("receiptPatientNameRow");
@@ -1547,7 +1779,7 @@ const receiptDepartment = document.getElementById("receiptDepartment");
 const receiptService = document.getElementById("receiptService");
 const receiptAmount = document.getElementById("receiptAmount");
 const receiptMethod = document.getElementById("receiptMethod");
-const RECEIPT_HISTORY_STORAGE_KEY = "clinicSnapReceiptHistory.v1";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7_fk9ZEWMAhshDDSdLsMABsUyJHRykJuLNjClSZxy1Fl454TBa4vg37JO9dtL5qdY/exec";
 const MAX_RECEIPT_HISTORY_ITEMS = 120;
 const serviceOptions = Array.from(serviceSelect.options)
     .map((option, index) => ({
@@ -1560,7 +1792,7 @@ const serviceOptions = Array.from(serviceSelect.options)
     }))
     .filter((option) => option.index > 0 && !option.disabled);
 let lastReceiptData = null;
-let receiptHistory = loadReceiptHistory();
+let receiptHistory = [];
 let serviceSearchDebounceId = null;
 let activeServiceSuggestionPosition = -1;
 let currentServiceMatches = [];
@@ -1863,6 +2095,10 @@ function clearPatientIdWarning() {
     patientIdInput.setCustomValidity("");
 }
 
+function normalizePatientId(value) {
+    return value.replace(/\D/g, "").slice(0, 8);
+}
+
 function normalizePatientName(value) {
     return value.trim().replace(/\s+/g, " ");
 }
@@ -1884,11 +2120,23 @@ function escapeHtml(value) {
         .replace(/'/g, "&#39;");
 }
 
+function parseCurrencyValue(amount) {
+    const normalizedAmount = String(amount ?? "").replace(/[^0-9.-]/g, "");
+    const numericAmount = Number.parseFloat(normalizedAmount);
+    return Number.isFinite(numericAmount) ? numericAmount : 0;
+}
+
+function setSharedDataStatus(message) {
+    sharedDataStatus.textContent = message;
+}
+
 function cloneReceiptData(receiptData) {
     return {
+        id: receiptData.id || "",
         dateTime: receiptData.dateTime,
         patientId: receiptData.patientId,
         patientName: typeof receiptData.patientName === "string" ? receiptData.patientName : "",
+        staffName: typeof receiptData.staffName === "string" ? receiptData.staffName : "",
         dos: receiptData.dos,
         department: receiptData.department,
         service: receiptData.service,
@@ -1899,9 +2147,11 @@ function cloneReceiptData(receiptData) {
 
 function buildReceiptData(formData, submissionClock, patientName = "") {
     return {
+        id: "",
         dateTime: submissionClock.receiptDateTime,
         patientId: formData.patientId,
         patientName,
+        staffName: formData.staffName,
         dos: formData.paymentDate,
         department: formData.department,
         service: formData.service,
@@ -1915,6 +2165,7 @@ function isValidReceiptData(receiptData) {
         && typeof receiptData.dateTime === "string"
         && typeof receiptData.patientId === "string"
         && (typeof receiptData.patientName === "undefined" || typeof receiptData.patientName === "string")
+        && (typeof receiptData.staffName === "undefined" || typeof receiptData.staffName === "string")
         && typeof receiptData.dos === "string"
         && typeof receiptData.department === "string"
         && typeof receiptData.service === "string"
@@ -1929,6 +2180,16 @@ function isValidReceiptHistoryEntry(entry) {
         && isValidReceiptData(entry.receipt);
 }
 
+function getReceiptHistoryCountLabel(count) {
+    return `${count} shared receipt${count === 1 ? "" : "s"}`;
+}
+
+function updateReceiptHistoryBadge() {
+    historyCountBadge.textContent = String(receiptHistory.length);
+    historySavedCount.textContent = getReceiptHistoryCountLabel(receiptHistory.length);
+    openHistoryBtn.setAttribute("aria-label", `Open receipt history. ${getReceiptHistoryCountLabel(receiptHistory.length)}.`);
+}
+
 function createReceiptHistoryId() {
     if (window.crypto && typeof window.crypto.randomUUID === "function") {
         return window.crypto.randomUUID();
@@ -1937,43 +2198,143 @@ function createReceiptHistoryId() {
     return `receipt-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-function loadReceiptHistory() {
-    try {
-        const storedHistory = window.localStorage.getItem(RECEIPT_HISTORY_STORAGE_KEY);
+function getSharedRequestUrl(action, params = {}) {
+    const url = new URL(APPS_SCRIPT_URL);
+    const callbackName = `clinicSnapCallback_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    url.searchParams.set("action", action);
+    url.searchParams.set("prefix", callbackName);
+    url.searchParams.set("_", String(Date.now()));
 
-        if (!storedHistory) {
-            return [];
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== "" && value !== null && typeof value !== "undefined") {
+            url.searchParams.set(key, String(value));
+        }
+    });
+
+    return { callbackName, url: url.toString() };
+}
+
+function requestSharedData(action, params = {}) {
+    return new Promise((resolve, reject) => {
+        const { callbackName, url } = getSharedRequestUrl(action, params);
+        const script = document.createElement("script");
+        const timeoutId = window.setTimeout(() => {
+            cleanup();
+            reject(new Error("Timed out while loading shared data."));
+        }, 12000);
+
+        function cleanup() {
+            window.clearTimeout(timeoutId);
+            delete window[callbackName];
+            script.remove();
         }
 
-        const parsedHistory = JSON.parse(storedHistory);
-        return Array.isArray(parsedHistory)
-            ? parsedHistory.filter(isValidReceiptHistoryEntry).slice(0, MAX_RECEIPT_HISTORY_ITEMS)
-            : [];
-    } catch (error) {
-        return [];
-    }
+        window[callbackName] = function(payload) {
+            cleanup();
+            resolve(payload);
+        };
+
+        script.onerror = function() {
+            cleanup();
+            reject(new Error("The shared Google Sheets service could not be reached."));
+        };
+
+        script.src = url;
+        document.body.appendChild(script);
+    });
 }
 
-function persistReceiptHistory() {
+function setSharedDashboard(totals) {
+    totalCashToday.textContent = formatCurrency(totals.cashTotal || 0);
+    totalZelleToday.textContent = formatCurrency(totals.zelleTotal || 0);
+    totalEntriesToday.textContent = String(totals.entryCount || 0);
+}
+
+function formatHistoryTimestampLabel(isoText) {
+    const parsedDate = new Date(isoText);
+
+    if (Number.isNaN(parsedDate.getTime())) {
+        return "--";
+    }
+
+    return parsedDate.toLocaleString("en-US", {
+        month: "numeric",
+        day: "numeric",
+        year: "2-digit",
+        hour: "numeric",
+        minute: "2-digit"
+    });
+}
+
+function hydrateSharedReceiptData(entry) {
+    return {
+        id: String(entry.id || ""),
+        savedAtLabel: typeof entry.savedAtLabel === "string" ? entry.savedAtLabel : formatHistoryTimestampLabel(entry.savedAtIso || ""),
+        receipt: cloneReceiptData({
+            id: String(entry.id || ""),
+            dateTime: typeof entry.receipt?.dateTime === "string" ? entry.receipt.dateTime : "--",
+            patientId: typeof entry.receipt?.patientId === "string" ? entry.receipt.patientId : "--",
+            patientName: typeof entry.receipt?.patientName === "string" ? entry.receipt.patientName : "",
+            staffName: typeof entry.receipt?.staffName === "string" ? entry.receipt.staffName : "",
+            dos: typeof entry.receipt?.dos === "string" ? entry.receipt.dos : "--",
+            department: typeof entry.receipt?.department === "string" ? entry.receipt.department : "--",
+            service: typeof entry.receipt?.service === "string" ? entry.receipt.service : "--",
+            amount: typeof entry.receipt?.amount === "string" ? entry.receipt.amount : "$0.00",
+            method: typeof entry.receipt?.method === "string" ? entry.receipt.method : "--"
+        })
+    };
+}
+
+async function loadSharedDashboard() {
     try {
-        window.localStorage.setItem(
-            RECEIPT_HISTORY_STORAGE_KEY,
-            JSON.stringify(receiptHistory.slice(0, MAX_RECEIPT_HISTORY_ITEMS))
-        );
-        return true;
+        setSharedDataStatus("Refreshing today's shared totals from Google Sheets...");
+        const result = await requestSharedData("dashboard", {
+            paymentDate: paymentDateInput.value || getDateTimeParts().paymentDate
+        });
+
+        if (!result || result.status !== "success") {
+            throw new Error(result?.message || "Shared totals did not return successfully.");
+        }
+
+        setSharedDashboard(result.totals || { cashTotal: 0, zelleTotal: 0, entryCount: 0 });
+        setSharedDataStatus(`Shared totals synced from Google Sheets. Last refresh: ${formatHistoryTimestampLabel(result.generatedAt || new Date().toISOString())}`);
     } catch (error) {
-        return false;
+        setSharedDataStatus("Shared totals are unavailable until the Apps Script shared dashboard is updated.");
     }
 }
 
-function getReceiptHistoryCountLabel(count) {
-    return `${count} saved receipt${count === 1 ? "" : "s"}`;
+function getHistoryFilters() {
+    return {
+        patientId: normalizePatientId(historyPatientIdFilter.value),
+        paymentDate: historyDateFilter.value,
+        limit: MAX_RECEIPT_HISTORY_ITEMS
+    };
 }
 
-function updateReceiptHistoryBadge() {
-    historyCountBadge.textContent = String(receiptHistory.length);
-    historySavedCount.textContent = getReceiptHistoryCountLabel(receiptHistory.length);
-    openHistoryBtn.setAttribute("aria-label", `Open receipt history. ${getReceiptHistoryCountLabel(receiptHistory.length)}.`);
+async function loadSharedHistory() {
+    renderReceiptHistory(true);
+
+    try {
+        const result = await requestSharedData("history", getHistoryFilters());
+
+        if (!result || result.status !== "success") {
+            throw new Error(result?.message || "Shared receipt history did not return successfully.");
+        }
+
+        receiptHistory = Array.isArray(result.history)
+            ? result.history.map(hydrateSharedReceiptData).filter(isValidReceiptHistoryEntry)
+            : [];
+
+        renderReceiptHistory();
+    } catch (error) {
+        historyList.innerHTML = `
+            <div class="history-empty-state" role="status">
+                <strong>Shared receipt history is unavailable right now.</strong><br>
+                Update and redeploy the Apps Script shared history code, then refresh this window.
+            </div>
+        `;
+        updateReceiptHistoryBadge();
+    }
 }
 
 function addReceiptToHistory(receiptData) {
@@ -1986,17 +2347,28 @@ function addReceiptToHistory(receiptData) {
 
     receiptHistory = [historyEntry, ...receiptHistory].slice(0, MAX_RECEIPT_HISTORY_ITEMS);
     updateReceiptHistoryBadge();
-    return persistReceiptHistory();
+    renderReceiptHistory();
+    return true;
 }
 
-function renderReceiptHistory() {
+function renderReceiptHistory(isLoading = false) {
     updateReceiptHistoryBadge();
+
+    if (isLoading) {
+        historyList.innerHTML = `
+            <div class="history-empty-state" role="status">
+                <strong>Loading shared receipt history...</strong><br>
+                Pulling the latest entries from Google Sheets for all front desk staff.
+            </div>
+        `;
+        return;
+    }
 
     if (!receiptHistory.length) {
         historyList.innerHTML = `
             <div class="history-empty-state" role="status">
-                <strong>No saved receipts yet.</strong><br>
-                Successful submissions will appear here automatically for future viewing and reprints.
+                <strong>No shared receipts found.</strong><br>
+                Try a different date or patient ID, or submit a new payment entry to create the first shared receipt.
             </div>
         `;
         return;
@@ -2015,6 +2387,12 @@ function renderReceiptHistory() {
                 <div class="history-detail">
                     <span class="history-detail-label">Patient Name</span>
                     <span class="history-detail-value">${escapeHtml(entry.receipt.patientName)}</span>
+                </div>
+                ` : ""}
+                ${entry.receipt.staffName ? `
+                <div class="history-detail">
+                    <span class="history-detail-label">Staff Name</span>
+                    <span class="history-detail-value">${escapeHtml(entry.receipt.staffName)}</span>
                 </div>
                 ` : ""}
                 <div class="history-detail">
@@ -2316,7 +2694,7 @@ function validateAmountAgainstService() {
 }
 
 patientIdInput.addEventListener("input", function() {
-    this.value = this.value.replace(/\D/g, "").slice(0, 8);
+    this.value = normalizePatientId(this.value);
 
     if (!this.value) {
         clearPatientIdWarning();
@@ -2332,6 +2710,10 @@ patientIdInput.addEventListener("input", function() {
 });
 
 departmentInput.addEventListener("change", updateSummary);
+
+historyPatientIdFilter.addEventListener("input", function() {
+    this.value = normalizePatientId(this.value);
+});
 
 includePatientNameInput.addEventListener("change", togglePatientNameField);
 
@@ -2440,14 +2822,32 @@ closeReceiptBtn.addEventListener("click", function() {
     toggleReceiptModal(false);
 });
 
-openHistoryBtn.addEventListener("click", function() {
+refreshSharedDataBtn.addEventListener("click", function() {
+    loadSharedDashboard();
+});
+
+openHistoryBtn.addEventListener("click", async function() {
     clearBanner();
-    renderReceiptHistory();
     toggleHistoryModal(true);
+    await loadSharedHistory();
 });
 
 closeHistoryBtn.addEventListener("click", function() {
     toggleHistoryModal(false);
+});
+
+applyHistoryFiltersBtn.addEventListener("click", function() {
+    loadSharedHistory();
+});
+
+refreshHistoryBtn.addEventListener("click", function() {
+    loadSharedHistory();
+});
+
+clearHistoryFiltersBtn.addEventListener("click", function() {
+    historyPatientIdFilter.value = "";
+    historyDateFilter.value = "";
+    loadSharedHistory();
 });
 
 receiptModal.addEventListener("click", function(event) {
@@ -2554,11 +2954,12 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
         timestamp: new Date().toISOString(),
         department: this.department.value.trim(),
         staffName: this.staffName.value.trim(),
-        paymentTime: submissionClock.paymentTime
+        paymentTime: submissionClock.paymentTime,
+        patientName: receiptPatientNameValue
     };
 
     try {
-        await fetch("https://script.google.com/macros/s/AKfycbzeacn_Z_RRSk_KtwcZ03A0TznxuMF4HO3CYD4oHB1zXEjdAUOdOw4_NmNbpVlJQ5yd8w/exec", {
+        await fetch(APPS_SCRIPT_URL, {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
@@ -2566,14 +2967,12 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
         });
 
         lastReceiptData = buildReceiptData(formData, submissionClock, receiptPatientNameValue);
-        const savedToHistory = addReceiptToHistory(lastReceiptData);
+        addReceiptToHistory(lastReceiptData);
         openReceiptPreview(lastReceiptData);
-        showBanner(
-            savedToHistory
-                ? "Entry sent successfully to your existing Google Sheet. Receipt saved to history."
-                : "Entry sent successfully to your existing Google Sheet. Receipt history could not be saved on this browser.",
-            "success"
-        );
+        showBanner("Entry sent successfully to your Google Sheet. Shared totals and receipt history are refreshing.", "success");
+        setSharedDataStatus("Refreshing shared totals from the latest submission...");
+        window.setTimeout(loadSharedDashboard, 1200);
+        window.setTimeout(loadSharedHistory, 1400);
         this.reset();
         serviceSelect.selectedIndex = 0;
         serviceSearchInput.value = "";
@@ -2603,7 +3002,8 @@ syncServiceSearchFromSelect();
 setServiceSearchValidity(true);
 refreshServiceSuggestions("", { openDropdown: false });
 togglePatientNameField();
-updateReceiptHistoryBadge();
+renderReceiptHistory();
+loadSharedDashboard();
 updateSummary();
 </script>
 </body>
