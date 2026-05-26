@@ -1117,6 +1117,31 @@
         font-weight: 600;
     }
 
+    .shift-report-table.is-transactions {
+        min-width: 1340px;
+    }
+
+    .shift-report-table.is-transactions th,
+    .shift-report-table.is-transactions td {
+        text-align: left;
+        white-space: normal;
+        vertical-align: top;
+        padding-right: 16px;
+    }
+
+    .shift-report-table.is-transactions .is-wide {
+        min-width: 220px;
+    }
+
+    .shift-report-table.is-transactions .is-medium {
+        min-width: 140px;
+    }
+
+    .shift-report-table.is-transactions .is-numeric {
+        text-align: right;
+        white-space: nowrap;
+    }
+
     .history-filter-actions {
         display: flex;
         justify-content: flex-end;
@@ -1322,6 +1347,7 @@
         .shift-report-panels {
             grid-template-columns: 1fr;
         }
+
     }
 
     @media (max-width: 980px) {
@@ -1876,7 +1902,7 @@
                 <div class="history-toolbar">
                     <div>
                         <strong id="shiftReportTitle">Shift Close Report</strong>
-                        <span>Review shared end-of-day totals by payment method, staff, and department for the selected date.</span>
+                        <span>Review shared end-of-day totals, grouped summaries, and detailed payment entries for the selected date.</span>
                     </div>
                     <div class="history-actions">
                         <button type="button" id="exportShiftReportBtn" class="receipt-btn">Export CSV</button>
@@ -1981,9 +2007,41 @@
                             </div>
                         </section>
                     </div>
+
+                    <section class="history-card shift-report-section">
+                        <div class="shift-report-section-header">
+                            <div>
+                                <strong>Detailed Transactions</strong>
+                                <span>Entry-level report for the selected day including timestamp, staff, patient, service, amount, method, and note.</span>
+                            </div>
+                        </div>
+                        <div class="shift-report-table-wrap">
+                            <table class="shift-report-table is-transactions">
+                                <thead>
+                                    <tr>
+                                        <th class="is-medium">Time Stamp</th>
+                                        <th class="is-medium">Staff Name</th>
+                                        <th class="is-medium">Department</th>
+                                        <th>Patient ID</th>
+                                        <th class="is-wide">Service</th>
+                                        <th class="is-numeric">Amount Collected</th>
+                                        <th class="is-medium">Payment Date</th>
+                                        <th class="is-medium">Payment Method</th>
+                                        <th class="is-wide">Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="shiftReportTransactionRows">
+                                    <tr class="empty-row">
+                                        <td colspan="9">Run the report to load shared transactions.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
+
     </div>
 
 <script>
@@ -2046,6 +2104,7 @@ const shiftReportCollectedTotal = document.getElementById("shiftReportCollectedT
 const shiftReportEntryCount = document.getElementById("shiftReportEntryCount");
 const shiftReportStaffRows = document.getElementById("shiftReportStaffRows");
 const shiftReportDepartmentRows = document.getElementById("shiftReportDepartmentRows");
+const shiftReportTransactionRows = document.getElementById("shiftReportTransactionRows");
 const receiptDateTime = document.getElementById("receiptDateTime");
 const receiptPatientId = document.getElementById("receiptPatientId");
 const receiptPatientNameRow = document.getElementById("receiptPatientNameRow");
@@ -2599,6 +2658,20 @@ function normalizeShiftReportRow(row) {
     };
 }
 
+function normalizeShiftReportTransactionRow(row) {
+    return {
+        timestamp: typeof row?.timestamp === "string" && row.timestamp.trim() ? row.timestamp.trim() : "--",
+        staffName: typeof row?.staffName === "string" && row.staffName.trim() ? row.staffName.trim() : "--",
+        department: typeof row?.department === "string" && row.department.trim() ? row.department.trim() : "--",
+        patientId: typeof row?.patientId === "string" && row.patientId.trim() ? row.patientId.trim() : "--",
+        service: typeof row?.service === "string" && row.service.trim() ? row.service.trim() : "--",
+        amountCollected: parseCurrencyValue(row?.amountCollected),
+        paymentDate: typeof row?.paymentDate === "string" && row.paymentDate.trim() ? row.paymentDate.trim() : "--",
+        paymentMethod: typeof row?.paymentMethod === "string" && row.paymentMethod.trim() ? row.paymentMethod.trim() : "--",
+        note: typeof row?.note === "string" && row.note.trim() ? row.note.trim() : "--"
+    };
+}
+
 function hydrateShiftReportData(result) {
     return {
         paymentDate: typeof result?.paymentDate === "string" && result.paymentDate ? result.paymentDate : getDefaultShiftReportDate(),
@@ -2611,7 +2684,8 @@ function hydrateShiftReportData(result) {
             entryCount: Number.isFinite(Number(result?.summary?.entryCount)) ? Number(result.summary.entryCount) : 0
         },
         staffTotals: Array.isArray(result?.staffTotals) ? result.staffTotals.map(normalizeShiftReportRow) : [],
-        departmentTotals: Array.isArray(result?.departmentTotals) ? result.departmentTotals.map(normalizeShiftReportRow) : []
+        departmentTotals: Array.isArray(result?.departmentTotals) ? result.departmentTotals.map(normalizeShiftReportRow) : [],
+        transactions: Array.isArray(result?.transactions) ? result.transactions.map(normalizeShiftReportTransactionRow) : []
     };
 }
 
@@ -2636,6 +2710,31 @@ function renderShiftReportRows(container, rows, emptyLabel) {
     `).join("");
 }
 
+function renderShiftReportTransactions(rows) {
+    if (!rows.length) {
+        shiftReportTransactionRows.innerHTML = `
+            <tr class="empty-row">
+                <td colspan="9">No shared transactions were found for that date.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    shiftReportTransactionRows.innerHTML = rows.map((row) => `
+        <tr>
+            <td class="is-medium">${escapeHtml(row.timestamp)}</td>
+            <td class="is-medium">${escapeHtml(row.staffName)}</td>
+            <td class="is-medium">${escapeHtml(row.department)}</td>
+            <td>${escapeHtml(row.patientId)}</td>
+            <td class="is-wide">${escapeHtml(row.service)}</td>
+            <td class="is-numeric">${escapeHtml(formatCurrency(row.amountCollected))}</td>
+            <td class="is-medium">${escapeHtml(row.paymentDate)}</td>
+            <td class="is-medium">${escapeHtml(row.paymentMethod)}</td>
+            <td class="is-wide">${escapeHtml(row.note)}</td>
+        </tr>
+    `).join("");
+}
+
 function renderShiftReport(reportData) {
     currentShiftReportData = reportData;
     shiftReportDateFilter.value = reportData.paymentDate;
@@ -2645,6 +2744,7 @@ function renderShiftReport(reportData) {
     shiftReportEntryCount.textContent = String(reportData.summary.entryCount);
     renderShiftReportRows(shiftReportStaffRows, reportData.staffTotals, "staff");
     renderShiftReportRows(shiftReportDepartmentRows, reportData.departmentTotals, "department");
+    renderShiftReportTransactions(reportData.transactions);
     setShiftReportStatus(`Shared shift close report ready for ${formatShiftReportDateLabel(reportData.paymentDate)}. Last refresh: ${formatHistoryTimestampLabel(reportData.generatedAt)}.`);
 }
 
@@ -2719,6 +2819,26 @@ function getShiftReportCsv(reportData) {
         ]);
     });
 
+    lines.push(
+        [],
+        ["Detailed Transactions"],
+        ["Time Stamp", "Staff Name", "Department", "Patient ID", "Service", "Amount Collected", "Payment Date", "Payment Method", "Note"]
+    );
+
+    reportData.transactions.forEach((row) => {
+        lines.push([
+            row.timestamp,
+            row.staffName,
+            row.department,
+            row.patientId,
+            row.service,
+            formatCurrency(row.amountCollected),
+            row.paymentDate,
+            row.paymentMethod,
+            row.note
+        ]);
+    });
+
     return lines.map((line) => line.map(escapeCsvValue).join(",")).join("\n");
 }
 
@@ -2757,6 +2877,26 @@ function getShiftReportPrintRowsMarkup(rows) {
     `).join("");
 }
 
+function getShiftReportTransactionPrintRowsMarkup(rows) {
+    if (!rows.length) {
+        return `<tr><td colspan="9" class="empty-row">No shared transactions found for that date.</td></tr>`;
+    }
+
+    return rows.map((row) => `
+        <tr>
+            <td>${escapeHtml(row.timestamp)}</td>
+            <td>${escapeHtml(row.staffName)}</td>
+            <td>${escapeHtml(row.department)}</td>
+            <td>${escapeHtml(row.patientId)}</td>
+            <td>${escapeHtml(row.service)}</td>
+            <td class="amount">${escapeHtml(formatCurrency(row.amountCollected))}</td>
+            <td>${escapeHtml(row.paymentDate)}</td>
+            <td>${escapeHtml(row.paymentMethod)}</td>
+            <td>${escapeHtml(row.note)}</td>
+        </tr>
+    `).join("");
+}
+
 function getShiftReportPrintMarkup(reportData) {
     return `<!DOCTYPE html>
 <html lang="en">
@@ -2774,7 +2914,7 @@ function getShiftReportPrintMarkup(reportData) {
     }
 
     .sheet {
-        max-width: 1100px;
+        max-width: 1380px;
         margin: 0 auto;
     }
 
@@ -2881,6 +3021,27 @@ function getShiftReportPrintMarkup(reportData) {
         text-align: left !important;
         color: #64748b;
     }
+
+    .transactions th,
+    .transactions td {
+        text-align: left;
+        vertical-align: top;
+        padding-right: 14px;
+    }
+
+    .transactions th {
+        white-space: nowrap;
+    }
+
+    .transactions td {
+        font-size: 12px;
+        line-height: 1.45;
+    }
+
+    .transactions .amount {
+        text-align: right;
+        white-space: nowrap;
+    }
 </style>
 </head>
 <body>
@@ -2934,6 +3095,27 @@ function getShiftReportPrintMarkup(reportData) {
                     </tr>
                 </thead>
                 <tbody>${getShiftReportPrintRowsMarkup(reportData.departmentTotals)}</tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Detailed Transactions</h2>
+            <p>Entry-level log for the selected date.</p>
+            <table class="transactions">
+                <thead>
+                    <tr>
+                        <th>Time Stamp</th>
+                        <th>Staff Name</th>
+                        <th>Department</th>
+                        <th>Patient ID</th>
+                        <th>Service</th>
+                        <th>Amount Collected</th>
+                        <th>Payment Date</th>
+                        <th>Payment Method</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>${getShiftReportTransactionPrintRowsMarkup(reportData.transactions)}</tbody>
             </table>
         </div>
     </div>
@@ -3693,7 +3875,7 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
         window.setTimeout(loadSharedDashboard, 1200);
         window.setTimeout(loadSharedHistory, 1400);
         if (shiftReportModal.classList.contains("show")) {
-            window.setTimeout(loadSharedShiftReport, 1600);
+            window.setTimeout(loadSharedShiftReport, 1500);
         }
         this.reset();
         serviceSelect.selectedIndex = 0;

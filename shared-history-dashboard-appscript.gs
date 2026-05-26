@@ -171,6 +171,7 @@ function buildShiftReportResponse_(params) {
   var summary = createTotalsBucket_();
   var staffGroups = {};
   var departmentGroups = {};
+  var transactions = [];
 
   for (var i = 0; i < values.length; i++) {
     var row = values[i];
@@ -185,6 +186,7 @@ function buildShiftReportResponse_(params) {
     addAmountToTotalsBucket_(summary, amount, method);
     addAmountToGroupedTotals_(staffGroups, String(row[1] || "").trim() || "Unassigned Staff", amount, method);
     addAmountToGroupedTotals_(departmentGroups, String(row[2] || "").trim() || "Unassigned Department", amount, method);
+    transactions.push(buildShiftReportTransactionRecord_(row, i + 1, timezone, paymentDate));
   }
 
   return {
@@ -194,7 +196,8 @@ function buildShiftReportResponse_(params) {
     generatedAt: new Date().toISOString(),
     summary: roundTotalsBucket_(summary),
     staffTotals: buildGroupedTotalsResponse_(staffGroups),
-    departmentTotals: buildGroupedTotalsResponse_(departmentGroups)
+    departmentTotals: buildGroupedTotalsResponse_(departmentGroups),
+    transactions: transactions.reverse()
   };
 }
 
@@ -241,6 +244,26 @@ function buildHistoryRecord_(row, rowNumber, timezone) {
       amount: formatCurrency_(row[5]),
       method: String(row[7] || "").trim() || "--"
     }
+  };
+}
+
+function buildShiftReportTransactionRecord_(row, rowNumber, timezone, paymentDate) {
+  var timestamp = row[0] instanceof Date ? row[0] : new Date(row[0]);
+  var timestampLabel = timestamp instanceof Date && !isNaN(timestamp.getTime())
+    ? Utilities.formatDate(timestamp, timezone, "M/d/yy, h:mm a")
+    : "";
+
+  return {
+    id: String(rowNumber),
+    timestamp: timestampLabel || "--",
+    staffName: String(row[1] || "").trim() || "--",
+    department: String(row[2] || "").trim() || "--",
+    patientId: normalizePatientId_(row[3]) || "--",
+    service: String(row[4] || "").trim() || "--",
+    amountCollected: formatCurrency_(row[5]),
+    paymentDate: paymentDate || "--",
+    paymentMethod: String(row[7] || "").trim() || "--",
+    note: String(row[8] || "").trim() || "--"
   };
 }
 
