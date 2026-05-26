@@ -31,6 +31,10 @@
         box-sizing: border-box;
     }
 
+    [hidden] {
+        display: none !important;
+    }
+
     html,
     body {
         margin: 0;
@@ -44,17 +48,21 @@
             radial-gradient(circle at top left, rgba(25, 173, 232, 0.28), transparent 36%),
             radial-gradient(circle at bottom right, rgba(239, 43, 45, 0.15), transparent 30%),
             linear-gradient(135deg, #ecf7ff 0%, #f7faff 45%, #ffffff 100%);
-        padding: 32px 20px;
+        padding: 18px 16px;
     }
 
-    body.receipt-open {
+    body.receipt-open,
+    body.history-open {
         overflow: hidden;
     }
 
     .page-shell {
-        width: min(1160px, 100%);
+        width: min(1180px, 100%);
         margin: 0 auto;
         position: relative;
+        min-height: calc(100vh - 36px);
+        display: flex;
+        align-items: stretch;
     }
 
     .page-shell::before,
@@ -83,6 +91,7 @@
     }
 
     .app-card {
+        width: 100%;
         position: relative;
         z-index: 1;
         display: grid;
@@ -93,19 +102,20 @@
         border: 1px solid rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(18px);
         box-shadow: var(--shadow-xl);
+        min-height: min(820px, calc(100vh - 36px));
     }
 
     .brand-panel {
         position: relative;
-        padding: 42px 38px;
+        padding: 34px 32px;
         background:
             linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 249, 255, 0.94)),
             linear-gradient(155deg, rgba(25, 173, 232, 0.12), rgba(255, 255, 255, 0));
         border-right: 1px solid rgba(148, 163, 184, 0.18);
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 28px;
+        justify-content: flex-start;
+        gap: 24px;
     }
 
     .brand-panel::before {
@@ -174,14 +184,14 @@
 
     .brand-copy p {
         margin: 0;
-        max-width: 33ch;
+        max-width: 36ch;
         color: var(--ink-700);
-        font-size: 1.02rem;
-        line-height: 1.75;
+        font-size: 0.98rem;
+        line-height: 1.62;
     }
 
     .brand-actions {
-        margin-top: 18px;
+        margin-top: 16px;
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
@@ -222,47 +232,66 @@
         letter-spacing: 0.08em;
     }
 
-    .feature-list {
+    .support-panel {
+        margin-top: auto;
         display: grid;
-        gap: 12px;
+        gap: 16px;
+        padding: 18px 20px;
+        border-radius: 24px;
+        color: #f8fafc;
+        background: linear-gradient(160deg, #04070c 0%, #0f172a 100%);
+        box-shadow: 0 20px 36px rgba(15, 23, 42, 0.24);
     }
 
-    .feature {
-        display: flex;
-        gap: 14px;
-        align-items: flex-start;
-        padding: 16px 18px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.88);
-        border: 1px solid rgba(203, 213, 225, 0.55);
-    }
-
-    .feature-badge {
-        flex: 0 0 auto;
-        width: 40px;
-        height: 40px;
-        border-radius: 14px;
-        display: grid;
-        place-items: center;
+    .support-kicker {
+        color: rgba(226, 232, 240, 0.72);
+        font-size: 0.76rem;
         font-weight: 800;
-        color: var(--surface-strong);
-        background: linear-gradient(135deg, var(--brand-blue), #118bc7);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
     }
 
-    .feature strong {
+    .support-logo-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .support-logo {
+        width: min(100%, 290px);
         display: block;
-        margin-bottom: 3px;
-        font-size: 0.98rem;
     }
 
-    .feature span {
-        color: var(--ink-500);
-        font-size: 0.93rem;
-        line-height: 1.5;
+    .support-copy {
+        display: grid;
+        gap: 4px;
+    }
+
+    .support-copy strong {
+        font-size: 1.02rem;
+        letter-spacing: 0.01em;
+    }
+
+    .support-phone {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        padding: 10px 14px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 800;
+        color: #081018;
+        background: linear-gradient(135deg, #d7b16f, #efd093 72%, #f8e0b0 100%);
+        box-shadow: 0 12px 24px rgba(215, 177, 111, 0.22);
     }
 
     .form-panel {
-        padding: 36px;
+        padding: 30px;
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 252, 255, 0.96));
     }
 
@@ -270,8 +299,8 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        gap: 18px;
-        margin-bottom: 24px;
+        gap: 14px;
+        margin-bottom: 18px;
     }
 
     .form-header h2 {
@@ -285,11 +314,17 @@
         margin: 8px 0 0;
         color: var(--ink-500);
         max-width: 48ch;
-        line-height: 1.65;
+        line-height: 1.58;
+    }
+
+    .form-sidecar {
+        display: grid;
+        gap: 10px;
+        min-width: 214px;
     }
 
     .summary-chip {
-        min-width: 170px;
+        min-width: 0;
         padding: 14px 16px;
         border-radius: 20px;
         background: linear-gradient(160deg, rgba(25, 173, 232, 0.09), rgba(255, 255, 255, 0.9));
@@ -309,8 +344,48 @@
 
     .summary-chip strong {
         display: block;
-        font-size: 1.18rem;
+        font-size: 1.06rem;
         line-height: 1.35;
+    }
+
+    .history-launch-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        padding: 13px 15px;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.94);
+        color: var(--ink-900);
+        cursor: pointer;
+        font-weight: 800;
+        box-shadow: 0 14px 24px rgba(15, 23, 42, 0.06);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .history-launch-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 30px rgba(15, 23, 42, 0.09);
+        border-color: rgba(25, 173, 232, 0.32);
+    }
+
+    .history-launch-label {
+        font-size: 0.94rem;
+        letter-spacing: 0.01em;
+    }
+
+    .history-launch-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 38px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        color: #0f8fca;
+        background: rgba(25, 173, 232, 0.12);
+        font-size: 0.84rem;
     }
 
     .status-banner {
@@ -341,19 +416,19 @@
 
     form {
         display: grid;
-        gap: 20px;
+        gap: 16px;
     }
 
     .form-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px 16px;
+        gap: 14px 14px;
     }
 
     .field {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
     }
 
     .field.full {
@@ -391,7 +466,7 @@
         border: 1px solid rgba(148, 163, 184, 0.35);
         border-radius: 16px;
         background: rgba(255, 255, 255, 0.96);
-        padding: 15px 16px;
+        padding: 13px 14px;
         color: var(--ink-900);
         outline: none;
         transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
@@ -418,7 +493,7 @@
     }
 
     textarea {
-        min-height: 128px;
+        min-height: 96px;
         resize: vertical;
     }
 
@@ -674,7 +749,8 @@
         box-shadow: 0 10px 18px rgba(17, 139, 199, 0.18);
     }
 
-    .receipt-modal {
+    .receipt-modal,
+    .history-modal {
         position: fixed;
         inset: 0;
         display: none;
@@ -686,11 +762,13 @@
         z-index: 20;
     }
 
-    .receipt-modal.show {
+    .receipt-modal.show,
+    .history-modal.show {
         display: flex;
     }
 
-    .receipt-dialog {
+    .receipt-dialog,
+    .history-dialog {
         width: min(980px, 100%);
         max-height: calc(100vh - 48px);
         overflow: auto;
@@ -699,7 +777,12 @@
         box-shadow: 0 36px 80px rgba(15, 23, 42, 0.34);
     }
 
-    .receipt-toolbar {
+    .history-dialog {
+        width: min(1040px, 100%);
+    }
+
+    .receipt-toolbar,
+    .history-toolbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -709,17 +792,20 @@
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.94));
     }
 
-    .receipt-toolbar strong {
+    .receipt-toolbar strong,
+    .history-toolbar strong {
         display: block;
         font-size: 1rem;
     }
 
-    .receipt-toolbar span {
+    .receipt-toolbar span,
+    .history-toolbar span {
         color: var(--ink-500);
         font-size: 0.88rem;
     }
 
-    .receipt-actions {
+    .receipt-actions,
+    .history-actions {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
@@ -748,6 +834,112 @@
         color: #fff;
         background: linear-gradient(135deg, var(--brand-blue), #0f8fca 60%, #0b6aa6 100%);
         box-shadow: 0 14px 26px rgba(17, 139, 199, 0.22);
+    }
+
+    .history-body {
+        display: grid;
+        gap: 16px;
+        padding: 22px;
+    }
+
+    .history-intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: linear-gradient(150deg, rgba(25, 173, 232, 0.08), rgba(255, 255, 255, 0.94));
+        border: 1px solid rgba(25, 173, 232, 0.12);
+    }
+
+    .history-intro strong {
+        display: block;
+        font-size: 0.98rem;
+        margin-bottom: 4px;
+    }
+
+    .history-intro span {
+        color: var(--ink-500);
+        font-size: 0.88rem;
+        line-height: 1.55;
+    }
+
+    .history-list {
+        display: grid;
+        gap: 12px;
+    }
+
+    .history-card {
+        padding: 18px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid rgba(203, 213, 225, 0.6);
+        box-shadow: 0 14px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .history-card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .history-card-top strong {
+        font-size: 1rem;
+    }
+
+    .history-card-time {
+        color: var(--ink-500);
+        font-size: 0.86rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .history-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 16px;
+    }
+
+    .history-detail {
+        display: grid;
+        gap: 4px;
+    }
+
+    .history-detail-label {
+        color: var(--ink-500);
+        font-size: 0.73rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .history-detail-value {
+        color: var(--ink-900);
+        font-size: 0.92rem;
+        font-weight: 700;
+        line-height: 1.45;
+        word-break: break-word;
+    }
+
+    .history-card-actions {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+    }
+
+    .history-empty-state {
+        padding: 34px 22px;
+        border-radius: 22px;
+        text-align: center;
+        border: 1px dashed rgba(148, 163, 184, 0.42);
+        background: rgba(255, 255, 255, 0.88);
+        color: var(--ink-500);
+        line-height: 1.65;
     }
 
     .receipt-paper-wrap {
@@ -836,11 +1028,49 @@
     @media (max-width: 980px) {
         .app-card {
             grid-template-columns: 1fr;
+            min-height: auto;
         }
 
         .brand-panel {
             border-right: 0;
             border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+        }
+    }
+
+    @media (max-height: 860px) and (min-width: 981px) {
+        body {
+            padding: 14px;
+        }
+
+        .page-shell {
+            min-height: calc(100vh - 28px);
+        }
+
+        .app-card {
+            min-height: min(780px, calc(100vh - 28px));
+        }
+
+        .brand-panel,
+        .form-panel {
+            padding: 26px;
+        }
+
+        .form-header {
+            margin-bottom: 14px;
+        }
+
+        .form-grid {
+            gap: 12px;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 12px 13px;
+        }
+
+        textarea {
+            min-height: 84px;
         }
     }
 
@@ -851,7 +1081,7 @@
 
         .brand-panel,
         .form-panel {
-            padding: 24px 20px;
+            padding: 22px 18px;
         }
 
         .form-grid {
@@ -864,7 +1094,7 @@
             align-items: stretch;
         }
 
-        .summary-chip {
+        .form-sidecar {
             min-width: 0;
         }
 
@@ -885,10 +1115,25 @@
             padding: 12px 13px;
         }
 
+        .history-intro,
+        .history-card-top,
+        .history-card-actions,
+        .history-card-grid,
         .receipt-toolbar,
-        .receipt-actions {
+        .receipt-actions,
+        .history-toolbar,
+        .history-actions {
             flex-direction: column;
             align-items: stretch;
+        }
+
+        .history-body {
+            padding: 14px;
+        }
+
+        .history-card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
         }
 
         .receipt-paper-wrap {
@@ -924,6 +1169,8 @@
     @media (prefers-reduced-motion: reduce) {
         .service-dropdown,
         .service-suggestion,
+        .history-launch-btn,
+        .receipt-btn,
         .service-search-toggle,
         .service-search-toggle span {
             transition: none;
@@ -947,28 +1194,15 @@
                     </div>
                 </div>
 
-                <div class="feature-list" aria-label="Highlights">
-                    <div class="feature">
-                        <div class="feature-badge">1</div>
-                        <div>
-                            <strong>Fixed-price services auto-fill</strong>
-                            <span>Engineered an auto-fill system that locks standard visit prices while maintaining manual overrides for copays and custom balances.</span>
-                        </div>
+                <div class="support-panel" aria-label="Help360 support branding">
+                    <div class="support-kicker">Branding &amp; Support</div>
+                    <div class="support-logo-wrap">
+                        <img src="help360md-logo.png" alt="Help360MD" class="support-logo">
                     </div>
-                    <div class="feature">
-                        <div class="feature-badge">2</div>
-                        <div>
-                            <strong>Cleaner, faster daily intake</strong>
-                            <span>Redesigned the daily intake form with improved grouping and mobile responsiveness, significantly increasing professional appeal and user speed.</span>
-                        </div>
+                    <div class="support-copy">
+                        <strong>&ldquo;Powered and Managed by Help360&rdquo;</strong>
                     </div>
-                    <div class="feature">
-                        <div class="feature-badge">3</div>
-                        <div>
-                            <strong>Same sheet integration</strong>
-                            <span>Maintained full compatibility with existing Apps Script endpoints while expanding data collection through appended tracking fields.</span>
-                        </div>
-                    </div>
+                    <a class="support-phone" href="tel:3219999553">For help call: (321) 999-9553</a>
                 </div>
             </aside>
 
@@ -978,10 +1212,16 @@
                         <h2>Cash Entry Form</h2>
                         <p>Enter the payment details below. Service, amount, and payment method stay clearly aligned so each submission is quick to review before it is sent.</p>
                     </div>
-                    <div class="summary-chip" aria-live="polite">
-                        <small>Current selection</small>
-                        <strong id="summaryService">No service selected</strong>
-                        <span id="summaryAmount" class="helper">Amount will appear here</span>
+                    <div class="form-sidecar">
+                        <div class="summary-chip" aria-live="polite">
+                            <small>Current selection</small>
+                            <strong id="summaryService">No service selected</strong>
+                            <span id="summaryAmount" class="helper">Amount will appear here</span>
+                        </div>
+                        <button type="button" id="openHistoryBtn" class="history-launch-btn" aria-haspopup="dialog" aria-controls="historyModal">
+                            <span class="history-launch-label">Receipt History</span>
+                            <span id="historyCountBadge" class="history-launch-count">0</span>
+                        </button>
                     </div>
                 </div>
 
@@ -1010,6 +1250,21 @@
                                 <span class="field-note">Exactly 8 digits are required.</span>
                                 <span id="patientIdWarning" class="warning">Patient ID must be exactly 8 digits.</span>
                             </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="includePatientName">Add Patient Name to Receipt?</label>
+                            <select id="includePatientName">
+                                <option value="no" selected>No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                            <div class="helper">Choose Yes only when you want the patient's name printed on the receipt.</div>
+                        </div>
+
+                        <div class="field full" id="patientNameReceiptField" hidden>
+                            <label for="patientNameReceipt">Patient Name for Receipt</label>
+                            <input type="text" id="patientNameReceipt" placeholder="Enter patient full name" autocomplete="off" maxlength="80">
+                            <div class="helper">This name appears on the receipt and stays available for future reprints on this browser.</div>
                         </div>
 
                         <div class="field">
@@ -1190,6 +1445,10 @@
                                 <div class="receipt-label">Patient ID:</div>
                                 <div id="receiptPatientId" class="receipt-value">--</div>
                             </div>
+                            <div id="receiptPatientNameRow" class="receipt-row" hidden>
+                                <div class="receipt-label">Patient Name:</div>
+                                <div id="receiptPatientName" class="receipt-value">--</div>
+                            </div>
                             <div class="receipt-row">
                                 <div class="receipt-label">DOS:</div>
                                 <div id="receiptDos" class="receipt-value">--</div>
@@ -1218,12 +1477,39 @@
                 </div>
             </div>
         </div>
+
+        <div id="historyModal" class="history-modal" aria-hidden="true">
+            <div class="history-dialog" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
+                <div class="history-toolbar">
+                    <div>
+                        <strong id="historyTitle">Receipt History</strong>
+                        <span>View successful submissions saved on this browser and reprint receipts anytime.</span>
+                    </div>
+                    <div class="history-actions">
+                        <button type="button" id="closeHistoryBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
+
+                <div class="history-body">
+                    <div class="history-intro">
+                        <div>
+                            <strong id="historySavedCount">0 saved receipts</strong>
+                            <span>Each successful Google Sheets submission is stored locally here so staff can reopen or reprint receipts later.</span>
+                        </div>
+                    </div>
+                    <div id="historyList" class="history-list" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
 <script>
 const departmentInput = document.getElementById("department");
 const patientIdInput = document.getElementById("patientId");
 const patientIdWarning = document.getElementById("patientIdWarning");
+const includePatientNameInput = document.getElementById("includePatientName");
+const patientNameReceiptField = document.getElementById("patientNameReceiptField");
+const patientNameReceiptInput = document.getElementById("patientNameReceipt");
 const serviceCombobox = document.getElementById("serviceCombobox");
 const serviceSearchInput = document.getElementById("serviceSearch");
 const serviceSearchToggle = document.getElementById("serviceSearchToggle");
@@ -1242,17 +1528,27 @@ const paymentTimeDisplayInput = document.getElementById("paymentTimeDisplay");
 const statusBanner = document.getElementById("statusBanner");
 const summaryService = document.getElementById("summaryService");
 const summaryAmount = document.getElementById("summaryAmount");
+const openHistoryBtn = document.getElementById("openHistoryBtn");
+const historyCountBadge = document.getElementById("historyCountBadge");
 const submitBtn = document.getElementById("submitBtn");
 const receiptModal = document.getElementById("receiptModal");
 const printReceiptBtn = document.getElementById("printReceiptBtn");
 const closeReceiptBtn = document.getElementById("closeReceiptBtn");
+const historyModal = document.getElementById("historyModal");
+const closeHistoryBtn = document.getElementById("closeHistoryBtn");
+const historySavedCount = document.getElementById("historySavedCount");
+const historyList = document.getElementById("historyList");
 const receiptDateTime = document.getElementById("receiptDateTime");
 const receiptPatientId = document.getElementById("receiptPatientId");
+const receiptPatientNameRow = document.getElementById("receiptPatientNameRow");
+const receiptPatientName = document.getElementById("receiptPatientName");
 const receiptDos = document.getElementById("receiptDos");
 const receiptDepartment = document.getElementById("receiptDepartment");
 const receiptService = document.getElementById("receiptService");
 const receiptAmount = document.getElementById("receiptAmount");
 const receiptMethod = document.getElementById("receiptMethod");
+const RECEIPT_HISTORY_STORAGE_KEY = "clinicSnapReceiptHistory.v1";
+const MAX_RECEIPT_HISTORY_ITEMS = 120;
 const serviceOptions = Array.from(serviceSelect.options)
     .map((option, index) => ({
         index,
@@ -1264,6 +1560,7 @@ const serviceOptions = Array.from(serviceSelect.options)
     }))
     .filter((option) => option.index > 0 && !option.disabled);
 let lastReceiptData = null;
+let receiptHistory = loadReceiptHistory();
 let serviceSearchDebounceId = null;
 let activeServiceSuggestionPosition = -1;
 let currentServiceMatches = [];
@@ -1566,6 +1863,10 @@ function clearPatientIdWarning() {
     patientIdInput.setCustomValidity("");
 }
 
+function normalizePatientName(value) {
+    return value.trim().replace(/\s+/g, " ");
+}
+
 function formatCurrency(amount) {
     const normalizedAmount = String(amount).replace(/[$,]/g, "");
     const numericAmount = Number.parseFloat(normalizedAmount);
@@ -1583,10 +1884,24 @@ function escapeHtml(value) {
         .replace(/'/g, "&#39;");
 }
 
-function buildReceiptData(formData, submissionClock) {
+function cloneReceiptData(receiptData) {
+    return {
+        dateTime: receiptData.dateTime,
+        patientId: receiptData.patientId,
+        patientName: typeof receiptData.patientName === "string" ? receiptData.patientName : "",
+        dos: receiptData.dos,
+        department: receiptData.department,
+        service: receiptData.service,
+        amount: receiptData.amount,
+        method: receiptData.method
+    };
+}
+
+function buildReceiptData(formData, submissionClock, patientName = "") {
     return {
         dateTime: submissionClock.receiptDateTime,
         patientId: formData.patientId,
+        patientName,
         dos: formData.paymentDate,
         department: formData.department,
         service: formData.service,
@@ -1595,9 +1910,161 @@ function buildReceiptData(formData, submissionClock) {
     };
 }
 
+function isValidReceiptData(receiptData) {
+    return Boolean(receiptData)
+        && typeof receiptData.dateTime === "string"
+        && typeof receiptData.patientId === "string"
+        && (typeof receiptData.patientName === "undefined" || typeof receiptData.patientName === "string")
+        && typeof receiptData.dos === "string"
+        && typeof receiptData.department === "string"
+        && typeof receiptData.service === "string"
+        && typeof receiptData.amount === "string"
+        && typeof receiptData.method === "string";
+}
+
+function isValidReceiptHistoryEntry(entry) {
+    return Boolean(entry)
+        && typeof entry.id === "string"
+        && typeof entry.savedAtLabel === "string"
+        && isValidReceiptData(entry.receipt);
+}
+
+function createReceiptHistoryId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+    }
+
+    return `receipt-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function loadReceiptHistory() {
+    try {
+        const storedHistory = window.localStorage.getItem(RECEIPT_HISTORY_STORAGE_KEY);
+
+        if (!storedHistory) {
+            return [];
+        }
+
+        const parsedHistory = JSON.parse(storedHistory);
+        return Array.isArray(parsedHistory)
+            ? parsedHistory.filter(isValidReceiptHistoryEntry).slice(0, MAX_RECEIPT_HISTORY_ITEMS)
+            : [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function persistReceiptHistory() {
+    try {
+        window.localStorage.setItem(
+            RECEIPT_HISTORY_STORAGE_KEY,
+            JSON.stringify(receiptHistory.slice(0, MAX_RECEIPT_HISTORY_ITEMS))
+        );
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+function getReceiptHistoryCountLabel(count) {
+    return `${count} saved receipt${count === 1 ? "" : "s"}`;
+}
+
+function updateReceiptHistoryBadge() {
+    historyCountBadge.textContent = String(receiptHistory.length);
+    historySavedCount.textContent = getReceiptHistoryCountLabel(receiptHistory.length);
+    openHistoryBtn.setAttribute("aria-label", `Open receipt history. ${getReceiptHistoryCountLabel(receiptHistory.length)}.`);
+}
+
+function addReceiptToHistory(receiptData) {
+    const historyEntry = {
+        id: createReceiptHistoryId(),
+        savedAtIso: new Date().toISOString(),
+        savedAtLabel: receiptData.dateTime,
+        receipt: cloneReceiptData(receiptData)
+    };
+
+    receiptHistory = [historyEntry, ...receiptHistory].slice(0, MAX_RECEIPT_HISTORY_ITEMS);
+    updateReceiptHistoryBadge();
+    return persistReceiptHistory();
+}
+
+function renderReceiptHistory() {
+    updateReceiptHistoryBadge();
+
+    if (!receiptHistory.length) {
+        historyList.innerHTML = `
+            <div class="history-empty-state" role="status">
+                <strong>No saved receipts yet.</strong><br>
+                Successful submissions will appear here automatically for future viewing and reprints.
+            </div>
+        `;
+        return;
+    }
+
+    historyList.innerHTML = receiptHistory.map((entry) => `
+        <article class="history-card">
+            <div class="history-card-top">
+                <div>
+                    <strong>Patient ${escapeHtml(entry.receipt.patientId)}</strong>
+                </div>
+                <div class="history-card-time">${escapeHtml(entry.savedAtLabel)}</div>
+            </div>
+            <div class="history-card-grid">
+                ${entry.receipt.patientName ? `
+                <div class="history-detail">
+                    <span class="history-detail-label">Patient Name</span>
+                    <span class="history-detail-value">${escapeHtml(entry.receipt.patientName)}</span>
+                </div>
+                ` : ""}
+                <div class="history-detail">
+                    <span class="history-detail-label">Service</span>
+                    <span class="history-detail-value">${escapeHtml(entry.receipt.service)}</span>
+                </div>
+                <div class="history-detail">
+                    <span class="history-detail-label">Amount Paid</span>
+                    <span class="history-detail-value">${escapeHtml(entry.receipt.amount)}</span>
+                </div>
+                <div class="history-detail">
+                    <span class="history-detail-label">Department</span>
+                    <span class="history-detail-value">${escapeHtml(entry.receipt.department)}</span>
+                </div>
+                <div class="history-detail">
+                    <span class="history-detail-label">Payment Method</span>
+                    <span class="history-detail-value">${escapeHtml(entry.receipt.method)}</span>
+                </div>
+                <div class="history-detail">
+                    <span class="history-detail-label">DOS</span>
+                    <span class="history-detail-value">${escapeHtml(entry.receipt.dos)}</span>
+                </div>
+                <div class="history-detail">
+                    <span class="history-detail-label">Receipt Saved</span>
+                    <span class="history-detail-value">${escapeHtml(entry.savedAtLabel)}</span>
+                </div>
+            </div>
+            <div class="history-card-actions">
+                <button type="button" class="receipt-btn" data-history-action="view" data-history-id="${escapeHtml(entry.id)}">View Receipt</button>
+                <button type="button" class="receipt-btn primary" data-history-action="print" data-history-id="${escapeHtml(entry.id)}">Reprint</button>
+            </div>
+        </article>
+    `).join("");
+}
+
+function getReceiptHistoryEntry(entryId) {
+    return receiptHistory.find((entry) => entry.id === entryId) || null;
+}
+
+function openReceiptPreview(receiptData) {
+    lastReceiptData = cloneReceiptData(receiptData);
+    populateReceipt(lastReceiptData);
+    toggleReceiptModal(true);
+}
+
 function populateReceipt(receiptData) {
     receiptDateTime.textContent = receiptData.dateTime;
     receiptPatientId.textContent = receiptData.patientId;
+    receiptPatientName.textContent = receiptData.patientName || "--";
+    receiptPatientNameRow.hidden = !receiptData.patientName;
     receiptDos.textContent = receiptData.dos;
     receiptDepartment.textContent = receiptData.department;
     receiptService.textContent = receiptData.service;
@@ -1611,7 +2078,17 @@ function toggleReceiptModal(isOpen) {
     document.body.classList.toggle("receipt-open", isOpen);
 }
 
+function toggleHistoryModal(isOpen) {
+    historyModal.classList.toggle("show", isOpen);
+    historyModal.setAttribute("aria-hidden", String(!isOpen));
+    document.body.classList.toggle("history-open", isOpen);
+}
+
 function getReceiptPrintMarkup(receiptData) {
+    const patientNameRowMarkup = receiptData.patientName
+        ? `<div class="row"><div class="label">Patient Name:</div><div class="value">${escapeHtml(receiptData.patientName)}</div></div>`
+        : "";
+
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1714,6 +2191,7 @@ function getReceiptPrintMarkup(receiptData) {
 
         <div class="rows">
             <div class="row"><div class="label">Patient ID:</div><div class="value">${escapeHtml(receiptData.patientId)}</div></div>
+            ${patientNameRowMarkup}
             <div class="row"><div class="label">DOS:</div><div class="value">${escapeHtml(receiptData.dos)}</div></div>
             <div class="row"><div class="label">Department:</div><div class="value">${escapeHtml(receiptData.department)}</div></div>
             <div class="row"><div class="label">Service:</div><div class="value">${escapeHtml(receiptData.service)}</div></div>
@@ -1728,10 +2206,14 @@ function getReceiptPrintMarkup(receiptData) {
 </html>`;
 }
 
-function printReceipt() {
-    if (!lastReceiptData) {
+function printReceipt(receiptData = lastReceiptData) {
+    const receiptToPrint = receiptData || lastReceiptData;
+
+    if (!receiptToPrint) {
         return;
     }
+
+    lastReceiptData = cloneReceiptData(receiptToPrint);
 
     const printWindow = window.open("", "_blank", "width=1100,height=900");
 
@@ -1761,6 +2243,35 @@ function validatePatientId() {
     patientIdWarning.classList.add("show");
     patientIdInput.classList.add("input-warning");
     patientIdInput.setCustomValidity("Patient ID must be exactly 8 digits.");
+    return false;
+}
+
+function togglePatientNameField() {
+    const shouldShowPatientNameField = includePatientNameInput.value === "yes";
+    patientNameReceiptField.hidden = !shouldShowPatientNameField;
+    patientNameReceiptInput.required = shouldShowPatientNameField;
+
+    if (!shouldShowPatientNameField) {
+        patientNameReceiptInput.value = "";
+        patientNameReceiptInput.setCustomValidity("");
+    }
+}
+
+function validatePatientNameChoice() {
+    if (includePatientNameInput.value !== "yes") {
+        patientNameReceiptInput.setCustomValidity("");
+        return true;
+    }
+
+    const normalizedName = normalizePatientName(patientNameReceiptInput.value);
+
+    if (normalizedName) {
+        patientNameReceiptInput.value = normalizedName;
+        patientNameReceiptInput.setCustomValidity("");
+        return true;
+    }
+
+    patientNameReceiptInput.setCustomValidity("Please enter the patient name for the receipt or choose No.");
     return false;
 }
 
@@ -1821,6 +2332,12 @@ patientIdInput.addEventListener("input", function() {
 });
 
 departmentInput.addEventListener("change", updateSummary);
+
+includePatientNameInput.addEventListener("change", togglePatientNameField);
+
+patientNameReceiptInput.addEventListener("input", function() {
+    this.setCustomValidity("");
+});
 
 serviceSearchInput.addEventListener("input", function() {
     clearBanner();
@@ -1923,15 +2440,40 @@ closeReceiptBtn.addEventListener("click", function() {
     toggleReceiptModal(false);
 });
 
+openHistoryBtn.addEventListener("click", function() {
+    clearBanner();
+    renderReceiptHistory();
+    toggleHistoryModal(true);
+});
+
+closeHistoryBtn.addEventListener("click", function() {
+    toggleHistoryModal(false);
+});
+
 receiptModal.addEventListener("click", function(event) {
     if (event.target === receiptModal) {
         toggleReceiptModal(false);
     }
 });
 
+historyModal.addEventListener("click", function(event) {
+    if (event.target === historyModal) {
+        toggleHistoryModal(false);
+    }
+});
+
 document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape" && receiptModal.classList.contains("show")) {
+    if (event.key !== "Escape") {
+        return;
+    }
+
+    if (receiptModal.classList.contains("show")) {
         toggleReceiptModal(false);
+        return;
+    }
+
+    if (historyModal.classList.contains("show")) {
+        toggleHistoryModal(false);
     }
 });
 
@@ -1943,6 +2485,30 @@ document.addEventListener("click", function(event) {
 
 printReceiptBtn.addEventListener("click", printReceipt);
 
+historyList.addEventListener("click", function(event) {
+    const actionButton = event.target.closest("[data-history-action]");
+
+    if (!actionButton) {
+        return;
+    }
+
+    const historyEntry = getReceiptHistoryEntry(actionButton.dataset.historyId);
+
+    if (!historyEntry) {
+        showBanner("That saved receipt could not be found.", "error");
+        return;
+    }
+
+    toggleHistoryModal(false);
+
+    if (actionButton.dataset.historyAction === "view") {
+        openReceiptPreview(historyEntry.receipt);
+        return;
+    }
+
+    printReceipt(historyEntry.receipt);
+});
+
 document.getElementById("dataForm").addEventListener("submit", async function(e) {
     e.preventDefault();
     clearBanner();
@@ -1952,6 +2518,12 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
     if (!validatePatientId()) {
         showBanner("Please enter a valid 8-digit patient ID before submitting.", "error");
         patientIdInput.focus();
+        return;
+    }
+
+    if (!validatePatientNameChoice()) {
+        showBanner("Please enter the patient name for the receipt or change the option to No.", "error");
+        patientNameReceiptInput.focus();
         return;
     }
 
@@ -1967,6 +2539,9 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
     submitBtn.textContent = "Submitting...";
     const submissionClock = getDateTimeParts();
     const formattedAmount = formatCurrency(this.amount.value);
+    const receiptPatientNameValue = includePatientNameInput.value === "yes"
+        ? normalizePatientName(patientNameReceiptInput.value)
+        : "";
 
     const formData = {
         staffInitial: "",
@@ -1990,10 +2565,15 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
             body: JSON.stringify(formData)
         });
 
-        lastReceiptData = buildReceiptData(formData, submissionClock);
-        populateReceipt(lastReceiptData);
-        toggleReceiptModal(true);
-        showBanner("Entry sent successfully to your existing Google Sheet.", "success");
+        lastReceiptData = buildReceiptData(formData, submissionClock, receiptPatientNameValue);
+        const savedToHistory = addReceiptToHistory(lastReceiptData);
+        openReceiptPreview(lastReceiptData);
+        showBanner(
+            savedToHistory
+                ? "Entry sent successfully to your existing Google Sheet. Receipt saved to history."
+                : "Entry sent successfully to your existing Google Sheet. Receipt history could not be saved on this browser.",
+            "success"
+        );
         this.reset();
         serviceSelect.selectedIndex = 0;
         serviceSearchInput.value = "";
@@ -2001,6 +2581,7 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
         closeServiceDropdown();
         refreshServiceSuggestions("", { openDropdown: false });
         syncDateTimeFields();
+        togglePatientNameField();
         amountInput.readOnly = false;
         amountMode.textContent = "Select a service to populate the amount.";
         clearPriceWarning();
@@ -2021,6 +2602,8 @@ serviceSelect.removeAttribute("required");
 syncServiceSearchFromSelect();
 setServiceSearchValidity(true);
 refreshServiceSuggestions("", { openDropdown: false });
+togglePatientNameField();
+updateReceiptHistoryBadge();
 updateSummary();
 </script>
 </body>
