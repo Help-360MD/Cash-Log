@@ -1010,7 +1010,7 @@
     }
 
     .shift-report-controls-grid {
-        grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+        grid-template-columns: minmax(200px, 230px) minmax(220px, 260px) minmax(0, 1fr);
     }
 
     .shift-report-status {
@@ -1919,6 +1919,14 @@
                                 <input type="date" id="shiftReportDateFilter">
                             </div>
                             <div class="field">
+                                <label for="shiftReportDepartmentFilter">Department</label>
+                                <select id="shiftReportDepartmentFilter">
+                                    <option value="all" selected>Both Departments</option>
+                                    <option value="STETHO MD - Tampa">STETHO MD - Tampa</option>
+                                    <option value="STETHO MD - Zephyrhills">STETHO MD - Zephyrhills</option>
+                                </select>
+                            </div>
+                            <div class="field">
                                 <label>Shared Report Status</label>
                                 <div id="shiftReportStatus" class="shift-report-status">Load a shared shift close report to review totals and print the end-of-day summary.</div>
                             </div>
@@ -2097,6 +2105,7 @@ const useTodayShiftReportBtn = document.getElementById("useTodayShiftReportBtn")
 const printShiftReportBtn = document.getElementById("printShiftReportBtn");
 const exportShiftReportBtn = document.getElementById("exportShiftReportBtn");
 const shiftReportDateFilter = document.getElementById("shiftReportDateFilter");
+const shiftReportDepartmentFilter = document.getElementById("shiftReportDepartmentFilter");
 const shiftReportStatus = document.getElementById("shiftReportStatus");
 const shiftReportCashTotal = document.getElementById("shiftReportCashTotal");
 const shiftReportZelleTotal = document.getElementById("shiftReportZelleTotal");
@@ -2647,6 +2656,17 @@ function setShiftReportStatus(message) {
     shiftReportStatus.textContent = message;
 }
 
+function normalizeShiftReportDepartmentFilter(value) {
+    const normalized = String(value || "").trim();
+    return !normalized || normalized === "all" ? "all" : normalized;
+}
+
+function getShiftReportDepartmentLabel(value) {
+    return normalizeShiftReportDepartmentFilter(value) === "all"
+        ? "Both Departments"
+        : normalizeShiftReportDepartmentFilter(value);
+}
+
 function normalizeShiftReportRow(row) {
     return {
         label: typeof row?.label === "string" && row.label.trim() ? row.label.trim() : "--",
@@ -2675,6 +2695,10 @@ function normalizeShiftReportTransactionRow(row) {
 function hydrateShiftReportData(result) {
     return {
         paymentDate: typeof result?.paymentDate === "string" && result.paymentDate ? result.paymentDate : getDefaultShiftReportDate(),
+        departmentFilter: normalizeShiftReportDepartmentFilter(result?.departmentFilter),
+        departmentFilterLabel: typeof result?.departmentFilterLabel === "string" && result.departmentFilterLabel.trim()
+            ? result.departmentFilterLabel.trim()
+            : getShiftReportDepartmentLabel(result?.departmentFilter),
         generatedAt: typeof result?.generatedAt === "string" ? result.generatedAt : new Date().toISOString(),
         summary: {
             cashTotal: parseCurrencyValue(result?.summary?.cashTotal),
@@ -2738,6 +2762,7 @@ function renderShiftReportTransactions(rows) {
 function renderShiftReport(reportData) {
     currentShiftReportData = reportData;
     shiftReportDateFilter.value = reportData.paymentDate;
+    shiftReportDepartmentFilter.value = normalizeShiftReportDepartmentFilter(reportData.departmentFilter);
     shiftReportCashTotal.textContent = formatCurrency(reportData.summary.cashTotal);
     shiftReportZelleTotal.textContent = formatCurrency(reportData.summary.zelleTotal);
     shiftReportCollectedTotal.textContent = formatCurrency(reportData.summary.totalCollected);
@@ -2745,7 +2770,7 @@ function renderShiftReport(reportData) {
     renderShiftReportRows(shiftReportStaffRows, reportData.staffTotals, "staff");
     renderShiftReportRows(shiftReportDepartmentRows, reportData.departmentTotals, "department");
     renderShiftReportTransactions(reportData.transactions);
-    setShiftReportStatus(`Shared shift close report ready for ${formatShiftReportDateLabel(reportData.paymentDate)}. Last refresh: ${formatHistoryTimestampLabel(reportData.generatedAt)}.`);
+    setShiftReportStatus(`Shared shift close report ready for ${formatShiftReportDateLabel(reportData.paymentDate)} | ${reportData.departmentFilterLabel}. Last refresh: ${formatHistoryTimestampLabel(reportData.generatedAt)}.`);
 }
 
 function toggleShiftReportModal(isOpen) {
@@ -2756,12 +2781,15 @@ function toggleShiftReportModal(isOpen) {
 
 async function loadSharedShiftReport() {
     const reportDate = shiftReportDateFilter.value || getDefaultShiftReportDate();
+    const departmentFilter = normalizeShiftReportDepartmentFilter(shiftReportDepartmentFilter.value);
     shiftReportDateFilter.value = reportDate;
-    setShiftReportStatus(`Loading shared shift close report for ${formatShiftReportDateLabel(reportDate)}...`);
+    shiftReportDepartmentFilter.value = departmentFilter;
+    setShiftReportStatus(`Loading shared shift close report for ${formatShiftReportDateLabel(reportDate)} | ${getShiftReportDepartmentLabel(departmentFilter)}...`);
 
     try {
         const result = await requestSharedData("shiftReport", {
-            paymentDate: reportDate
+            paymentDate: reportDate,
+            department: departmentFilter
         });
 
         if (!result || result.status !== "success") {
@@ -2784,6 +2812,7 @@ function getShiftReportCsv(reportData) {
     const lines = [
         ["Shift Close Report"],
         ["Report Date", formatShiftReportDateLabel(reportData.paymentDate)],
+        ["Department Scope", reportData.departmentFilterLabel],
         ["Generated At", formatHistoryTimestampLabel(reportData.generatedAt)],
         [],
         ["Summary"],
@@ -2854,7 +2883,10 @@ function downloadShiftReportCsv() {
     const blobUrl = URL.createObjectURL(csvBlob);
     const downloadLink = document.createElement("a");
     downloadLink.href = blobUrl;
-    downloadLink.download = `shift-close-report-${currentShiftReportData.paymentDate || "report"}.csv`;
+    const departmentSlug = normalizeShiftReportDepartmentFilter(currentShiftReportData.departmentFilter) === "all"
+        ? "both-departments"
+        : currentShiftReportData.departmentFilterLabel.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    downloadLink.download = `shift-close-report-${currentShiftReportData.paymentDate || "report"}-${departmentSlug}.csv`;
     document.body.appendChild(downloadLink);
     downloadLink.click();
     downloadLink.remove();
@@ -3050,6 +3082,7 @@ function getShiftReportPrintMarkup(reportData) {
             <div>
                 <h1>Shift Close Report</h1>
                 <div>Report Date: ${escapeHtml(formatShiftReportDateLabel(reportData.paymentDate))}</div>
+                <div>Department Scope: ${escapeHtml(reportData.departmentFilterLabel)}</div>
             </div>
             <div class="meta">
                 Generated: ${escapeHtml(formatHistoryTimestampLabel(reportData.generatedAt))}<br>
@@ -3690,6 +3723,7 @@ refreshSharedDataBtn.addEventListener("click", function() {
 openShiftReportBtn.addEventListener("click", async function() {
     clearBanner();
     shiftReportDateFilter.value = shiftReportDateFilter.value || getDefaultShiftReportDate();
+    shiftReportDepartmentFilter.value = shiftReportDepartmentFilter.value || "all";
     toggleShiftReportModal(true);
     await loadSharedShiftReport();
 });
@@ -3735,6 +3769,10 @@ shiftReportDateFilter.addEventListener("change", function() {
     if (this.value) {
         loadSharedShiftReport();
     }
+});
+
+shiftReportDepartmentFilter.addEventListener("change", function() {
+    loadSharedShiftReport();
 });
 
 printShiftReportBtn.addEventListener("click", printShiftReport);
@@ -3901,6 +3939,7 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
 syncDateTimeFields();
 setInterval(syncDateTimeFields, 1000);
 shiftReportDateFilter.value = getDefaultShiftReportDate();
+shiftReportDepartmentFilter.value = "all";
 serviceSelect.required = false;
 serviceSelect.removeAttribute("required");
 syncServiceSearchFromSelect();

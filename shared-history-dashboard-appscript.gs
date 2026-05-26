@@ -168,6 +168,7 @@ function buildShiftReportResponse_(params) {
   var values = getSheetValues_(sheet);
   var timezone = getSpreadsheetTimeZone_();
   var targetDate = params.paymentDate || Utilities.formatDate(new Date(), timezone, "yyyy-MM-dd");
+  var departmentFilter = normalizeShiftReportDepartmentFilter_(params.department || params.departmentFilter || "");
   var summary = createTotalsBucket_();
   var staffGroups = {};
   var departmentGroups = {};
@@ -178,6 +179,10 @@ function buildShiftReportResponse_(params) {
     var paymentDate = normalizePaymentDate_(row[6], row[0], timezone);
 
     if (!paymentDate || paymentDate !== targetDate) {
+      continue;
+    }
+
+    if (departmentFilter !== "all" && String(row[2] || "").trim() !== departmentFilter) {
       continue;
     }
 
@@ -193,6 +198,8 @@ function buildShiftReportResponse_(params) {
     status: "success",
     action: "shiftReport",
     paymentDate: targetDate,
+    departmentFilter: departmentFilter,
+    departmentFilterLabel: getShiftReportDepartmentFilterLabel_(departmentFilter),
     generatedAt: new Date().toISOString(),
     summary: roundTotalsBucket_(summary),
     staffTotals: buildGroupedTotalsResponse_(staffGroups),
@@ -265,6 +272,20 @@ function buildShiftReportTransactionRecord_(row, rowNumber, timezone, paymentDat
     paymentMethod: String(row[7] || "").trim() || "--",
     note: String(row[8] || "").trim() || "--"
   };
+}
+
+function normalizeShiftReportDepartmentFilter_(value) {
+  var textValue = String(value || "").trim();
+
+  if (!textValue || textValue.toLowerCase() === "all" || textValue.toLowerCase() === "both") {
+    return "all";
+  }
+
+  return textValue;
+}
+
+function getShiftReportDepartmentFilterLabel_(departmentFilter) {
+  return departmentFilter === "all" ? "Both Departments" : departmentFilter;
 }
 
 function parseCurrencyValue_(value) {
