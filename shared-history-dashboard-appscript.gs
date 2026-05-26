@@ -39,6 +39,10 @@ function doGet(e) {
     var params = (e && e.parameter) || {};
     var action = params.action || "dashboard";
 
+    if (action === "shiftReport") {
+      return respond_(buildShiftReportResponse_(params), params.prefix);
+    }
+
     if (action === "history") {
       return respond_(buildHistoryResponse_(params), params.prefix);
     }
@@ -159,6 +163,41 @@ function buildHistoryResponse_(params) {
   };
 }
 
+function buildShiftReportResponse_(params) {
+  var sheet = getTargetSheet_();
+  var values = getSheetValues_(sheet);
+  var timezone = getSpreadsheetTimeZone_();
+  var targetDate = params.paymentDate || Utilities.formatDate(new Date(), timezone, "yyyy-MM-dd");
+  var summary = createTotalsBucket_();
+  var staffGroups = {};
+  var departmentGroups = {};
+
+  for (var i = 0; i < values.length; i++) {
+    var row = values[i];
+    var paymentDate = normalizePaymentDate_(row[6], row[0], timezone);
+
+    if (!paymentDate || paymentDate !== targetDate) {
+      continue;
+    }
+
+    var amount = parseCurrencyValue_(row[5]);
+    var method = normalizePaymentMethod_(row[7]);
+    addAmountToTotalsBucket_(summary, amount, method);
+    addAmountToGroupedTotals_(staffGroups, String(row[1] || "").trim() || "Unassigned Staff", amount, method);
+    addAmountToGroupedTotals_(departmentGroups, String(row[2] || "").trim() || "Unassigned Department", amount, method);
+  }
+
+  return {
+    status: "success",
+    action: "shiftReport",
+    paymentDate: targetDate,
+    generatedAt: new Date().toISOString(),
+    summary: roundTotalsBucket_(summary),
+    staffTotals: buildGroupedTotalsResponse_(staffGroups),
+    departmentTotals: buildGroupedTotalsResponse_(departmentGroups)
+  };
+}
+
 function getSheetValues_(sheet) {
   var lastRow = sheet.getLastRow();
   var lastColumn = Math.max(sheet.getLastColumn(), 11);
@@ -211,6 +250,10 @@ function parseCurrencyValue_(value) {
   return isNaN(parsed) ? 0 : parsed;
 }
 
+function normalizePaymentMethod_(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
 function formatCurrency_(value) {
   var amount = parseCurrencyValue_(value);
   return "$" + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -218,6 +261,65 @@ function formatCurrency_(value) {
 
 function roundCurrency_(value) {
   return Math.round(value * 100) / 100;
+}
+
+function createTotalsBucket_() {
+  return {
+    cashTotal: 0,
+    zelleTotal: 0,
+    otherTotal: 0,
+    totalCollected: 0,
+    entryCount: 0
+  };
+}
+
+function addAmountToTotalsBucket_(bucket, amount, method) {
+  bucket.entryCount++;
+  bucket.totalCollected += amount;
+
+  if (method === "cash") {
+    bucket.cashTotal += amount;
+  } else if (method === "zelle") {
+    bucket.zelleTotal += amount;
+  } else {
+    bucket.otherTotal += amount;
+  }
+}
+
+function addAmountToGroupedTotals_(groups, label, amount, method) {
+  if (!groups[label]) {
+    groups[label] = createTotalsBucket_();
+  }
+
+  addAmountToTotalsBucket_(groups[label], amount, method);
+}
+
+function roundTotalsBucket_(bucket) {
+  return {
+    cashTotal: roundCurrency_(bucket.cashTotal),
+    zelleTotal: roundCurrency_(bucket.zelleTotal),
+    otherTotal: roundCurrency_(bucket.otherTotal),
+    totalCollected: roundCurrency_(bucket.totalCollected),
+    entryCount: bucket.entryCount
+  };
+}
+
+function buildGroupedTotalsResponse_(groups) {
+  return Object.keys(groups)
+    .sort(function(left, right) {
+      return left.localeCompare(right);
+    })
+    .map(function(label) {
+      var bucket = roundTotalsBucket_(groups[label]);
+      return {
+        label: label,
+        cashTotal: bucket.cashTotal,
+        zelleTotal: bucket.zelleTotal,
+        otherTotal: bucket.otherTotal,
+        totalCollected: bucket.totalCollected,
+        entryCount: bucket.entryCount
+      };
+    });
 }
 
 function normalizePatientId_(value) {
