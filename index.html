@@ -2589,6 +2589,45 @@ function requestSharedData(action, params = {}) {
     });
 }
 
+async function submitSharedEntry(payload) {
+    const requestBody = JSON.stringify(payload);
+
+    try {
+        await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            keepalive: true,
+            headers: { "Content-Type": "application/json" },
+            body: requestBody
+        });
+
+        return {
+            transport: "fetch",
+            message: "Entry sent successfully to your Google Sheet. Shared totals and receipt history are refreshing."
+        };
+    } catch (fetchError) {
+        if (navigator.sendBeacon) {
+            try {
+                const queued = navigator.sendBeacon(
+                    APPS_SCRIPT_URL,
+                    new Blob([requestBody], { type: "text/plain;charset=UTF-8" })
+                );
+
+                if (queued) {
+                    return {
+                        transport: "sendBeacon",
+                        message: "Entry was queued successfully to your Google Sheet. Receipt is ready to print while shared totals refresh."
+                    };
+                }
+            } catch (beaconError) {
+                // Fall through to the original fetch error below.
+            }
+        }
+
+        throw fetchError;
+    }
+}
+
 function setSharedDashboard(totals) {
     totalCashToday.textContent = formatCurrency(totals.cashTotal || 0);
     totalZelleToday.textContent = formatCurrency(totals.zelleTotal || 0);
@@ -3898,17 +3937,11 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
     };
 
     try {
-        await fetch(APPS_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData)
-        });
-
+        const submissionResult = await submitSharedEntry(formData);
         lastReceiptData = buildReceiptData(formData, submissionClock, receiptPatientNameValue);
         addReceiptToHistory(lastReceiptData);
         openReceiptPreview(lastReceiptData);
-        showBanner("Entry sent successfully to your Google Sheet. Shared totals and receipt history are refreshing.", "success");
+        showBanner(submissionResult.message, "success");
         setSharedDataStatus("Refreshing shared totals from the latest submission...");
         window.setTimeout(loadSharedDashboard, 1200);
         window.setTimeout(loadSharedHistory, 1400);
