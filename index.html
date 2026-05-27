@@ -3518,7 +3518,11 @@ function getReceiptPrintMarkup(receiptData) {
 }
 
 function printReceipt(receiptData = lastReceiptData) {
-    const receiptToPrint = receiptData || lastReceiptData;
+    const isEventObject = receiptData
+        && typeof receiptData === "object"
+        && typeof receiptData.preventDefault === "function"
+        && "target" in receiptData;
+    const receiptToPrint = isEventObject ? lastReceiptData : (receiptData || lastReceiptData);
 
     if (!receiptToPrint) {
         return;
@@ -3861,7 +3865,9 @@ document.addEventListener("click", function(event) {
     }
 });
 
-printReceiptBtn.addEventListener("click", printReceipt);
+printReceiptBtn.addEventListener("click", function() {
+    printReceipt();
+});
 
 historyList.addEventListener("click", function(event) {
     const actionButton = event.target.closest("[data-history-action]");
