@@ -56,9 +56,7 @@
 
     body.receipt-open,
     body.history-open,
-    body.shift-report-open,
-    body.correction-open,
-    body.audit-open {
+    body.shift-report-open {
         overflow: hidden;
     }
 
@@ -1526,219 +1524,7 @@
             transition: none;
         }
     }
-
-    .status-pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        min-height: 28px;
-        padding: 6px 10px;
-        border-radius: 999px;
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-
-    .status-pill.active {
-        color: #0f766e;
-        background: rgba(13, 148, 136, 0.12);
-    }
-
-    .status-pill.edited {
-        color: #0f62fe;
-        background: rgba(59, 130, 246, 0.12);
-    }
-
-    .status-pill.voided {
-        color: #9a3412;
-        background: rgba(234, 88, 12, 0.12);
-    }
-
-    .status-pill.refunded,
-    .status-pill.partially-refunded {
-        color: #9333ea;
-        background: rgba(168, 85, 247, 0.12);
-    }
-
-    .history-card-status {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .history-card-summary {
-        color: var(--ink-500);
-        font-size: 0.78rem;
-        line-height: 1.45;
-    }
-
-    .history-card-audit-preview {
-        margin-top: 10px;
-        padding: 11px 12px;
-        border-radius: 14px;
-        background: rgba(15, 23, 42, 0.035);
-        color: var(--ink-700);
-        font-size: 0.82rem;
-        line-height: 1.45;
-    }
-
-    .history-card-audit-preview strong {
-        display: block;
-        margin-bottom: 4px;
-        color: var(--ink-900);
-        font-size: 0.78rem;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-    }
-
-    .edit-mode-panel {
-        display: grid;
-        gap: 10px;
-        padding: 14px 15px;
-        border-radius: 18px;
-        border: 1px solid rgba(59, 130, 246, 0.2);
-        background: linear-gradient(160deg, rgba(59, 130, 246, 0.08), rgba(255, 255, 255, 0.96));
-        box-shadow: var(--shadow-sm);
-        margin-bottom: 12px;
-    }
-
-    .edit-mode-panel strong {
-        display: block;
-        font-size: 0.95rem;
-        margin-bottom: 4px;
-    }
-
-    .edit-mode-summary {
-        color: var(--ink-700);
-        font-size: 0.86rem;
-        line-height: 1.45;
-    }
-
-    .edit-mode-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .correction-modal .history-dialog,
-    .audit-modal .history-dialog {
-        max-width: 1060px;
-    }
-
-    .correction-form,
-    .correction-grid,
-    .audit-body {
-        display: grid;
-        gap: 12px;
-    }
-
-    .correction-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .correction-grid .field.full {
-        grid-column: 1 / -1;
-    }
-
-    .correction-summary,
-    .audit-summary {
-        display: grid;
-        gap: 8px;
-        padding: 14px 15px;
-        border-radius: 18px;
-        background: rgba(15, 23, 42, 0.035);
-        border: 1px solid rgba(148, 163, 184, 0.18);
-    }
-
-    .correction-summary strong,
-    .audit-summary strong {
-        font-size: 0.96rem;
-    }
-
-    .correction-summary span,
-    .audit-summary span {
-        color: var(--ink-500);
-        font-size: 0.82rem;
-        line-height: 1.45;
-    }
-
-    .audit-trail {
-        display: grid;
-        gap: 10px;
-    }
-
-    .audit-event {
-        padding: 12px 13px;
-        border-radius: 16px;
-        border: 1px solid rgba(148, 163, 184, 0.18);
-        background: rgba(255, 255, 255, 0.96);
-        box-shadow: var(--shadow-sm);
-    }
-
-    .audit-event-head {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 8px;
-    }
-
-    .audit-event-head strong {
-        font-size: 0.94rem;
-    }
-
-    .audit-event-meta {
-        color: var(--ink-500);
-        font-size: 0.78rem;
-        line-height: 1.45;
-    }
-
-    .audit-event-summary {
-        color: var(--ink-700);
-        font-size: 0.84rem;
-        line-height: 1.5;
-    }
-
-    .audit-event-changes {
-        display: grid;
-        gap: 6px;
-        margin-top: 10px;
-    }
-
-    .audit-change {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 8px 10px;
-        border-radius: 12px;
-        background: rgba(15, 23, 42, 0.03);
-        font-size: 0.82rem;
-        line-height: 1.4;
-    }
-
-    .audit-change strong {
-        flex: 0 0 auto;
-        color: var(--ink-700);
-    }
-
-    .audit-change span {
-        color: var(--ink-900);
-        text-align: right;
-        word-break: break-word;
-    }
-
-    .correction-note {
-        color: var(--ink-500);
-        font-size: 0.8rem;
-        line-height: 1.45;
-    }
-    </style>
+</style>
 </head>
 <body>
     <div class="page-shell">
@@ -1998,21 +1784,6 @@
                         </div>
                     </div>
 
-                    <div id="editModePanel" class="edit-mode-panel" hidden>
-                        <div>
-                            <strong id="editModeTitle">Editing Receipt</strong>
-                            <div id="editModeSummary" class="edit-mode-summary"></div>
-                        </div>
-                        <div class="field full">
-                            <label for="correctionReason">Correction Reason</label>
-                            <textarea id="correctionReason" maxlength="250" placeholder="Required reason for this edit"></textarea>
-                            <div class="correction-note">The reason will be saved in the audit trail and shown on the receipt history card.</div>
-                        </div>
-                        <div class="edit-mode-actions">
-                            <button type="button" id="cancelEditBtn" class="receipt-btn">Cancel Edit</button>
-                        </div>
-                    </div>
-
                     <div class="form-footer">
                         <div class="privacy-note">Submission still goes to your current Apps Script endpoint. Original fields are preserved and the new fields are appended to the payload.</div>
                         <button type="submit" id="submitBtn" class="submit-btn">Submit Entry</button>
@@ -2168,34 +1939,24 @@
 
                     <div class="dashboard-grid shift-report-summary">
                         <div class="dashboard-card cash">
-                            <small>Gross Cash</small>
-                            <strong id="shiftReportGrossCash">$0.00</strong>
-                            <span>Cash collections before voids or refunds.</span>
+                            <small>Cash Total</small>
+                            <strong id="shiftReportCashTotal">$0.00</strong>
+                            <span>Shared cash collected for the selected day.</span>
                         </div>
                         <div class="dashboard-card zelle">
-                            <small>Gross Zelle</small>
-                            <strong id="shiftReportGrossZelle">$0.00</strong>
-                            <span>Zelle collections before voids or refunds.</span>
-                        </div>
-                        <div class="dashboard-card">
-                            <small>Voids</small>
-                            <strong id="shiftReportVoidTotal">$0.00</strong>
-                            <span>Voided receipts removed from the net total.</span>
-                        </div>
-                        <div class="dashboard-card">
-                            <small>Refunds</small>
-                            <strong id="shiftReportRefundTotal">$0.00</strong>
-                            <span>Refunded amounts tracked in the audit trail.</span>
+                            <small>Zelle Total</small>
+                            <strong id="shiftReportZelleTotal">$0.00</strong>
+                            <span>Shared Zelle collected for the selected day.</span>
                         </div>
                         <div class="dashboard-card total">
-                            <small>Net Collected</small>
-                            <strong id="shiftReportNetTotal">$0.00</strong>
-                            <span>Gross collections minus voids and refunds.</span>
+                            <small>Total Collected</small>
+                            <strong id="shiftReportCollectedTotal">$0.00</strong>
+                            <span>Combined shared collections for that date.</span>
                         </div>
                         <div class="dashboard-card entries">
                             <small>Entries</small>
                             <strong id="shiftReportEntryCount">0</strong>
-                            <span>Shared receipts included in the report.</span>
+                            <span>Total payment entries counted in the report.</span>
                         </div>
                     </div>
 
@@ -2213,15 +1974,14 @@
                                         <tr>
                                             <th>Staff</th>
                                             <th>Entries</th>
-                                            <th>Gross</th>
-                                            <th>Voids</th>
-                                            <th>Refunds</th>
-                                            <th>Net</th>
+                                            <th>Cash</th>
+                                            <th>Zelle</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody id="shiftReportStaffRows">
                                         <tr class="empty-row">
-                                            <td colspan="6">Run the report to load shared staff totals.</td>
+                                            <td colspan="5">Run the report to load shared staff totals.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2241,15 +2001,14 @@
                                         <tr>
                                             <th>Department</th>
                                             <th>Entries</th>
-                                            <th>Gross</th>
-                                            <th>Voids</th>
-                                            <th>Refunds</th>
-                                            <th>Net</th>
+                                            <th>Cash</th>
+                                            <th>Zelle</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody id="shiftReportDepartmentRows">
                                         <tr class="empty-row">
-                                            <td colspan="6">Run the report to load shared department totals.</td>
+                                            <td colspan="5">Run the report to load shared department totals.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2269,92 +2028,24 @@
                                 <thead>
                                     <tr>
                                         <th class="is-medium">Time Stamp</th>
-                                        <th>Receipt ID</th>
-                                        <th class="is-medium">Status</th>
-                                        <th class="is-medium">Staff</th>
+                                        <th class="is-medium">Staff Name</th>
                                         <th class="is-medium">Department</th>
                                         <th>Patient ID</th>
                                         <th class="is-wide">Service</th>
-                                        <th class="is-numeric">Gross</th>
-                                        <th class="is-numeric">Voids</th>
-                                        <th class="is-numeric">Refunds</th>
-                                        <th class="is-numeric">Net</th>
-                                        <th class="is-medium">Last Action</th>
-                                        <th class="is-wide">Reason</th>
+                                        <th class="is-numeric">Amount Collected</th>
+                                        <th class="is-medium">Payment Date</th>
+                                        <th class="is-medium">Payment Method</th>
+                                        <th class="is-wide">Note</th>
                                     </tr>
                                 </thead>
                                 <tbody id="shiftReportTransactionRows">
                                     <tr class="empty-row">
-                                        <td colspan="13">Run the report to load shared transactions.</td>
+                                        <td colspan="9">Run the report to load shared transactions.</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </section>
-                </div>
-            </div>
-        </div>
-
-        <div id="correctionModal" class="history-modal correction-modal" aria-hidden="true">
-            <div class="history-dialog correction-dialog" role="dialog" aria-modal="true" aria-labelledby="correctionTitle">
-                <div class="history-toolbar">
-                    <div>
-                        <strong id="correctionTitle">Void / Refund Receipt</strong>
-                        <span id="correctionSubtitle">Review the receipt, enter a reason, and confirm the correction.</span>
-                    </div>
-                    <div class="history-actions">
-                        <button type="button" id="closeCorrectionBtn" class="receipt-btn">Close</button>
-                    </div>
-                </div>
-
-                <div class="history-body">
-                    <div id="correctionSummary" class="correction-summary">
-                        <strong id="correctionSummaryTitle">--</strong>
-                        <span id="correctionSummaryMeta">--</span>
-                    </div>
-
-                    <form id="correctionForm" class="correction-form">
-                        <div class="correction-grid">
-                            <div class="field">
-                                <label for="correctionAmountInput">Refund Amount</label>
-                                <input type="number" id="correctionAmountInput" step="0.01" min="0" inputmode="decimal" placeholder="0.00">
-                                <div id="correctionAmountNote" class="correction-note">Voids use the full receipt amount. Refunds can be partial.</div>
-                            </div>
-                            <div class="field">
-                                <label for="correctionActorNameInput">Handled By</label>
-                                <input type="text" id="correctionActorNameInput" maxlength="80" placeholder="Staff member handling this correction">
-                            </div>
-                            <div class="field full">
-                                <label for="correctionReasonInput">Reason</label>
-                                <textarea id="correctionReasonInput" maxlength="250" placeholder="Required reason for this correction"></textarea>
-                                <div class="correction-note">This reason is required and will be saved in the audit trail.</div>
-                            </div>
-                        </div>
-
-                        <div class="edit-mode-actions">
-                            <button type="button" id="cancelCorrectionBtn" class="receipt-btn">Cancel</button>
-                            <button type="submit" id="confirmCorrectionBtn" class="receipt-btn primary">Save Correction</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div id="auditModal" class="history-modal audit-modal" aria-hidden="true">
-            <div class="history-dialog audit-dialog" role="dialog" aria-modal="true" aria-labelledby="auditTitle">
-                <div class="history-toolbar">
-                    <div>
-                        <strong id="auditTitle">Audit Trail</strong>
-                        <span id="auditSubtitle">Receipt changes, voids, and refunds are shown in order.</span>
-                    </div>
-                    <div class="history-actions">
-                        <button type="button" id="closeAuditBtn" class="receipt-btn">Close</button>
-                    </div>
-                </div>
-
-                <div class="history-body audit-body">
-                    <div id="auditSummary" class="audit-summary"></div>
-                    <div id="auditTrailList" class="audit-trail"></div>
                 </div>
             </div>
         </div>
@@ -2383,9 +2074,6 @@ const paymentDateInput = document.getElementById("paymentDate");
 const paymentTimeInput = document.getElementById("paymentTime");
 const paymentDateDisplayInput = document.getElementById("paymentDateDisplay");
 const paymentTimeDisplayInput = document.getElementById("paymentTimeDisplay");
-const dataForm = document.getElementById("dataForm");
-const staffNameInput = document.getElementById("staffName");
-const noteInput = document.getElementById("note");
 const statusBanner = document.getElementById("statusBanner");
 const sharedDataStatus = document.getElementById("sharedDataStatus");
 const refreshSharedDataBtn = document.getElementById("refreshSharedDataBtn");
@@ -2419,36 +2107,13 @@ const exportShiftReportBtn = document.getElementById("exportShiftReportBtn");
 const shiftReportDateFilter = document.getElementById("shiftReportDateFilter");
 const shiftReportDepartmentFilter = document.getElementById("shiftReportDepartmentFilter");
 const shiftReportStatus = document.getElementById("shiftReportStatus");
-const shiftReportGrossCash = document.getElementById("shiftReportGrossCash");
-const shiftReportGrossZelle = document.getElementById("shiftReportGrossZelle");
-const shiftReportVoidTotal = document.getElementById("shiftReportVoidTotal");
-const shiftReportRefundTotal = document.getElementById("shiftReportRefundTotal");
-const shiftReportNetTotal = document.getElementById("shiftReportNetTotal");
+const shiftReportCashTotal = document.getElementById("shiftReportCashTotal");
+const shiftReportZelleTotal = document.getElementById("shiftReportZelleTotal");
+const shiftReportCollectedTotal = document.getElementById("shiftReportCollectedTotal");
 const shiftReportEntryCount = document.getElementById("shiftReportEntryCount");
 const shiftReportStaffRows = document.getElementById("shiftReportStaffRows");
 const shiftReportDepartmentRows = document.getElementById("shiftReportDepartmentRows");
 const shiftReportTransactionRows = document.getElementById("shiftReportTransactionRows");
-const editModePanel = document.getElementById("editModePanel");
-const editModeTitle = document.getElementById("editModeTitle");
-const editModeSummary = document.getElementById("editModeSummary");
-const correctionReason = document.getElementById("correctionReason");
-const cancelEditBtn = document.getElementById("cancelEditBtn");
-const correctionModal = document.getElementById("correctionModal");
-const closeCorrectionBtn = document.getElementById("closeCorrectionBtn");
-const correctionSummary = document.getElementById("correctionSummary");
-const correctionSummaryTitle = document.getElementById("correctionSummaryTitle");
-const correctionSummaryMeta = document.getElementById("correctionSummaryMeta");
-const correctionForm = document.getElementById("correctionForm");
-const correctionAmountInput = document.getElementById("correctionAmountInput");
-const correctionAmountNote = document.getElementById("correctionAmountNote");
-const correctionActorNameInput = document.getElementById("correctionActorNameInput");
-const correctionReasonInput = document.getElementById("correctionReasonInput");
-const cancelCorrectionBtn = document.getElementById("cancelCorrectionBtn");
-const confirmCorrectionBtn = document.getElementById("confirmCorrectionBtn");
-const auditModal = document.getElementById("auditModal");
-const closeAuditBtn = document.getElementById("closeAuditBtn");
-const auditSummary = document.getElementById("auditSummary");
-const auditTrailList = document.getElementById("auditTrailList");
 const receiptDateTime = document.getElementById("receiptDateTime");
 const receiptPatientId = document.getElementById("receiptPatientId");
 const receiptPatientNameRow = document.getElementById("receiptPatientNameRow");
@@ -2477,10 +2142,6 @@ let serviceSearchDebounceId = null;
 let activeServiceSuggestionPosition = -1;
 let currentServiceMatches = [];
 let currentServiceMatchCount = 0;
-let currentCorrectionContext = null;
-let currentAuditContext = null;
-let currentEditContext = null;
-let currentCorrectionAction = "";
 
 function normalizeServiceQuery(value) {
     return value.trim().toLowerCase();
@@ -4193,16 +3854,6 @@ document.addEventListener("keydown", function(event) {
         return;
     }
 
-    if (correctionModal.classList.contains("show")) {
-        closeCorrectionModal();
-        return;
-    }
-
-    if (auditModal.classList.contains("show")) {
-        closeAuditModal();
-        return;
-    }
-
     if (shiftReportModal.classList.contains("show")) {
         toggleShiftReportModal(false);
     }
@@ -4218,758 +3869,7 @@ printReceiptBtn.addEventListener("click", function() {
     printReceipt();
 });
 
-closeReceiptBtn.addEventListener("click", closeReceiptModalAndReset);
-closeHistoryBtn.addEventListener("click", closeHistoryModalAndReset);
-closeShiftReportBtn.addEventListener("click", closeShiftReportModalAndReset);
-cancelEditBtn.addEventListener("click", function() {
-    exitEditMode();
-});
-closeCorrectionBtn.addEventListener("click", function() {
-    closeCorrectionModal();
-});
-cancelCorrectionBtn.addEventListener("click", function() {
-    closeCorrectionModal();
-});
-correctionForm.addEventListener("submit", handleCorrectionFormSubmit);
-closeAuditBtn.addEventListener("click", function() {
-    closeAuditModal();
-});
-
 historyList.addEventListener("click", function(event) {
-    handleHistoryActionButton(event);
-});
-
-dataForm.addEventListener("submit", function(e) {
-    handleDataFormSubmit(e);
-});
-
-syncDateTimeFields();
-setInterval(syncDateTimeFields, 1000);
-shiftReportDateFilter.value = getDefaultShiftReportDate();
-shiftReportDepartmentFilter.value = "all";
-serviceSelect.required = false;
-serviceSelect.removeAttribute("required");
-syncServiceSearchFromSelect();
-setServiceSearchValidity(true);
-refreshServiceSuggestions("", { openDropdown: false });
-togglePatientNameField();
-renderReceiptHistory();
-loadSharedDashboard();
-updateSummary();
-
-function normalizeReceiptStatus(status) {
-    const normalized = String(status || "active").trim().toLowerCase().replace(/\s+/g, "_");
-
-    if (normalized === "partiallyrefunded") {
-        return "partially_refunded";
-    }
-
-    return normalized || "active";
-}
-
-function getReceiptStatusLabel(status) {
-    const normalized = normalizeReceiptStatus(status);
-
-    if (normalized === "partially_refunded") {
-        return "Partially Refunded";
-    }
-
-    return normalized
-        .split("_")
-        .filter(Boolean)
-        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-        .join(" ");
-}
-
-function getReceiptStatusClass(status) {
-    return normalizeReceiptStatus(status).replace(/_/g, "-");
-}
-
-function formatReceiptDateDisplay(paymentDate) {
-    if (!paymentDate) {
-        return "--";
-    }
-
-    const parsedDate = new Date(`${paymentDate}T00:00:00`);
-
-    if (Number.isNaN(parsedDate.getTime())) {
-        return paymentDate;
-    }
-
-    return parsedDate.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
-}
-
-function formatReceiptTimeDisplay(paymentTime) {
-    if (!paymentTime) {
-        return "--";
-    }
-
-    const parsedTime = new Date(`1970-01-01T${paymentTime}`);
-
-    if (Number.isNaN(parsedTime.getTime())) {
-        return paymentTime;
-    }
-
-    return parsedTime.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit"
-    });
-}
-
-function cloneReceiptData(receiptData) {
-    const data = receiptData || {};
-    const auditTrail = Array.isArray(data.auditTrail)
-        ? data.auditTrail.map(normalizeAuditTrailEvent)
-        : [];
-
-    return {
-        id: String(data.id || data.receiptId || ""),
-        receiptId: String(data.receiptId || data.id || ""),
-        chainId: String(data.chainId || data.receiptId || data.id || ""),
-        parentReceiptId: String(data.parentReceiptId || ""),
-        recordType: String(data.recordType || "sale"),
-        status: normalizeReceiptStatus(data.status || "active"),
-        statusLabel: data.statusLabel || getReceiptStatusLabel(data.status || "active"),
-        dateTime: String(data.dateTime || data.savedAtLabel || "--"),
-        savedAtIso: String(data.savedAtIso || ""),
-        savedAtLabel: String(data.savedAtLabel || data.dateTime || "--"),
-        patientId: String(data.patientId || ""),
-        patientName: typeof data.patientName === "string" ? data.patientName : "",
-        staffName: typeof data.staffName === "string" ? data.staffName : "",
-        dos: String(data.dos || ""),
-        department: String(data.department || ""),
-        service: String(data.service || ""),
-        amount: String(data.amount || "$0.00"),
-        amountValue: parseCurrencyValue(data.amountValue != null ? data.amountValue : data.amount),
-        method: String(data.method || data.paymentMethod || ""),
-        note: String(data.note || ""),
-        paymentTime: String(data.paymentTime || ""),
-        correctionReason: String(data.correctionReason || data.lastActionReason || ""),
-        correctionAmount: String(data.correctionAmount || "$0.00"),
-        correctionAmountValue: parseCurrencyValue(data.correctionAmountValue != null ? data.correctionAmountValue : data.correctionAmount),
-        actorName: String(data.actorName || ""),
-        grossAmount: parseCurrencyValue(data.grossAmount != null ? data.grossAmount : data.amountValue),
-        voidAmount: parseCurrencyValue(data.voidAmount),
-        refundAmount: parseCurrencyValue(data.refundAmount),
-        netAmount: parseCurrencyValue(data.netAmount != null ? data.netAmount : data.amountValue),
-        versionCount: Number(data.versionCount || 1),
-        adjustmentCount: Number(data.adjustmentCount || 0),
-        lastActionLabel: String(data.lastActionLabel || getReceiptStatusLabel(data.status || "active")),
-        lastActionReason: String(data.lastActionReason || data.correctionReason || ""),
-        auditSummary: String(data.auditSummary || ""),
-        auditTrail: auditTrail
-    };
-}
-
-function normalizeAuditTrailEvent(event) {
-    const entry = event || {};
-
-    return {
-        id: String(entry.id || entry.receiptId || createReceiptHistoryId()),
-        receiptId: String(entry.receiptId || entry.id || ""),
-        chainId: String(entry.chainId || ""),
-        parentReceiptId: String(entry.parentReceiptId || ""),
-        recordType: String(entry.recordType || "sale"),
-        label: String(entry.label || getReceiptStatusLabel(entry.recordType || "sale")),
-        timestampIso: String(entry.timestampIso || ""),
-        timestamp: String(entry.timestamp || entry.savedAtLabel || "--"),
-        actorName: String(entry.actorName || ""),
-        staffName: String(entry.staffName || ""),
-        department: String(entry.department || ""),
-        patientId: String(entry.patientId || ""),
-        patientName: String(entry.patientName || ""),
-        service: String(entry.service || ""),
-        paymentDate: String(entry.paymentDate || ""),
-        paymentMethod: String(entry.paymentMethod || ""),
-        amount: parseCurrencyValue(entry.amount),
-        amountLabel: String(entry.amountLabel || formatCurrency(entry.amount || 0)),
-        correctionAmount: parseCurrencyValue(entry.correctionAmount),
-        correctionAmountLabel: String(entry.correctionAmountLabel || formatCurrency(entry.correctionAmount || 0)),
-        reason: String(entry.reason || ""),
-        summary: String(entry.summary || ""),
-        changes: Array.isArray(entry.changes)
-            ? entry.changes.map(function(change) {
-                return {
-                    field: String(change.field || ""),
-                    from: String(change.from || "--"),
-                    to: String(change.to || "--")
-                };
-            })
-            : []
-    };
-}
-
-function normalizeSharedHistoryEntry(entry) {
-    const source = entry || {};
-    const current = cloneReceiptData(source.currentReceipt || source.receipt || source);
-    const auditTrail = Array.isArray(source.auditTrail)
-        ? source.auditTrail.map(normalizeAuditTrailEvent)
-        : current.auditTrail;
-
-    current.auditTrail = auditTrail;
-
-    return {
-        id: String(source.id || source.chainId || current.chainId || current.receiptId || createReceiptHistoryId()),
-        chainId: String(source.chainId || current.chainId || current.receiptId || current.id || createReceiptHistoryId()),
-        receiptId: String(source.receiptId || current.receiptId || current.id || createReceiptHistoryId()),
-        status: normalizeReceiptStatus(source.status || current.status),
-        statusLabel: source.statusLabel || current.statusLabel || getReceiptStatusLabel(source.status || current.status),
-        grossAmount: parseCurrencyValue(source.grossAmount != null ? source.grossAmount : current.grossAmount),
-        voidAmount: parseCurrencyValue(source.voidAmount != null ? source.voidAmount : current.voidAmount),
-        refundAmount: parseCurrencyValue(source.refundAmount != null ? source.refundAmount : current.refundAmount),
-        netAmount: parseCurrencyValue(source.netAmount != null ? source.netAmount : current.netAmount),
-        versionCount: Number(source.versionCount || current.versionCount || 1),
-        adjustmentCount: Number(source.adjustmentCount || current.adjustmentCount || 0),
-        latestActionLabel: String(source.latestActionLabel || current.lastActionLabel || getReceiptStatusLabel(source.status || current.status)),
-        lastActionReason: String(source.lastActionReason || current.lastActionReason || current.correctionReason || ""),
-        auditSummary: String(source.auditSummary || current.auditSummary || ""),
-        currentReceipt: current,
-        receipt: current,
-        auditTrail: auditTrail,
-        savedAtIso: String(source.savedAtIso || current.savedAtIso || ""),
-        savedAtLabel: String(source.savedAtLabel || current.savedAtLabel || current.dateTime || "")
-    };
-}
-
-function buildReceiptData(formData, submissionClock, patientName, options) {
-    const receiptOptions = options || {};
-    const amountValue = parseCurrencyValue(formData.amount);
-    const status = normalizeReceiptStatus(receiptOptions.status || "active");
-    const receiptId = String(receiptOptions.receiptId || createReceiptHistoryId());
-    const chainId = String(receiptOptions.chainId || receiptId);
-    const receipt = {
-        id: receiptId,
-        receiptId: receiptId,
-        chainId: chainId,
-        parentReceiptId: String(receiptOptions.parentReceiptId || ""),
-        recordType: String(receiptOptions.recordType || "sale"),
-        status: status,
-        statusLabel: getReceiptStatusLabel(status),
-        dateTime: submissionClock.receiptDateTime,
-        savedAtIso: new Date().toISOString(),
-        savedAtLabel: submissionClock.receiptDateTime,
-        patientId: formData.patientId,
-        patientName: patientName || "",
-        staffName: formData.staffName || "",
-        dos: formData.paymentDate,
-        department: formData.department,
-        service: formData.service,
-        amount: formatCurrency(formData.amount),
-        amountValue: amountValue,
-        method: formData.paymentMethod,
-        note: formData.note || "",
-        paymentTime: formData.paymentTime || "",
-        correctionReason: String(receiptOptions.correctionReason || ""),
-        correctionAmount: formatCurrency(receiptOptions.correctionAmount || 0),
-        correctionAmountValue: parseCurrencyValue(receiptOptions.correctionAmount || 0),
-        actorName: String(receiptOptions.actorName || formData.staffName || ""),
-        grossAmount: parseCurrencyValue(receiptOptions.grossAmount != null ? receiptOptions.grossAmount : amountValue),
-        voidAmount: parseCurrencyValue(receiptOptions.voidAmount || 0),
-        refundAmount: parseCurrencyValue(receiptOptions.refundAmount || 0),
-        netAmount: parseCurrencyValue(receiptOptions.netAmount != null ? receiptOptions.netAmount : amountValue),
-        versionCount: Number(receiptOptions.versionCount || 1),
-        adjustmentCount: Number(receiptOptions.adjustmentCount || 0),
-        lastActionLabel: String(receiptOptions.lastActionLabel || getReceiptStatusLabel(status)),
-        lastActionReason: String(receiptOptions.lastActionReason || receiptOptions.correctionReason || ""),
-        auditSummary: String(receiptOptions.auditSummary || ""),
-        auditTrail: Array.isArray(receiptOptions.auditTrail)
-            ? receiptOptions.auditTrail.map(normalizeAuditTrailEvent)
-            : []
-    };
-
-    return cloneReceiptData(receipt);
-}
-
-function buildReceiptAuditEvent(label, receiptData, reason, changes, summary) {
-    return normalizeAuditTrailEvent({
-        id: receiptData.receiptId,
-        receiptId: receiptData.receiptId,
-        chainId: receiptData.chainId,
-        parentReceiptId: receiptData.parentReceiptId,
-        recordType: receiptData.recordType,
-        label: label,
-        timestampIso: receiptData.savedAtIso,
-        timestamp: receiptData.savedAtLabel,
-        actorName: receiptData.actorName || receiptData.staffName,
-        staffName: receiptData.staffName,
-        department: receiptData.department,
-        patientId: receiptData.patientId,
-        patientName: receiptData.patientName,
-        service: receiptData.service,
-        paymentDate: receiptData.dos,
-        paymentMethod: receiptData.method,
-        amount: receiptData.amountValue,
-        amountLabel: receiptData.amount,
-        correctionAmount: receiptData.correctionAmountValue,
-        correctionAmountLabel: receiptData.correctionAmount,
-        reason: reason || "",
-        summary: summary || receiptData.lastActionReason || label,
-        changes: Array.isArray(changes) ? changes : []
-    });
-}
-
-function getReceiptChangeList(beforeReceipt, afterReceipt) {
-    const before = beforeReceipt || {};
-    const after = afterReceipt || {};
-    const fields = [
-        { key: "staffName", label: "Staff Name", type: "text" },
-        { key: "department", label: "Department", type: "text" },
-        { key: "patientId", label: "Patient ID", type: "text" },
-        { key: "patientName", label: "Patient Name", type: "text" },
-        { key: "service", label: "Service", type: "text" },
-        { key: "amountValue", label: "Amount", type: "currency" },
-        { key: "method", label: "Payment Method", type: "text" },
-        { key: "note", label: "Note", type: "text" },
-        { key: "dos", label: "DOS", type: "date" },
-        { key: "paymentTime", label: "Payment Time", type: "text" }
-    ];
-    const changes = [];
-
-    fields.forEach(function(field) {
-        const beforeValue = field.type === "currency"
-            ? parseCurrencyValue(before[field.key])
-            : normalizePatientName(before[field.key] || "");
-        const afterValue = field.type === "currency"
-            ? parseCurrencyValue(after[field.key])
-            : normalizePatientName(after[field.key] || "");
-
-        if (beforeValue === afterValue) {
-            return;
-        }
-
-        changes.push({
-            field: field.label,
-            from: field.type === "currency"
-                ? formatCurrency(beforeValue)
-                : (before[field.key] || "--"),
-            to: field.type === "currency"
-                ? formatCurrency(afterValue)
-                : (after[field.key] || "--")
-        });
-    });
-
-    return changes;
-}
-
-function setSharedDashboard(totals) {
-    const dashboardTotals = totals || {};
-    totalCashToday.textContent = formatCurrency(dashboardTotals.grossCashTotal || 0);
-    totalZelleToday.textContent = formatCurrency(dashboardTotals.grossZelleTotal || 0);
-    totalEntriesToday.textContent = String(dashboardTotals.entryCount || 0);
-}
-
-function loadSharedDashboard() {
-    const reportDate = paymentDateInput.value || getDateTimeParts().paymentDate;
-
-    return requestSharedData("dashboard", {
-        paymentDate: reportDate
-    }).then(function(result) {
-        if (!result || result.status !== "success") {
-            throw new Error(result && result.message ? result.message : "Shared totals did not return successfully.");
-        }
-
-        setSharedDashboard(result.totals || {});
-        setSharedDataStatus("Gross totals refreshed from Google Sheets. Void and refund adjustments are reflected in the shift report.");
-    }).catch(function() {
-        setSharedDataStatus("Shared totals are unavailable until the Apps Script dashboard is updated.");
-    });
-}
-
-function loadSharedHistory() {
-    renderReceiptHistory(true);
-
-    return requestSharedData("history", getHistoryFilters()).then(function(result) {
-        if (!result || result.status !== "success") {
-            throw new Error(result && result.message ? result.message : "Shared receipt history did not return successfully.");
-        }
-
-        receiptHistory = Array.isArray(result.history)
-            ? result.history.map(normalizeSharedHistoryEntry).filter(isValidReceiptHistoryEntry)
-            : [];
-
-        renderReceiptHistory();
-    }).catch(function() {
-        historyList.innerHTML = `
-            <div class="history-empty-state" role="status">
-                <strong>Shared receipt history is unavailable right now.</strong><br>
-                Update and redeploy the Apps Script shared history code, then refresh this window.
-            </div>
-        `;
-        updateReceiptHistoryBadge();
-    });
-}
-
-function isValidReceiptData(receiptData) {
-    return Boolean(receiptData)
-        && typeof receiptData.dateTime === "string"
-        && typeof receiptData.patientId === "string"
-        && (typeof receiptData.patientName === "undefined" || typeof receiptData.patientName === "string")
-        && (typeof receiptData.staffName === "undefined" || typeof receiptData.staffName === "string")
-        && typeof receiptData.dos === "string"
-        && typeof receiptData.department === "string"
-        && typeof receiptData.service === "string"
-        && typeof receiptData.amount === "string"
-        && typeof receiptData.method === "string";
-}
-
-function isValidReceiptHistoryEntry(entry) {
-    return Boolean(entry)
-        && typeof entry.id === "string"
-        && typeof entry.savedAtLabel === "string"
-        && entry.currentReceipt
-        && isValidReceiptData(entry.currentReceipt);
-}
-
-function updateReceiptHistoryBadge() {
-    historyCountBadge.textContent = String(receiptHistory.length);
-    historySavedCount.textContent = getReceiptHistoryCountLabel(receiptHistory.length);
-    openHistoryBtn.setAttribute("aria-label", `Open receipt history. ${getReceiptHistoryCountLabel(receiptHistory.length)}.`);
-}
-
-function addReceiptToHistory(receiptData) {
-    const historyEntry = normalizeSharedHistoryEntry({
-        id: receiptData.chainId || receiptData.receiptId,
-        chainId: receiptData.chainId || receiptData.receiptId,
-        receiptId: receiptData.receiptId,
-        status: receiptData.status || "active",
-        statusLabel: receiptData.statusLabel || getReceiptStatusLabel(receiptData.status || "active"),
-        grossAmount: receiptData.grossAmount || receiptData.amountValue || 0,
-        voidAmount: receiptData.voidAmount || 0,
-        refundAmount: receiptData.refundAmount || 0,
-        netAmount: receiptData.netAmount || receiptData.amountValue || 0,
-        versionCount: receiptData.versionCount || 1,
-        adjustmentCount: receiptData.adjustmentCount || 0,
-        latestActionLabel: receiptData.lastActionLabel || getReceiptStatusLabel(receiptData.status || "active"),
-        lastActionReason: receiptData.lastActionReason || "",
-        auditSummary: receiptData.auditSummary || "",
-        currentReceipt: receiptData,
-        receipt: receiptData,
-        auditTrail: receiptData.auditTrail || [buildReceiptAuditEvent("Sale Recorded", receiptData, "", [])],
-        savedAtIso: receiptData.savedAtIso,
-        savedAtLabel: receiptData.savedAtLabel
-    });
-
-    receiptHistory = [historyEntry, ...receiptHistory.filter(function(entry) {
-        return entry.chainId !== historyEntry.chainId;
-    })];
-    updateReceiptHistoryBadge();
-    renderReceiptHistory();
-    return true;
-}
-
-function renderReceiptHistory(isLoading) {
-    updateReceiptHistoryBadge();
-
-    if (isLoading) {
-        historyList.innerHTML = `
-            <div class="history-empty-state" role="status">
-                <strong>Loading shared receipt history...</strong><br>
-                Pulling the latest entries from Google Sheets for all front desk staff.
-            </div>
-        `;
-        return;
-    }
-
-    if (!receiptHistory.length) {
-        historyList.innerHTML = `
-            <div class="history-empty-state" role="status">
-                <strong>No shared receipts found.</strong><br>
-                Try a different date or patient ID, or submit a new payment entry to create the first shared receipt.
-            </div>
-        `;
-        return;
-    }
-
-    historyList.innerHTML = receiptHistory.map(function(entry) {
-        const receipt = entry.currentReceipt;
-        const statusClass = getReceiptStatusClass(entry.status);
-        const canMutate = statusClass !== "voided" && statusClass !== "refunded";
-        const auditPreview = entry.auditSummary || entry.latestActionLabel || receipt.lastActionReason || "No audit details recorded.";
-        const detailRows = [
-            receipt.patientName ? `<div class="history-detail"><span class="history-detail-label">Patient Name</span><span class="history-detail-value">${escapeHtml(receipt.patientName)}</span></div>` : "",
-            receipt.staffName ? `<div class="history-detail"><span class="history-detail-label">Staff Name</span><span class="history-detail-value">${escapeHtml(receipt.staffName)}</span></div>` : "",
-            `<div class="history-detail"><span class="history-detail-label">Service</span><span class="history-detail-value">${escapeHtml(receipt.service)}</span></div>`,
-            `<div class="history-detail"><span class="history-detail-label">Gross</span><span class="history-detail-value">${escapeHtml(formatCurrency(entry.grossAmount))}</span></div>`,
-            `<div class="history-detail"><span class="history-detail-label">Voids</span><span class="history-detail-value">${escapeHtml(formatCurrency(entry.voidAmount))}</span></div>`,
-            `<div class="history-detail"><span class="history-detail-label">Refunds</span><span class="history-detail-value">${escapeHtml(formatCurrency(entry.refundAmount))}</span></div>`,
-            `<div class="history-detail"><span class="history-detail-label">Net</span><span class="history-detail-value">${escapeHtml(formatCurrency(entry.netAmount))}</span></div>`,
-            `<div class="history-detail"><span class="history-detail-label">Department</span><span class="history-detail-value">${escapeHtml(receipt.department)}</span></div>`,
-            `<div class="history-detail"><span class="history-detail-label">Payment Method</span><span class="history-detail-value">${escapeHtml(receipt.method)}</span></div>`,
-            `<div class="history-detail"><span class="history-detail-label">DOS</span><span class="history-detail-value">${escapeHtml(receipt.dos)}</span></div>`
-        ].join("");
-
-        return `
-            <article class="history-card">
-                <div class="history-card-top">
-                    <div>
-                        <strong>Patient ${escapeHtml(receipt.patientId)}</strong>
-                        <div class="history-card-summary">${escapeHtml(entry.latestActionLabel || receipt.lastActionLabel || "Sale Recorded")} ${entry.lastActionReason ? "• " + escapeHtml(entry.lastActionReason) : ""}</div>
-                    </div>
-                    <div class="history-card-status">
-                        <span class="history-card-time">${escapeHtml(entry.savedAtLabel || receipt.savedAtLabel || receipt.dateTime)}</span>
-                        <span class="status-pill ${statusClass}">${escapeHtml(entry.statusLabel || getReceiptStatusLabel(entry.status))}</span>
-                    </div>
-                </div>
-                <div class="history-card-grid">
-                    ${detailRows}
-                </div>
-                <div class="history-card-audit-preview">
-                    <strong>Latest Audit Note</strong>
-                    ${escapeHtml(auditPreview)}
-                </div>
-                <div class="history-card-actions">
-                    <button type="button" class="receipt-btn" data-history-action="view" data-history-id="${escapeHtml(entry.id)}">View Receipt</button>
-                    <button type="button" class="receipt-btn" data-history-action="audit" data-history-id="${escapeHtml(entry.id)}">Audit Trail</button>
-                    ${canMutate ? `<button type="button" class="receipt-btn" data-history-action="edit" data-history-id="${escapeHtml(entry.id)}">Edit</button>
-                    <button type="button" class="receipt-btn" data-history-action="void" data-history-id="${escapeHtml(entry.id)}">Void</button>
-                    <button type="button" class="receipt-btn" data-history-action="refund" data-history-id="${escapeHtml(entry.id)}">Refund</button>` : ""}
-                    <button type="button" class="receipt-btn primary" data-history-action="print" data-history-id="${escapeHtml(entry.id)}">Reprint</button>
-                </div>
-            </article>
-        `;
-    }).join("");
-}
-
-function getReceiptHistoryEntry(entryId) {
-    return receiptHistory.find(function(entry) {
-        return entry.id === entryId || entry.chainId === entryId || entry.receiptId === entryId || entry.currentReceipt.receiptId === entryId;
-    }) || null;
-}
-
-function openReceiptPreview(receiptData) {
-    lastReceiptData = cloneReceiptData(receiptData);
-    populateReceipt(lastReceiptData);
-    toggleReceiptModal(true);
-}
-
-function populateReceipt(receiptData) {
-    receiptDateTime.textContent = receiptData.dateTime;
-    receiptPatientId.textContent = receiptData.patientId;
-    receiptPatientName.textContent = receiptData.patientName || "--";
-    receiptPatientNameRow.hidden = !receiptData.patientName;
-    receiptDos.textContent = receiptData.dos;
-    receiptDepartment.textContent = receiptData.department;
-    receiptService.textContent = receiptData.service;
-    receiptAmount.textContent = receiptData.amount;
-    receiptMethod.textContent = receiptData.method;
-}
-
-function toggleReceiptModal(isOpen) {
-    receiptModal.classList.toggle("show", isOpen);
-    receiptModal.setAttribute("aria-hidden", String(!isOpen));
-    document.body.classList.toggle("receipt-open", isOpen);
-}
-
-function toggleHistoryModal(isOpen) {
-    historyModal.classList.toggle("show", isOpen);
-    historyModal.setAttribute("aria-hidden", String(!isOpen));
-    document.body.classList.toggle("history-open", isOpen);
-}
-
-function toggleCorrectionModal(isOpen) {
-    correctionModal.classList.toggle("show", isOpen);
-    correctionModal.setAttribute("aria-hidden", String(!isOpen));
-    document.body.classList.toggle("correction-open", isOpen);
-}
-
-function toggleAuditModal(isOpen) {
-    auditModal.classList.toggle("show", isOpen);
-    auditModal.setAttribute("aria-hidden", String(!isOpen));
-    document.body.classList.toggle("audit-open", isOpen);
-}
-
-function syncDateTimeFields() {
-    const parts = getDateTimeParts();
-
-    if (currentCorrectionAction === "edit" && currentEditContext) {
-        const receipt = currentEditContext.currentReceipt;
-        paymentDateInput.value = receipt.dos || parts.paymentDate;
-        paymentTimeInput.value = receipt.paymentTime || parts.paymentTime;
-        paymentDateDisplayInput.value = formatReceiptDateDisplay(receipt.dos || parts.paymentDate);
-        paymentTimeDisplayInput.value = formatReceiptTimeDisplay(receipt.paymentTime || parts.paymentTime);
-        return;
-    }
-
-    paymentDateInput.value = parts.paymentDate;
-    paymentTimeInput.value = parts.paymentTime;
-    paymentDateDisplayInput.value = parts.displayDate;
-    paymentTimeDisplayInput.value = parts.displayTime;
-}
-
-function updateEditModePanel() {
-    if (!currentEditContext) {
-        editModePanel.hidden = true;
-        correctionReason.value = "";
-        submitBtn.textContent = "Submit Entry";
-        return;
-    }
-
-    const receipt = currentEditContext.currentReceipt;
-    editModePanel.hidden = false;
-    editModeTitle.textContent = `Editing Receipt ${receipt.patientId}`;
-    editModeSummary.textContent = `Original status: ${currentEditContext.statusLabel}. The edited receipt keeps the audit trail and saves as a new version.`;
-    correctionReason.value = "";
-    submitBtn.textContent = "Save Edit";
-    paymentDateInput.value = receipt.dos || paymentDateInput.value;
-    paymentTimeInput.value = receipt.paymentTime || paymentTimeInput.value;
-    paymentDateDisplayInput.value = formatReceiptDateDisplay(receipt.dos || paymentDateInput.value);
-    paymentTimeDisplayInput.value = formatReceiptTimeDisplay(receipt.paymentTime || paymentTimeInput.value);
-}
-
-function setServiceSelectionByText(serviceText) {
-    const match = serviceOptions.find(function(option) {
-        return option.text === serviceText;
-    });
-
-    if (!match) {
-        serviceSelect.selectedIndex = 0;
-        serviceSearchInput.value = serviceText || "";
-        amountInput.value = "";
-        amountInput.readOnly = false;
-        amountMode.textContent = "Select a service to populate the amount.";
-        return;
-    }
-
-    selectServiceByIndex(match.index);
-}
-
-function beginEditReceipt(entry) {
-    const receipt = entry.currentReceipt;
-
-    currentEditContext = entry;
-    currentCorrectionAction = "edit";
-    currentCorrectionContext = entry;
-    showBanner(`Editing receipt for patient ${receipt.patientId}. Save the correction to create a new audit entry.`, "success");
-    setServiceSelectionByText(receipt.service);
-    departmentInput.value = receipt.department || "";
-    staffNameInput.value = receipt.staffName || "";
-    patientIdInput.value = receipt.patientId || "";
-    includePatientNameInput.value = receipt.patientName ? "yes" : "no";
-    togglePatientNameField();
-    patientNameReceiptInput.value = receipt.patientName || "";
-    paymentMethod.value = receipt.method || "";
-    noteInput.value = receipt.note || "";
-    paymentDateInput.value = receipt.dos || paymentDateInput.value;
-    paymentTimeInput.value = receipt.paymentTime || paymentTimeInput.value;
-    paymentDateDisplayInput.value = formatReceiptDateDisplay(receipt.dos || paymentDateInput.value);
-    paymentTimeDisplayInput.value = formatReceiptTimeDisplay(receipt.paymentTime || paymentTimeInput.value);
-    updateAmountBehavior();
-    amountInput.value = receipt.amountValue ? receipt.amountValue.toFixed(2) : parseCurrencyValue(receipt.amount).toFixed(2);
-    updateEditModePanel();
-    clearPriceWarning();
-    clearPatientIdWarning();
-    updateSummary();
-    correctionReason.focus();
-}
-
-function exitEditMode() {
-    currentEditContext = null;
-    currentCorrectionAction = "";
-    currentCorrectionContext = null;
-    editModePanel.hidden = true;
-    correctionReason.value = "";
-    submitBtn.textContent = "Submit Entry";
-    syncDateTimeFields();
-    clearBanner();
-}
-
-function openCorrectionModal(actionType, entry) {
-    currentCorrectionAction = actionType;
-    currentCorrectionContext = entry;
-
-    const receipt = entry.currentReceipt;
-    const fullAmount = entry.grossAmount || receipt.amountValue || parseCurrencyValue(receipt.amount);
-
-    correctionSummaryTitle.textContent = `${getReceiptStatusLabel(actionType)} Receipt for Patient ${receipt.patientId}`;
-    correctionSummaryMeta.textContent = `${receipt.department} • ${receipt.service} • Gross ${formatCurrency(fullAmount)} • Net ${formatCurrency(entry.netAmount)}`;
-    correctionActorNameInput.value = receipt.staffName || departmentInput.value || "";
-    correctionReasonInput.value = "";
-
-    if (actionType === "void") {
-        correctionAmountInput.value = fullAmount.toFixed(2);
-        correctionAmountInput.readOnly = true;
-        correctionAmountNote.textContent = "Voids use the full original amount.";
-        confirmCorrectionBtn.textContent = "Void Receipt";
-    } else {
-        correctionAmountInput.value = fullAmount.toFixed(2);
-        correctionAmountInput.readOnly = false;
-        correctionAmountNote.textContent = "Refunds can be partial. The amount entered will be subtracted from the net total.";
-        confirmCorrectionBtn.textContent = "Save Refund";
-    }
-
-    correctionForm.dataset.action = actionType;
-    toggleCorrectionModal(true);
-    correctionReasonInput.focus();
-}
-
-function closeCorrectionModal() {
-    toggleCorrectionModal(false);
-    correctionForm.dataset.action = "";
-    currentCorrectionAction = "";
-    currentCorrectionContext = null;
-    correctionReasonInput.value = "";
-    correctionAmountInput.value = "";
-    correctionAmountInput.readOnly = false;
-    correctionActorNameInput.value = "";
-}
-
-function openAuditModal(entry) {
-    currentAuditContext = entry;
-    auditSummary.innerHTML = `
-        <strong>${escapeHtml(entry.currentReceipt.patientName || `Patient ${entry.currentReceipt.patientId}`)}</strong>
-        <span>Status: ${escapeHtml(entry.statusLabel)} | Gross: ${escapeHtml(formatCurrency(entry.grossAmount))} | Voids: ${escapeHtml(formatCurrency(entry.voidAmount))} | Refunds: ${escapeHtml(formatCurrency(entry.refundAmount))} | Net: ${escapeHtml(formatCurrency(entry.netAmount))}</span>
-    `;
-    renderAuditTrail(entry);
-    toggleAuditModal(true);
-}
-
-function closeAuditModal() {
-    toggleAuditModal(false);
-    currentAuditContext = null;
-}
-
-function renderAuditTrail(entry) {
-    if (!entry.auditTrail || !entry.auditTrail.length) {
-        auditTrailList.innerHTML = `
-            <div class="history-empty-state" role="status">
-                <strong>No audit trail is available yet.</strong><br>
-                The receipt history will populate once the first sale, edit, void, or refund is saved.
-            </div>
-        `;
-        return;
-    }
-
-    auditTrailList.innerHTML = entry.auditTrail.map(function(event) {
-        const changesMarkup = event.changes && event.changes.length
-            ? `<div class="audit-event-changes">${event.changes.map(function(change) {
-                return `<div class="audit-change"><strong>${escapeHtml(change.field)}</strong><span>${escapeHtml(change.from)} → ${escapeHtml(change.to)}</span></div>`;
-            }).join("")}</div>`
-            : "";
-
-        const reasonMarkup = event.reason
-            ? `<div class="audit-event-summary"><strong>Reason:</strong> ${escapeHtml(event.reason)}</div>`
-            : "";
-
-        return `
-            <article class="audit-event">
-                <div class="audit-event-head">
-                    <strong>${escapeHtml(event.label)}</strong>
-                    <div class="audit-event-meta">${escapeHtml(event.timestamp)}${event.actorName ? ` • ${escapeHtml(event.actorName)}` : ""}</div>
-                </div>
-                <div class="audit-event-summary">${escapeHtml(event.summary || "Receipt event recorded.")}</div>
-                ${reasonMarkup}
-                ${changesMarkup}
-            </article>
-        `;
-    }).join("");
-}
-
-function handleHistoryActionButton(event) {
     const actionButton = event.target.closest("[data-history-action]");
 
     if (!actionButton) {
@@ -4983,124 +3883,18 @@ function handleHistoryActionButton(event) {
         return;
     }
 
-    const action = actionButton.dataset.historyAction;
     toggleHistoryModal(false);
 
-    if (action === "view") {
-        openReceiptPreview(historyEntry.currentReceipt);
+    if (actionButton.dataset.historyAction === "view") {
+        openReceiptPreview(historyEntry.receipt);
         return;
     }
 
-    if (action === "print") {
-        printReceipt(historyEntry.currentReceipt);
-        return;
-    }
+    printReceipt(historyEntry.receipt);
+});
 
-    if (action === "audit") {
-        openAuditModal(historyEntry);
-        return;
-    }
-
-    if (action === "edit") {
-        beginEditReceipt(historyEntry);
-        return;
-    }
-
-    if (action === "void" || action === "refund") {
-        openCorrectionModal(action, historyEntry);
-    }
-}
-
-function buildCorrectionPayload(actionType) {
-    const entry = currentCorrectionContext;
-    const receipt = entry.currentReceipt;
-    const correctionReasonValue = normalizePatientName(correctionReasonInput.value);
-    const correctionAmountValue = actionType === "refund"
-        ? parseCurrencyValue(correctionAmountInput.value)
-        : parseCurrencyValue(entry.grossAmount);
-    const actorNameValue = normalizePatientName(correctionActorNameInput.value) || receipt.staffName || departmentInput.value || "";
-    const currentClock = getDateTimeParts();
-
-    return {
-        action: actionType,
-        recordType: actionType,
-        receiptId: createReceiptHistoryId(),
-        chainId: entry.chainId,
-        parentReceiptId: entry.receiptId,
-        originalReceiptId: entry.receiptId,
-        staffName: actorNameValue,
-        actorName: actorNameValue,
-        department: receipt.department,
-        patientId: receipt.patientId,
-        service: receipt.service,
-        amount: receipt.amount,
-        paymentDate: receipt.dos,
-        paymentMethod: receipt.method,
-        note: receipt.note,
-        paymentTime: receipt.paymentTime || currentClock.paymentTime,
-        patientName: receipt.patientName || "",
-        correctionReason: correctionReasonValue,
-        correctionAmount: actionType === "refund" ? correctionAmountValue : entry.grossAmount,
-        originalSnapshot: JSON.stringify(receipt),
-        updatedSnapshot: JSON.stringify(receipt)
-    };
-}
-
-function submitCorrectionForm(event) {
-    event.preventDefault();
-
-    if (!currentCorrectionContext) {
-        return;
-    }
-
-    const actionType = correctionForm.dataset.action || currentCorrectionAction;
-    const reasonText = normalizePatientName(correctionReasonInput.value);
-
-    if (!reasonText) {
-        showBanner("Please enter a reason before saving the correction.", "error");
-        correctionReasonInput.focus();
-        return;
-    }
-
-    if (actionType === "refund") {
-        const enteredAmount = parseCurrencyValue(correctionAmountInput.value);
-        if (!enteredAmount || enteredAmount <= 0) {
-            showBanner("Please enter a valid refund amount.", "error");
-            correctionAmountInput.focus();
-            return;
-        }
-
-        if (enteredAmount > (currentCorrectionContext.grossAmount || 0)) {
-            showBanner("Refund amount cannot exceed the original receipt amount.", "error");
-            correctionAmountInput.focus();
-            return;
-        }
-    }
-
-    const payload = buildCorrectionPayload(actionType);
-
-    confirmCorrectionBtn.disabled = true;
-    confirmCorrectionBtn.textContent = "Saving...";
-
-    submitSharedEntry(payload).then(function() {
-        closeCorrectionModal();
-        showBanner(actionType === "void"
-            ? "Receipt voided successfully. Shared history and reports are refreshing."
-            : "Refund saved successfully. Shared history and reports are refreshing.", "success");
-        setSharedDataStatus("Refreshing shared totals and history after the latest correction...");
-        window.setTimeout(loadSharedDashboard, 900);
-        window.setTimeout(loadSharedHistory, 1100);
-        window.setTimeout(loadSharedShiftReport, 1300);
-    }).catch(function() {
-        showBanner("The correction could not reach the Apps Script endpoint. Please try again.", "error");
-    }).finally(function() {
-        confirmCorrectionBtn.disabled = false;
-        confirmCorrectionBtn.textContent = actionType === "void" ? "Void Receipt" : "Save Refund";
-    });
-}
-
-async function handleDataFormSubmit(event) {
-    event.preventDefault();
+document.getElementById("dataForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
     clearBanner();
 
     syncDateTimeFields();
@@ -5125,89 +3919,42 @@ async function handleDataFormSubmit(event) {
         return;
     }
 
-    if (currentCorrectionAction === "edit" && !currentEditContext) {
-        showBanner("The edit session expired. Please reopen the receipt and try again.", "error");
-        return;
-    }
-
     submitBtn.disabled = true;
-    submitBtn.textContent = currentCorrectionAction === "edit" ? "Saving Edit..." : "Submitting...";
-
+    submitBtn.textContent = "Submitting...";
     const submissionClock = getDateTimeParts();
+    const formattedAmount = formatCurrency(this.amount.value);
     const receiptPatientNameValue = includePatientNameInput.value === "yes"
         ? normalizePatientName(patientNameReceiptInput.value)
         : "";
+
     const formData = {
         staffInitial: "",
-        patientId: patientIdInput.value.trim(),
+        patientId: this.patientId.value.trim(),
         service: serviceSelect.options[serviceSelect.selectedIndex].text,
-        amount: formatCurrency(amountInput.value),
-        paymentDate: paymentDateInput.value || submissionClock.paymentDate,
-        paymentMethod: paymentMethod.value,
-        note: noteInput.value.trim(),
+        amount: formattedAmount,
+        paymentDate: submissionClock.paymentDate,
+        paymentMethod: this.paymentMethod.value,
+        note: this.note.value.trim(),
         timestamp: new Date().toISOString(),
-        department: departmentInput.value.trim(),
-        staffName: staffNameInput.value.trim(),
-        paymentTime: paymentTimeInput.value || submissionClock.paymentTime,
+        department: this.department.value.trim(),
+        staffName: this.staffName.value.trim(),
+        paymentTime: submissionClock.paymentTime,
         patientName: receiptPatientNameValue
     };
 
-    const payloadOptions = {
-        receiptId: createReceiptHistoryId(),
-        chainId: currentEditContext ? currentEditContext.chainId : "",
-        parentReceiptId: currentEditContext ? currentEditContext.receiptId : "",
-        recordType: currentCorrectionAction === "edit" ? "edit" : "sale",
-        status: "active",
-        lastActionLabel: currentCorrectionAction === "edit" ? "Edit Saved" : "Sale Recorded",
-        lastActionReason: currentCorrectionAction === "edit" ? normalizePatientName(correctionReason.value) : "",
-        correctionReason: currentCorrectionAction === "edit" ? normalizePatientName(correctionReason.value) : "",
-        grossAmount: parseCurrencyValue(formData.amount),
-        voidAmount: currentEditContext ? currentEditContext.voidAmount : 0,
-        refundAmount: currentEditContext ? currentEditContext.refundAmount : 0,
-        netAmount: currentEditContext ? parseCurrencyValue(formData.amount) - currentEditContext.voidAmount - currentEditContext.refundAmount : parseCurrencyValue(formData.amount),
-        versionCount: currentEditContext ? currentEditContext.versionCount + 1 : 1,
-        adjustmentCount: currentEditContext ? currentEditContext.adjustmentCount : 0,
-        auditSummary: currentCorrectionAction === "edit" ? "Receipt edited and saved as a new version." : "Receipt recorded successfully.",
-        auditTrail: currentEditContext && Array.isArray(currentEditContext.auditTrail) ? currentEditContext.auditTrail : []
-    };
-    const receiptPayload = buildReceiptData(formData, submissionClock, receiptPatientNameValue, payloadOptions);
-    let updatedSnapshot = "";
-
-    if (currentCorrectionAction === "edit" && currentEditContext) {
-        const editChanges = getReceiptChangeList(currentEditContext.currentReceipt, receiptPayload);
-        const editSummary = `Edited receipt with ${editChanges.length} field change${editChanges.length === 1 ? "" : "s"}.`;
-        const editEvent = buildReceiptAuditEvent(
-            "Edit Saved",
-            receiptPayload,
-            normalizePatientName(correctionReason.value),
-            editChanges,
-            editSummary
-        );
-        receiptPayload.auditTrail = [...(currentEditContext.auditTrail || []), editEvent];
-        receiptPayload.auditSummary = editSummary;
-        payloadOptions.auditSummary = editSummary;
-        updatedSnapshot = JSON.stringify(receiptPayload);
-    }
-
     try {
-        const submissionResult = await submitSharedEntry(Object.assign({}, formData, payloadOptions, {
-            recordType: currentCorrectionAction === "edit" ? "edit" : "sale",
-            action: currentCorrectionAction === "edit" ? "edit" : "sale",
-            originalReceiptId: currentEditContext ? currentEditContext.receiptId : "",
-            originalSnapshot: currentEditContext ? JSON.stringify(currentEditContext.currentReceipt) : "",
-            updatedSnapshot: updatedSnapshot
-        }));
-        lastReceiptData = receiptPayload;
-        openReceiptPreview(lastReceiptData);
+        const submissionResult = await submitSharedEntry(formData);
+        lastReceiptData = buildReceiptData(formData, submissionClock, receiptPatientNameValue);
         addReceiptToHistory(lastReceiptData);
-        showBanner(submissionResult.message || "Entry saved successfully.", "success");
+        openReceiptPreview(lastReceiptData);
+        showBanner(submissionResult.message, "success");
         setSharedDataStatus("Refreshing shared totals from the latest submission...");
         window.setTimeout(loadSharedDashboard, 1200);
         window.setTimeout(loadSharedHistory, 1400);
         if (shiftReportModal.classList.contains("show")) {
             window.setTimeout(loadSharedShiftReport, 1500);
         }
-        document.getElementById("dataForm").reset();
+        this.reset();
         serviceSelect.selectedIndex = 0;
         serviceSearchInput.value = "";
         setServiceSearchValidity(true);
@@ -5220,631 +3967,27 @@ async function handleDataFormSubmit(event) {
         clearPriceWarning();
         clearPatientIdWarning();
         updateSummary();
-        if (currentCorrectionAction === "edit") {
-            exitEditMode();
-        }
     } catch (error) {
         showBanner("The form could not reach the Apps Script endpoint. Please try again.", "error");
     } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = currentCorrectionAction === "edit" ? "Save Edit" : "Submit Entry";
+        submitBtn.textContent = "Submit Entry";
     }
-}
-
-function normalizeShiftReportRow(row) {
-    const safeRow = row || {};
-    return {
-        label: typeof safeRow.label === "string" && safeRow.label.trim() ? safeRow.label.trim() : "--",
-        entryCount: Number.isFinite(Number(safeRow.entryCount)) ? Number(safeRow.entryCount) : 0,
-        grossTotal: parseCurrencyValue(safeRow.grossTotal),
-        voidTotal: parseCurrencyValue(safeRow.voidTotal),
-        refundTotal: parseCurrencyValue(safeRow.refundTotal),
-        netTotal: parseCurrencyValue(safeRow.netTotal)
-    };
-}
-
-function normalizeShiftReportTransactionRow(row) {
-    const safeRow = row || {};
-    return {
-        receiptId: typeof safeRow.receiptId === "string" && safeRow.receiptId.trim() ? safeRow.receiptId.trim() : "--",
-        status: typeof safeRow.status === "string" && safeRow.status.trim() ? safeRow.status.trim() : "active",
-        statusLabel: typeof safeRow.statusLabel === "string" && safeRow.statusLabel.trim() ? safeRow.statusLabel.trim() : "Active",
-        savedAtIso: typeof safeRow.savedAtIso === "string" ? safeRow.savedAtIso : "",
-        timestamp: typeof safeRow.timestamp === "string" && safeRow.timestamp.trim() ? safeRow.timestamp.trim() : "--",
-        staffName: typeof safeRow.staffName === "string" && safeRow.staffName.trim() ? safeRow.staffName.trim() : "--",
-        department: typeof safeRow.department === "string" && safeRow.department.trim() ? safeRow.department.trim() : "--",
-        patientId: typeof safeRow.patientId === "string" && safeRow.patientId.trim() ? safeRow.patientId.trim() : "--",
-        patientName: typeof safeRow.patientName === "string" ? safeRow.patientName.trim() : "",
-        service: typeof safeRow.service === "string" && safeRow.service.trim() ? safeRow.service.trim() : "--",
-        grossAmount: parseCurrencyValue(safeRow.grossAmount),
-        voidAmount: parseCurrencyValue(safeRow.voidAmount),
-        refundAmount: parseCurrencyValue(safeRow.refundAmount),
-        netAmount: parseCurrencyValue(safeRow.netAmount),
-        paymentDate: typeof safeRow.paymentDate === "string" && safeRow.paymentDate.trim() ? safeRow.paymentDate.trim() : "--",
-        paymentMethod: typeof safeRow.paymentMethod === "string" && safeRow.paymentMethod.trim() ? safeRow.paymentMethod.trim() : "--",
-        note: typeof safeRow.note === "string" && safeRow.note.trim() ? safeRow.note.trim() : "--",
-        lastActionLabel: typeof safeRow.lastActionLabel === "string" && safeRow.lastActionLabel.trim() ? safeRow.lastActionLabel.trim() : "--",
-        lastActionReason: typeof safeRow.lastActionReason === "string" && safeRow.lastActionReason.trim() ? safeRow.lastActionReason.trim() : ""
-    };
-}
-
-function hydrateSharedReceiptData(entry) {
-    return normalizeSharedHistoryEntry(entry);
-}
-
-function hydrateShiftReportData(result) {
-    const safeResult = result || {};
-    return {
-        paymentDate: typeof safeResult.paymentDate === "string" && safeResult.paymentDate ? safeResult.paymentDate : getDefaultShiftReportDate(),
-        departmentFilter: normalizeShiftReportDepartmentFilter(safeResult.departmentFilter),
-        departmentFilterLabel: typeof safeResult.departmentFilterLabel === "string" && safeResult.departmentFilterLabel.trim()
-            ? safeResult.departmentFilterLabel.trim()
-            : getShiftReportDepartmentLabel(safeResult.departmentFilter),
-        generatedAt: typeof safeResult.generatedAt === "string" ? safeResult.generatedAt : new Date().toISOString(),
-        summary: {
-            grossCashTotal: parseCurrencyValue(safeResult.summary && safeResult.summary.grossCashTotal),
-            grossZelleTotal: parseCurrencyValue(safeResult.summary && safeResult.summary.grossZelleTotal),
-            voidTotal: parseCurrencyValue(safeResult.summary && safeResult.summary.voidTotal),
-            refundTotal: parseCurrencyValue(safeResult.summary && safeResult.summary.refundTotal),
-            netTotal: parseCurrencyValue(safeResult.summary && safeResult.summary.netTotal),
-            grossTotal: parseCurrencyValue(safeResult.summary && safeResult.summary.grossTotal),
-            entryCount: Number.isFinite(Number(safeResult.summary && safeResult.summary.entryCount)) ? Number(safeResult.summary.entryCount) : 0,
-            editedCount: Number.isFinite(Number(safeResult.summary && safeResult.summary.editedCount)) ? Number(safeResult.summary.editedCount) : 0,
-            voidedCount: Number.isFinite(Number(safeResult.summary && safeResult.summary.voidedCount)) ? Number(safeResult.summary.voidedCount) : 0,
-            refundedCount: Number.isFinite(Number(safeResult.summary && safeResult.summary.refundedCount)) ? Number(safeResult.summary.refundedCount) : 0
-        },
-        staffTotals: Array.isArray(safeResult.staffTotals) ? safeResult.staffTotals.map(normalizeShiftReportRow) : [],
-        departmentTotals: Array.isArray(safeResult.departmentTotals) ? safeResult.departmentTotals.map(normalizeShiftReportRow) : [],
-        transactions: Array.isArray(safeResult.transactions) ? safeResult.transactions.map(normalizeShiftReportTransactionRow) : []
-    };
-}
-
-function renderShiftReportRows(container, rows, emptyLabel) {
-    if (!rows.length) {
-        container.innerHTML = `
-            <tr class="empty-row">
-                <td colspan="6">No shared ${escapeHtml(emptyLabel)} totals were found for that date.</td>
-            </tr>
-        `;
-        return;
-    }
-
-    container.innerHTML = rows.map(function(row) {
-        return `
-            <tr>
-                <td>${escapeHtml(row.label)}</td>
-                <td>${escapeHtml(String(row.entryCount))}</td>
-                <td>${escapeHtml(formatCurrency(row.grossTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.voidTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.refundTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.netTotal))}</td>
-            </tr>
-        `;
-    }).join("");
-}
-
-function renderShiftReportTransactions(rows) {
-    if (!rows.length) {
-        shiftReportTransactionRows.innerHTML = `
-            <tr class="empty-row">
-                <td colspan="13">No shared transactions were found for that date.</td>
-            </tr>
-        `;
-        return;
-    }
-
-    shiftReportTransactionRows.innerHTML = rows.map(function(row) {
-        return `
-            <tr>
-                <td class="is-medium">${escapeHtml(row.timestamp)}</td>
-                <td>${escapeHtml(row.receiptId)}</td>
-                <td class="is-medium">${escapeHtml(row.statusLabel)}</td>
-                <td class="is-medium">${escapeHtml(row.staffName)}</td>
-                <td class="is-medium">${escapeHtml(row.department)}</td>
-                <td>${escapeHtml(row.patientId)}</td>
-                <td class="is-wide">${escapeHtml(row.service)}</td>
-                <td class="is-numeric">${escapeHtml(formatCurrency(row.grossAmount))}</td>
-                <td class="is-numeric">${escapeHtml(formatCurrency(row.voidAmount))}</td>
-                <td class="is-numeric">${escapeHtml(formatCurrency(row.refundAmount))}</td>
-                <td class="is-numeric">${escapeHtml(formatCurrency(row.netAmount))}</td>
-                <td class="is-medium">${escapeHtml(row.lastActionLabel)}</td>
-                <td class="is-wide">${escapeHtml(row.lastActionReason || row.note || "--")}</td>
-            </tr>
-        `;
-    }).join("");
-}
-
-function renderShiftReport(reportData) {
-    currentShiftReportData = reportData;
-    shiftReportDateFilter.value = reportData.paymentDate;
-    shiftReportDepartmentFilter.value = normalizeShiftReportDepartmentFilter(reportData.departmentFilter);
-    shiftReportGrossCash.textContent = formatCurrency(reportData.summary.grossCashTotal);
-    shiftReportGrossZelle.textContent = formatCurrency(reportData.summary.grossZelleTotal);
-    shiftReportVoidTotal.textContent = formatCurrency(reportData.summary.voidTotal);
-    shiftReportRefundTotal.textContent = formatCurrency(reportData.summary.refundTotal);
-    shiftReportNetTotal.textContent = formatCurrency(reportData.summary.netTotal);
-    shiftReportEntryCount.textContent = String(reportData.summary.entryCount);
-    renderShiftReportRows(shiftReportStaffRows, reportData.staffTotals, "staff");
-    renderShiftReportRows(shiftReportDepartmentRows, reportData.departmentTotals, "department");
-    renderShiftReportTransactions(reportData.transactions);
-    setShiftReportStatus(`Shared shift close report ready for ${formatShiftReportDateLabel(reportData.paymentDate)} | ${reportData.departmentFilterLabel}. Last refresh: ${formatHistoryTimestampLabel(reportData.generatedAt)}.`);
-}
-
-function loadSharedShiftReport() {
-    const reportDate = shiftReportDateFilter.value || getDefaultShiftReportDate();
-    const departmentFilter = normalizeShiftReportDepartmentFilter(shiftReportDepartmentFilter.value);
-    shiftReportDateFilter.value = reportDate;
-    shiftReportDepartmentFilter.value = departmentFilter;
-    setShiftReportStatus(`Loading shared shift close report for ${formatShiftReportDateLabel(reportDate)} | ${getShiftReportDepartmentLabel(departmentFilter)}...`);
-
-    return requestSharedData("shiftReport", {
-        paymentDate: reportDate,
-        department: departmentFilter
-    }).then(function(result) {
-        if (!result || result.status !== "success") {
-            throw new Error(result && result.message ? result.message : "Shift close report did not return successfully.");
-        }
-
-        renderShiftReport(hydrateShiftReportData(result));
-    }).catch(function() {
-        setShiftReportStatus("The shared shift close report is unavailable right now. Update and redeploy the Apps Script shift report code, then try again.");
-        showBanner("The shift close report could not be loaded from Google Sheets.", "error");
-    });
-}
-
-function getShiftReportCsv(reportData) {
-    const lines = [
-        ["Shift Close Report"],
-        ["Report Date", formatShiftReportDateLabel(reportData.paymentDate)],
-        ["Department Scope", reportData.departmentFilterLabel],
-        ["Generated At", formatHistoryTimestampLabel(reportData.generatedAt)],
-        [],
-        ["Summary"],
-        ["Metric", "Value"],
-        ["Gross Cash", formatCurrency(reportData.summary.grossCashTotal)],
-        ["Gross Zelle", formatCurrency(reportData.summary.grossZelleTotal)],
-        ["Voids", formatCurrency(reportData.summary.voidTotal)],
-        ["Refunds", formatCurrency(reportData.summary.refundTotal)],
-        ["Net Collected", formatCurrency(reportData.summary.netTotal)],
-        ["Entries", String(reportData.summary.entryCount)],
-        [],
-        ["Totals by Staff"],
-        ["Staff", "Entries", "Gross", "Voids", "Refunds", "Net"]
-    ];
-
-    reportData.staffTotals.forEach(function(row) {
-        lines.push([
-            row.label,
-            String(row.entryCount),
-            formatCurrency(row.grossTotal),
-            formatCurrency(row.voidTotal),
-            formatCurrency(row.refundTotal),
-            formatCurrency(row.netTotal)
-        ]);
-    });
-
-    lines.push([], ["Totals by Department"], ["Department", "Entries", "Gross", "Voids", "Refunds", "Net"]);
-
-    reportData.departmentTotals.forEach(function(row) {
-        lines.push([
-            row.label,
-            String(row.entryCount),
-            formatCurrency(row.grossTotal),
-            formatCurrency(row.voidTotal),
-            formatCurrency(row.refundTotal),
-            formatCurrency(row.netTotal)
-        ]);
-    });
-
-    lines.push([], ["Detailed Transactions"], ["Time Stamp", "Receipt ID", "Status", "Staff", "Department", "Patient ID", "Service", "Gross", "Voids", "Refunds", "Net", "Last Action", "Reason"]);
-
-    reportData.transactions.forEach(function(row) {
-        lines.push([
-            row.timestamp,
-            row.receiptId,
-            row.statusLabel,
-            row.staffName,
-            row.department,
-            row.patientId,
-            row.service,
-            formatCurrency(row.grossAmount),
-            formatCurrency(row.voidAmount),
-            formatCurrency(row.refundAmount),
-            formatCurrency(row.netAmount),
-            row.lastActionLabel,
-            row.lastActionReason
-        ]);
-    });
-
-    return lines.map(function(line) {
-        return line.map(function(value) {
-            const text = String(value == null ? "" : value);
-            return /[",\n]/.test(text) ? `"${text.replace(/"/g, "\"\"")}"` : text;
-        }).join(",");
-    }).join("\n");
-}
-
-function getShiftReportPrintRowsMarkup(rows) {
-    if (!rows.length) {
-        return `<tr><td colspan="6" class="empty-row">No totals found for that date.</td></tr>`;
-    }
-
-    return rows.map(function(row) {
-        return `
-            <tr>
-                <td>${escapeHtml(row.label)}</td>
-                <td>${escapeHtml(String(row.entryCount))}</td>
-                <td>${escapeHtml(formatCurrency(row.grossTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.voidTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.refundTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.netTotal))}</td>
-            </tr>
-        `;
-    }).join("");
-}
-
-function getShiftReportTransactionPrintRowsMarkup(rows) {
-    if (!rows.length) {
-        return `<tr><td colspan="13" class="empty-row">No shared transactions found for that date.</td></tr>`;
-    }
-
-    return rows.map(function(row) {
-        return `
-            <tr>
-                <td>${escapeHtml(row.timestamp)}</td>
-                <td>${escapeHtml(row.receiptId)}</td>
-                <td>${escapeHtml(row.statusLabel)}</td>
-                <td>${escapeHtml(row.staffName)}</td>
-                <td>${escapeHtml(row.department)}</td>
-                <td>${escapeHtml(row.patientId)}</td>
-                <td>${escapeHtml(row.service)}</td>
-                <td class="amount">${escapeHtml(formatCurrency(row.grossAmount))}</td>
-                <td class="amount">${escapeHtml(formatCurrency(row.voidAmount))}</td>
-                <td class="amount">${escapeHtml(formatCurrency(row.refundAmount))}</td>
-                <td class="amount">${escapeHtml(formatCurrency(row.netAmount))}</td>
-                <td>${escapeHtml(row.lastActionLabel)}</td>
-                <td>${escapeHtml(row.lastActionReason || row.note || "--")}</td>
-            </tr>
-        `;
-    }).join("");
-}
-
-function getShiftReportPrintMarkup(reportData) {
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shift Close Report</title>
-<style>
-    body {
-        margin: 0;
-        padding: 28px;
-        background: #ffffff;
-        color: #111827;
-        font-family: "Segoe UI", Arial, sans-serif;
-    }
-
-    .sheet {
-        max-width: 1380px;
-        margin: 0 auto;
-    }
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 24px;
-        padding-bottom: 14px;
-        border-bottom: 2px solid #dbe4ee;
-    }
-
-    .header h1 {
-        margin: 0 0 6px;
-        font-size: 30px;
-        line-height: 1.1;
-    }
-
-    .meta {
-        color: #475569;
-        font-size: 14px;
-        line-height: 1.5;
-        text-align: right;
-    }
-
-    .summary {
-        display: grid;
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 12px;
-        margin-bottom: 24px;
-    }
-
-    .card {
-        padding: 16px;
-        border: 1px solid #dbe4ee;
-        border-radius: 16px;
-        background: #f8fbff;
-    }
-
-    .card small {
-        display: block;
-        margin-bottom: 8px;
-        color: #64748b;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-
-    .card strong {
-        display: block;
-        font-size: 24px;
-    }
-
-    .section {
-        margin-bottom: 24px;
-    }
-
-    .section h2 {
-        margin: 0 0 6px;
-        font-size: 18px;
-    }
-
-    .section p {
-        margin: 0 0 12px;
-        color: #64748b;
-        font-size: 13px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th {
-        padding: 0 0 10px;
-        border-bottom: 1px solid #dbe4ee;
-        color: #64748b;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-align: left;
-        text-transform: uppercase;
-    }
-
-    td {
-        padding: 10px 0;
-        border-bottom: 1px solid #e2e8f0;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    th:not(:first-child),
-    td:not(:first-child) {
-        text-align: right;
-    }
-
-    td:first-child,
-    th:first-child {
-        padding-right: 16px;
-    }
-
-    .empty-row {
-        text-align: left !important;
-        color: #64748b;
-    }
-
-    .transactions th,
-    .transactions td {
-        text-align: left;
-        vertical-align: top;
-        padding-right: 14px;
-    }
-
-    .transactions th {
-        white-space: nowrap;
-    }
-
-    .transactions td {
-        font-size: 12px;
-        line-height: 1.45;
-    }
-
-    .transactions .amount {
-        text-align: right;
-        white-space: nowrap;
-    }
-</style>
-</head>
-<body>
-    <div class="sheet">
-        <div class="header">
-            <div>
-                <h1>Shift Close Report</h1>
-                <div>Report Date: ${escapeHtml(formatShiftReportDateLabel(reportData.paymentDate))}</div>
-                <div>Department Scope: ${escapeHtml(reportData.departmentFilterLabel)}</div>
-            </div>
-            <div class="meta">
-                Generated: ${escapeHtml(formatHistoryTimestampLabel(reportData.generatedAt))}<br>
-                Shared Google Sheets summary
-            </div>
-        </div>
-
-        <div class="summary">
-            <div class="card"><small>Gross Cash</small><strong>${escapeHtml(formatCurrency(reportData.summary.grossCashTotal))}</strong></div>
-            <div class="card"><small>Gross Zelle</small><strong>${escapeHtml(formatCurrency(reportData.summary.grossZelleTotal))}</strong></div>
-            <div class="card"><small>Voids</small><strong>${escapeHtml(formatCurrency(reportData.summary.voidTotal))}</strong></div>
-            <div class="card"><small>Refunds</small><strong>${escapeHtml(formatCurrency(reportData.summary.refundTotal))}</strong></div>
-            <div class="card"><small>Net Collected</small><strong>${escapeHtml(formatCurrency(reportData.summary.netTotal))}</strong></div>
-            <div class="card"><small>Entries</small><strong>${escapeHtml(String(reportData.summary.entryCount))}</strong></div>
-        </div>
-
-        <div class="section">
-            <h2>Totals by Staff</h2>
-            <p>Shared collections broken down by front desk staff.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Staff</th>
-                        <th>Entries</th>
-                        <th>Gross</th>
-                        <th>Voids</th>
-                        <th>Refunds</th>
-                        <th>Net</th>
-                    </tr>
-                </thead>
-                <tbody>${getShiftReportPrintRowsMarkup(reportData.staffTotals)}</tbody>
-            </table>
-        </div>
-
-        <div class="section">
-            <h2>Totals by Department</h2>
-            <p>Shared collections broken down by department.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Department</th>
-                        <th>Entries</th>
-                        <th>Gross</th>
-                        <th>Voids</th>
-                        <th>Refunds</th>
-                        <th>Net</th>
-                    </tr>
-                </thead>
-                <tbody>${getShiftReportPrintRowsMarkup(reportData.departmentTotals)}</tbody>
-            </table>
-        </div>
-
-        <div class="section">
-            <h2>Detailed Transactions</h2>
-            <p>Entry-level log for the selected date.</p>
-            <table class="transactions">
-                <thead>
-                    <tr>
-                        <th>Time Stamp</th>
-                        <th>Receipt ID</th>
-                        <th>Status</th>
-                        <th>Staff</th>
-                        <th>Department</th>
-                        <th>Patient ID</th>
-                        <th>Service</th>
-                        <th>Gross</th>
-                        <th>Voids</th>
-                        <th>Refunds</th>
-                        <th>Net</th>
-                        <th>Last Action</th>
-                        <th>Reason</th>
-                    </tr>
-                </thead>
-                <tbody>${getShiftReportTransactionPrintRowsMarkup(reportData.transactions)}</tbody>
-            </table>
-        </div>
-    </div>
-</body>
-</html>`;
-}
-
-function printShiftReport() {
-    if (!currentShiftReportData) {
-        showBanner("Run the shift close report before printing it.", "error");
-        return;
-    }
-
-    const printWindow = window.open("", "_blank", "width=1200,height=900");
-
-    if (!printWindow) {
-        showBanner("Popup blocked. Please allow popups to print the shift close report.", "error");
-        return;
-    }
-
-    printWindow.document.open();
-    printWindow.document.write(getShiftReportPrintMarkup(currentShiftReportData));
-    printWindow.document.close();
-    printWindow.focus();
-
-    setTimeout(() => {
-        printWindow.print();
-    }, 250);
-}
-
-function downloadShiftReportCsv() {
-    if (!currentShiftReportData) {
-        showBanner("Run the shift close report before exporting it.", "error");
-        return;
-    }
-
-    const csvBlob = new Blob([getShiftReportCsv(currentShiftReportData)], {
-        type: "text/csv;charset=utf-8"
-    });
-    const blobUrl = URL.createObjectURL(csvBlob);
-    const downloadLink = document.createElement("a");
-    downloadLink.href = blobUrl;
-    const departmentSlug = normalizeShiftReportDepartmentFilter(currentShiftReportData.departmentFilter) === "all"
-        ? "both-departments"
-        : currentShiftReportData.departmentFilterLabel.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-    downloadLink.download = `shift-close-report-${currentShiftReportData.paymentDate || "report"}-${departmentSlug}.csv`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    downloadLink.remove();
-    URL.revokeObjectURL(blobUrl);
-}
-
-function renderShiftReportRows(container, rows, emptyLabel) {
-    if (!rows.length) {
-        container.innerHTML = `
-            <tr class="empty-row">
-                <td colspan="6">No shared ${escapeHtml(emptyLabel)} totals were found for that date.</td>
-            </tr>
-        `;
-        return;
-    }
-
-    container.innerHTML = rows.map(function(row) {
-        return `
-            <tr>
-                <td>${escapeHtml(row.label)}</td>
-                <td>${escapeHtml(String(row.entryCount))}</td>
-                <td>${escapeHtml(formatCurrency(row.grossTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.voidTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.refundTotal))}</td>
-                <td>${escapeHtml(formatCurrency(row.netTotal))}</td>
-            </tr>
-        `;
-    }).join("");
-}
-
-function handleDataFormSubmitOverride(event) {
-    return handleDataFormSubmit(event);
-}
-
-function handleHistoryActionButtonOverride(event) {
-    return handleHistoryActionButton(event);
-}
-
-function handleCorrectionFormSubmit(event) {
-    return submitCorrectionForm(event);
-}
-
-function closeReceiptModalAndReset(event) {
-    if (event && event.preventDefault) {
-        event.preventDefault();
-    }
-    toggleReceiptModal(false);
-}
-
-function closeHistoryModalAndReset(event) {
-    if (event && event.preventDefault) {
-        event.preventDefault();
-    }
-    toggleHistoryModal(false);
-}
-
-function closeShiftReportModalAndReset(event) {
-    if (event && event.preventDefault) {
-        event.preventDefault();
-    }
-    toggleShiftReportModal(false);
-}
+});
+
+syncDateTimeFields();
+setInterval(syncDateTimeFields, 1000);
+shiftReportDateFilter.value = getDefaultShiftReportDate();
+shiftReportDepartmentFilter.value = "all";
+serviceSelect.required = false;
+serviceSelect.removeAttribute("required");
+syncServiceSearchFromSelect();
+setServiceSearchValidity(true);
+refreshServiceSuggestions("", { openDropdown: false });
+togglePatientNameField();
+renderReceiptHistory();
+loadSharedDashboard();
+updateSummary();
 </script>
 </body>
 </html>
