@@ -56,7 +56,9 @@
 
     body.receipt-open,
     body.history-open,
-    body.shift-report-open {
+    body.shift-report-open,
+    body.schedule-open,
+    body.schedule-editor-open {
         overflow: hidden;
     }
 
@@ -241,6 +243,155 @@
         background: rgba(255, 255, 255, 0.18);
         font-size: 0.72rem;
         letter-spacing: 0.08em;
+    }
+
+    .schedule-resource-btn {
+        border: 0;
+        cursor: pointer;
+        font: inherit;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        min-height: 48px;
+        padding: 13px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        background:
+            linear-gradient(135deg, #ff4b4b 0%, var(--brand-red) 46%, #a30f18 100%);
+        box-shadow: 0 18px 34px rgba(239, 43, 45, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+        letter-spacing: 0.02em;
+    }
+
+    .schedule-resource-btn::before {
+        content: "\1F4C5";
+        min-width: 30px;
+        padding: 5px 7px;
+        background: rgba(255, 255, 255, 0.2);
+        font-size: 0.9rem;
+        letter-spacing: 0;
+    }
+
+    .staff-list-resource-btn {
+        border: 0;
+        cursor: pointer;
+        font: inherit;
+        background: linear-gradient(135deg, #111827, #334155 62%, #0f172a 100%);
+        box-shadow: 0 16px 30px rgba(15, 23, 42, 0.22);
+    }
+
+    .staff-list-resource-btn::before {
+        content: "LIST";
+    }
+
+    .staff-list-dialog {
+        width: min(1360px, calc(100vw - 24px));
+    }
+
+    .staff-list-controls-grid {
+        grid-template-columns: minmax(260px, 1fr) 150px minmax(220px, 0.7fr);
+    }
+
+    .staff-list-table-wrap {
+        overflow: auto;
+        max-height: min(620px, calc(100vh - 310px));
+        border: 1px solid rgba(203, 213, 225, 0.72);
+        border-radius: 16px;
+        background: #fff;
+    }
+
+    .staff-list-table {
+        width: 100%;
+        min-width: 940px;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 0.84rem;
+    }
+
+    .staff-list-table th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(203, 213, 225, 0.86);
+        background: #f8fbff;
+        color: var(--ink-900);
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.07em;
+        text-align: left;
+        text-transform: uppercase;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .staff-list-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(226, 232, 240, 0.82);
+        color: var(--ink-900);
+        font-weight: 750;
+        line-height: 1.36;
+        vertical-align: middle;
+        overflow-wrap: anywhere;
+    }
+
+    .staff-list-table tr:hover td {
+        background: rgba(25, 173, 232, 0.05);
+    }
+
+    .staff-list-table input,
+    .staff-list-table select {
+        min-height: 36px;
+        padding: 7px 9px;
+        font-size: 0.82rem;
+        font-weight: 750;
+    }
+
+    .staff-list-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .staff-column-list {
+        display: grid;
+        gap: 8px;
+        padding: 18px;
+    }
+
+    .staff-column-item {
+        display: grid;
+        grid-template-columns: minmax(160px, 1fr) 120px 86px 86px 86px;
+        gap: 8px;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid rgba(203, 213, 225, 0.72);
+        border-radius: 12px;
+        background: #fff;
+    }
+
+    .staff-list-resource-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 22px 36px rgba(15, 23, 42, 0.28);
+    }
+
+    .schedule-resource-btn::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        z-index: -1;
+        background: linear-gradient(120deg, transparent 10%, rgba(255, 255, 255, 0.34) 38%, transparent 62%);
+        transform: translateX(-120%);
+        transition: transform 0.55s ease;
+    }
+
+    .schedule-resource-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 24px 42px rgba(239, 43, 45, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .schedule-resource-btn:hover::after {
+        transform: translateX(120%);
     }
 
     .support-panel {
@@ -904,6 +1055,14 @@
         width: min(1120px, 100%);
     }
 
+    .schedule-dialog {
+        width: min(1260px, 100%);
+    }
+
+    .schedule-editor-dialog {
+        width: min(620px, 100%);
+    }
+
     .receipt-toolbar,
     .history-toolbar {
         display: flex;
@@ -969,6 +1128,494 @@
 
     .shift-report-body {
         gap: 12px;
+    }
+
+    .schedule-body {
+        gap: 12px;
+    }
+
+    .schedule-body.is-loading {
+        cursor: progress;
+    }
+
+    .schedule-controls-grid {
+        grid-template-columns: minmax(220px, 1fr) 180px 180px minmax(220px, 0.9fr);
+    }
+
+    .schedule-view-toggle {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        padding: 4px;
+        border-radius: 14px;
+        background: rgba(15, 23, 42, 0.06);
+    }
+
+    .schedule-view-toggle button {
+        min-height: 36px;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--ink-700);
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-weight: 800;
+    }
+
+    .schedule-view-toggle button.is-active {
+        color: #fff;
+        background: linear-gradient(135deg, var(--brand-blue), #0f8fca);
+        box-shadow: 0 8px 18px rgba(17, 139, 199, 0.18);
+    }
+
+    .schedule-workspace {
+        display: grid;
+        grid-template-columns: 330px minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+    }
+
+    .staff-directory,
+    .schedule-calendar-panel {
+        display: grid;
+        gap: 12px;
+    }
+
+    .staff-list {
+        display: grid;
+        gap: 8px;
+        max-height: 590px;
+        overflow: auto;
+        padding-right: 4px;
+        content-visibility: auto;
+    }
+
+    .staff-card {
+        border: 1px solid rgba(203, 213, 225, 0.72);
+        border-radius: 14px;
+        padding: 11px 12px;
+        background: #fff;
+        cursor: grab;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .staff-card:active {
+        cursor: grabbing;
+    }
+
+    .staff-card:hover {
+        transform: translateY(-1px);
+        border-color: rgba(25, 173, 232, 0.34);
+        box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+    }
+
+    .staff-card strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.9rem;
+        line-height: 1.25;
+    }
+
+    .staff-card span,
+    .staff-card a {
+        display: block;
+        color: var(--ink-500);
+        font-size: 0.75rem;
+        line-height: 1.42;
+        text-decoration: none;
+    }
+
+    .staff-card a:hover {
+        color: #0f8fca;
+        text-decoration: underline;
+    }
+
+    .staff-card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .staff-card-tags em {
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.06);
+        color: var(--ink-700);
+        font-size: 0.68rem;
+        font-style: normal;
+        font-weight: 800;
+    }
+
+    .schedule-calendar-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .schedule-calendar-title {
+        display: grid;
+        gap: 2px;
+    }
+
+    .schedule-calendar-title strong {
+        font-size: 1rem;
+    }
+
+    .schedule-calendar-title span {
+        color: var(--ink-500);
+        font-size: 0.78rem;
+    }
+
+    .schedule-calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(108px, 1fr));
+        border: 1px solid rgba(203, 213, 225, 0.72);
+        border-radius: 16px;
+        overflow: auto;
+        background: #fff;
+        content-visibility: auto;
+    }
+
+    .schedule-day-header,
+    .schedule-day-cell {
+        min-width: 108px;
+        border-right: 1px solid rgba(226, 232, 240, 0.82);
+        border-bottom: 1px solid rgba(226, 232, 240, 0.82);
+    }
+
+    .schedule-day-header:nth-child(7n),
+    .schedule-day-cell:nth-child(7n) {
+        border-right: 0;
+    }
+
+    .schedule-day-header {
+        padding: 10px;
+        background: #f8fbff;
+        color: var(--ink-500);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .schedule-day-cell {
+        min-height: 138px;
+        padding: 8px;
+        background: #fff;
+        transition: background 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .schedule-day-cell.is-muted {
+        background: #f8fafc;
+    }
+
+    .schedule-day-cell.is-today {
+        box-shadow: inset 0 0 0 2px rgba(25, 173, 232, 0.24);
+    }
+
+    .schedule-day-cell.is-drop-target {
+        background: rgba(25, 173, 232, 0.1);
+    }
+
+    .schedule-day-number {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        color: var(--ink-700);
+        font-size: 0.78rem;
+        font-weight: 800;
+    }
+
+    .schedule-entry-card {
+        display: grid;
+        gap: 3px;
+        margin-bottom: 6px;
+        padding: 8px;
+        border-left: 4px solid #0f8fca;
+        border-radius: 10px;
+        background: rgba(25, 173, 232, 0.09);
+        cursor: grab;
+        transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .schedule-entry-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .schedule-entry-card.location-zephyrhills {
+        border-left-color: var(--brand-red);
+        background: rgba(239, 43, 45, 0.08);
+    }
+
+    .schedule-entry-card.location-remote {
+        border-left-color: #7c3aed;
+        background: rgba(124, 58, 237, 0.08);
+    }
+
+    .schedule-entry-card strong {
+        font-size: 0.78rem;
+        line-height: 1.22;
+    }
+
+    .schedule-entry-card span {
+        color: var(--ink-500);
+        font-size: 0.68rem;
+        line-height: 1.25;
+    }
+
+    .schedule-empty-state {
+        padding: 16px;
+        border: 1px dashed rgba(148, 163, 184, 0.45);
+        border-radius: 14px;
+        color: var(--ink-500);
+        background: rgba(248, 250, 252, 0.94);
+        font-size: 0.84rem;
+        line-height: 1.5;
+    }
+
+    .schedule-status-inline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .schedule-status-inline::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--brand-blue);
+        box-shadow: 0 0 0 5px rgba(25, 173, 232, 0.12);
+    }
+
+    .schedule-status-inline.is-error::before {
+        background: var(--brand-red);
+        box-shadow: 0 0 0 5px rgba(239, 43, 45, 0.12);
+    }
+
+    .schedule-status-inline.is-stale::before {
+        background: #b45309;
+        box-shadow: 0 0 0 5px rgba(180, 83, 9, 0.12);
+    }
+
+    .schedule-editor-form {
+        display: grid;
+        gap: 12px;
+        padding: 18px;
+    }
+
+    .schedule-editor-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .schedule-dialog {
+        width: min(1500px, calc(100vw - 24px));
+        max-height: calc(100vh - 24px);
+        border-radius: 18px;
+    }
+
+    .schedule-page-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .schedule-controls-grid {
+        grid-template-columns: minmax(220px, 1.1fr) minmax(150px, 0.8fr) minmax(150px, 0.8fr) minmax(150px, 0.8fr) minmax(150px, 0.8fr);
+    }
+
+    .schedule-workspace {
+        grid-template-columns: minmax(360px, 0.92fr) minmax(0, 1.45fr) minmax(310px, 0.85fr);
+    }
+
+    .staff-card {
+        cursor: pointer;
+    }
+
+    .staff-card.is-selected {
+        border-color: rgba(25, 173, 232, 0.58);
+        box-shadow: 0 0 0 4px rgba(25, 173, 232, 0.1), var(--shadow-sm);
+    }
+
+    .staff-card-grid,
+    .staff-profile-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px 10px;
+        margin-top: 8px;
+    }
+
+    .staff-info-line {
+        min-width: 0;
+        display: grid !important;
+        gap: 4px;
+        align-content: start;
+        padding: 8px 9px;
+        border-radius: 10px;
+        color: var(--ink-900) !important;
+        background: rgba(248, 250, 252, 0.9);
+        font-size: 0.76rem !important;
+        font-weight: 850;
+        line-height: 1.35;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .staff-info-line b {
+        display: block;
+        color: var(--ink-900);
+        font-size: 0.68rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    .staff-info-line a {
+        display: inline !important;
+        color: #0b6aa6;
+        font-weight: 900;
+        overflow-wrap: anywhere;
+    }
+
+    .staff-card > strong,
+    .staff-profile-panel strong,
+    .staff-profile-shift strong {
+        font-weight: 900;
+    }
+
+    .staff-card-grid,
+    .staff-profile-grid {
+        align-items: stretch;
+    }
+
+    .staff-profile-panel .staff-info-line {
+        font-size: 0.8rem !important;
+        min-height: 54px;
+    }
+
+    .staff-profile-panel {
+        display: grid;
+        gap: 12px;
+        align-self: start;
+    }
+
+    .staff-profile-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .staff-profile-shifts {
+        display: grid;
+        gap: 8px;
+        max-height: 420px;
+        overflow: auto;
+    }
+
+    .staff-profile-shift {
+        padding: 10px;
+        border: 1px solid rgba(203, 213, 225, 0.72);
+        border-radius: 12px;
+        background: #fff;
+    }
+
+    .staff-profile-shift strong {
+        display: block;
+        font-size: 0.84rem;
+        margin-bottom: 3px;
+    }
+
+    .staff-profile-shift span {
+        display: block;
+        color: var(--ink-500);
+        font-size: 0.75rem;
+        line-height: 1.35;
+    }
+
+    .schedule-location-dot {
+        display: inline-flex;
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        margin-right: 6px;
+        background: var(--brand-blue);
+    }
+
+    .schedule-location-dot.zephyrhills {
+        background: var(--brand-red);
+    }
+
+    .schedule-location-dot.remote {
+        background: #7c3aed;
+    }
+
+    .schedule-print-template {
+        color: #111;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .schedule-print-template .print-heading {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: end;
+        margin: 26px 28px 8px;
+    }
+
+    .schedule-print-template .print-location,
+    .schedule-print-template .print-month {
+        font-size: 42px;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .schedule-print-template .print-month {
+        text-align: right;
+    }
+
+    .schedule-print-template table {
+        width: calc(100% - 56px);
+        margin: 0 28px;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+    .schedule-print-template th {
+        padding: 10px 8px;
+        border: 2px solid #333;
+        background: #f1f1f1;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .schedule-print-template td {
+        height: 118px;
+        padding: 8px;
+        border: 2px solid #333;
+        vertical-align: top;
+        font-size: 13px;
+        line-height: 1.25;
+    }
+
+    .schedule-print-template .print-day {
+        display: block;
+        margin-bottom: 6px;
+        color: #4b5563;
+        font-weight: 700;
+    }
+
+    .schedule-print-template .print-footer {
+        margin: 3px 28px 0;
+        color: #1597d4;
+        font-size: 16px;
+        font-style: italic;
+        font-weight: 800;
     }
 
     .history-intro {
@@ -1348,6 +1995,26 @@
             grid-template-columns: 1fr;
         }
 
+        .schedule-workspace {
+            grid-template-columns: 1fr;
+        }
+
+        .staff-list {
+            max-height: 340px;
+        }
+
+        .schedule-controls-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .staff-profile-panel {
+            order: 3;
+        }
+
+        .schedule-calendar-grid {
+            grid-template-columns: repeat(7, minmax(132px, 1fr));
+        }
+
     }
 
     @media (max-width: 980px) {
@@ -1426,7 +2093,9 @@
         }
 
         .dashboard-grid,
-        .history-controls-grid {
+        .history-controls-grid,
+        .schedule-controls-grid,
+        .schedule-editor-grid {
             grid-template-columns: 1fr;
         }
 
@@ -1436,6 +2105,50 @@
 
         .shift-report-summary {
             grid-template-columns: 1fr;
+        }
+
+        .schedule-dialog {
+            width: min(100%, calc(100vw - 16px));
+            max-height: calc(100vh - 16px);
+        }
+
+        .schedule-controls-grid,
+        .staff-card-grid,
+        .staff-profile-grid,
+        .schedule-editor-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .schedule-workspace {
+            gap: 10px;
+        }
+
+        .schedule-calendar-grid {
+            grid-template-columns: repeat(7, minmax(138px, 1fr));
+            border-radius: 12px;
+        }
+
+        .schedule-day-cell {
+            min-height: 126px;
+        }
+
+        .schedule-resource-btn,
+        .staff-list-resource-btn {
+            width: 100%;
+        }
+
+        .staff-list-controls-grid,
+        .staff-column-item {
+            grid-template-columns: 1fr;
+        }
+
+        .staff-list-table-wrap {
+            max-height: min(560px, calc(100vh - 260px));
+        }
+
+        .schedule-calendar-toolbar {
+            align-items: stretch;
+            flex-direction: column;
         }
 
         .form-sidecar {
@@ -1539,6 +2252,8 @@
                     <p>Capture walk-in payments cleanly, reduce entry errors, and send every record straight to your existing Google Sheet through the same Apps Script link you already use.</p>
                     <div class="brand-actions">
                         <a class="resource-btn" href="Selfpay%20List%20Updated%2004142026%201.pdf" target="_blank" rel="noopener noreferrer">View Service Pricing Sheet</a>
+                        <button type="button" id="openScheduleBtn" class="resource-btn schedule-resource-btn" aria-haspopup="dialog" aria-controls="scheduleModal">Staff Schedule</button>
+                        <button type="button" id="openStaffListBtn" class="resource-btn staff-list-resource-btn" aria-haspopup="dialog" aria-controls="staffListModal">Staff List</button>
                     </div>
                 </div>
 
@@ -2050,6 +2765,334 @@
             </div>
         </div>
 
+
+
+        <div id="staffListModal" class="history-modal" aria-hidden="true">
+            <div class="history-dialog staff-list-dialog" role="dialog" aria-modal="true" aria-labelledby="staffListTitle">
+                <div class="history-toolbar">
+                    <div>
+                        <strong id="staffListTitle">Staff List</strong>
+                        <span>Search, sort, and maintain staff directory columns.</span>
+                    </div>
+                    <div class="history-actions">
+                        <button type="button" id="addStaffColumnBtn" class="receipt-btn">Add Column</button>
+                        <button type="button" id="manageStaffColumnsBtn" class="receipt-btn">Manage Columns</button>
+                        <button type="button" id="refreshStaffListBtn" class="receipt-btn primary">Refresh</button>
+                        <button type="button" id="closeStaffListBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
+                <div class="history-body">
+                    <div class="history-controls">
+                        <div class="history-controls-grid staff-list-controls-grid">
+                            <div class="field">
+                                <label for="staffListSearchInput">Search Staff</label>
+                                <input type="search" id="staffListSearchInput" placeholder="Search name, email, title, Athena user, location, or phone" autocomplete="off">
+                            </div>
+                            <div class="field">
+                                <label for="staffListPageSize">Rows</label>
+                                <select id="staffListPageSize">
+                                    <option value="15">15</option>
+                                    <option value="25" selected>25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Status</label>
+                                <div id="staffListStatus" class="shift-report-status">Open Staff List to load staff.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="staff-list-table-wrap">
+                        <table class="staff-list-table">
+                            <thead id="staffListTableHead"></thead>
+                            <tbody id="staffListTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="staff-list-footer">
+                        <div id="staffListPageInfo" class="shared-data-status">0 staff</div>
+                        <div class="history-filter-actions">
+                            <button type="button" id="staffListPrevPageBtn" class="receipt-btn">Previous</button>
+                            <button type="button" id="staffListNextPageBtn" class="receipt-btn primary">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="staffColumnModal" class="history-modal" aria-hidden="true">
+            <div class="history-dialog schedule-editor-dialog" role="dialog" aria-modal="true" aria-labelledby="staffColumnTitle">
+                <div class="history-toolbar">
+                    <div>
+                        <strong id="staffColumnTitle">Add Custom Column</strong>
+                        <span>Create a permanent Staff List column.</span>
+                    </div>
+                    <div class="history-actions">
+                        <button type="button" id="closeStaffColumnBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
+                <form id="staffColumnForm" class="schedule-editor-form">
+                    <input type="hidden" id="staffColumnId">
+                    <div class="field"><label for="staffColumnName">Column Name</label><input type="text" id="staffColumnName" required></div>
+                    <div class="field"><label for="staffColumnType">Data Type</label><select id="staffColumnType"><option value="text">Text</option><option value="number">Number</option><option value="date">Date</option><option value="dropdown">Dropdown</option><option value="phone">Phone</option><option value="email">Email</option></select></div>
+                    <div class="field"><label for="staffColumnOptions">Dropdown Options</label><textarea id="staffColumnOptions" placeholder="One option per line"></textarea></div>
+                    <div class="history-filter-actions"><button type="submit" id="saveStaffColumnBtn" class="receipt-btn primary">Save Column</button></div>
+                </form>
+            </div>
+        </div>
+
+        <div id="staffColumnManageModal" class="history-modal" aria-hidden="true">
+            <div class="history-dialog schedule-editor-dialog" role="dialog" aria-modal="true" aria-labelledby="staffColumnManageTitle">
+                <div class="history-toolbar">
+                    <div>
+                        <strong id="staffColumnManageTitle">Manage Custom Columns</strong>
+                        <span>Rename, hide, reorder, or delete Staff List custom columns.</span>
+                    </div>
+                    <div class="history-actions">
+                        <button type="button" id="closeStaffColumnManageBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
+                <div id="staffColumnManageList" class="staff-column-list"></div>
+            </div>
+        </div>
+
+        <div id="scheduleModal" class="history-modal" aria-hidden="true">
+            <div class="history-dialog schedule-dialog" role="dialog" aria-modal="true" aria-labelledby="scheduleTitle">
+                <div class="history-toolbar">
+                    <div>
+                        <strong id="scheduleTitle">Staff Schedule</strong>
+                        <span>Search staff, drag team members onto dates, and maintain shared shift entries in Google Sheets.</span>
+                    </div>
+                    <div class="history-actions">
+                        <button type="button" id="openStaffFormBtn" class="receipt-btn">Add Staff</button>
+                        <button type="button" id="openBulkScheduleBtn" class="receipt-btn">Bulk Add</button>
+                        <button type="button" id="printTampaScheduleBtn" class="receipt-btn">Print Tampa</button>
+                        <button type="button" id="printZephyrhillsScheduleBtn" class="receipt-btn">Print Zephyrhills</button>
+                        <button type="button" id="refreshScheduleBtn" class="receipt-btn primary">Refresh</button>
+                        <button type="button" id="closeScheduleBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
+
+                <div class="history-body schedule-body">
+                    <div class="history-controls">
+                        <div class="history-controls-grid schedule-controls-grid">
+                            <div class="field">
+                                <label for="staffSearchInput">Staff Search</label>
+                                <input type="search" id="staffSearchInput" placeholder="Name, title, specialty, or location" autocomplete="off">
+                            </div>
+                            <div class="field">
+                                <label for="scheduleLocationFilter">Office Location</label>
+                                <select id="scheduleLocationFilter">
+                                    <option value="all">All Locations</option>
+                                    <option value="Tampa">Tampa</option>
+                                    <option value="Zephyrhills">Zephyrhills</option>
+                                    <option value="Remote">Remote</option>
+                                    <option value="Unassigned">Unassigned</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="scheduleStaffFilter">Staff Filter</label>
+                                <select id="scheduleStaffFilter">
+                                    <option value="all">All Staff</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="scheduleRangeStart">From</label>
+                                <input type="date" id="scheduleRangeStart">
+                            </div>
+                            <div class="field">
+                                <label for="scheduleRangeEnd">To</label>
+                                <input type="date" id="scheduleRangeEnd">
+                            </div>
+                            <div class="field">
+                                <label>Schedule Status</label>
+                                <div id="scheduleStatus" class="shift-report-status">Open the schedule to load staff and shifts.</div>
+                            </div>
+                        </div>
+                        <div class="history-filter-actions">
+                            <button type="button" id="schedulePrevBtn" class="receipt-btn">Previous</button>
+                            <button type="button" id="scheduleTodayBtn" class="receipt-btn">Today</button>
+                            <button type="button" id="scheduleNextBtn" class="receipt-btn">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="schedule-workspace">
+                        <section class="history-card staff-directory">
+                            <div class="shift-report-section-header">
+                                <div>
+                                    <strong>Staff Directory</strong>
+                                    <span id="staffDirectoryCount">0 staff</span>
+                                </div>
+                            </div>
+                            <div id="staffList" class="staff-list" aria-live="polite"></div>
+                        </section>
+
+                        <section class="history-card schedule-calendar-panel">
+                            <div class="schedule-calendar-toolbar">
+                                <div class="schedule-calendar-title">
+                                    <strong id="scheduleCalendarTitle">Monthly Schedule</strong>
+                                    <span>Drag a staff card to a day, or click a shift to edit it.</span>
+                                </div>
+                                <div class="schedule-view-toggle" role="group" aria-label="Calendar view">
+                                    <button type="button" id="scheduleWeekViewBtn">Week</button>
+                                    <button type="button" id="scheduleMonthViewBtn" class="is-active">Month</button>
+                                </div>
+                            </div>
+                            <div id="scheduleCalendarGrid" class="schedule-calendar-grid" aria-live="polite"></div>
+                        </section>
+
+                        <aside class="history-card staff-profile-panel" id="staffProfilePanel" aria-live="polite">
+                            <div class="schedule-empty-state">Select a staff member to view their profile and assigned shifts.</div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="staffFormModal" class="history-modal" aria-hidden="true">
+            <div class="history-dialog schedule-editor-dialog" role="dialog" aria-modal="true" aria-labelledby="staffFormTitle">
+                <div class="history-toolbar">
+                    <div>
+                        <strong id="staffFormTitle">Add New Staff Member</strong>
+                        <span>Save staff details and optionally assign multiple shift dates.</span>
+                    </div>
+                    <div class="history-actions">
+                        <button type="button" id="closeStaffFormBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
+                <form id="staffForm" class="schedule-editor-form">
+                    <input type="hidden" id="staffFormStaffId">
+                    <div class="schedule-editor-grid">
+                        <div class="field"><label for="staffFormName">Name</label><input type="text" id="staffFormName" required></div>
+                        <div class="field"><label for="staffFormEmail">Email</label><input type="email" id="staffFormEmail"></div>
+                        <div class="field"><label for="staffFormPhone">Phone Number</label><input type="tel" id="staffFormPhone"></div>
+                        <div class="field"><label for="staffFormTitleInput">Title</label><input type="text" id="staffFormTitleInput"></div>
+                        <div class="field"><label for="staffFormSpecialty">Primary Specialty</label><input type="text" id="staffFormSpecialty"></div>
+                        <div class="field"><label for="staffFormVerifiedDate">Verified Date</label><input type="date" id="staffFormVerifiedDate"></div>
+                        <div class="field"><label for="staffFormShiftStart">Shift Start Time</label><input type="time" id="staffFormShiftStart" value="08:00"></div>
+                        <div class="field"><label for="staffFormShiftEnd">Shift End Time</label><input type="time" id="staffFormShiftEnd" value="17:00"></div>
+                        <div class="field"><label for="staffFormTimeZone">Time Zone</label><input type="text" id="staffFormTimeZone" value="EST"></div>
+                        <div class="field"><label for="staffFormAthenaUser">Athena User</label><input type="text" id="staffFormAthenaUser"></div>
+                        <div class="field"><label for="staffFormLocation">Location</label><select id="staffFormLocation"><option value="Tampa">Tampa</option><option value="Zephyrhills">Zephyrhills</option><option value="Remote">Remote</option><option value="Unassigned">Unassigned</option></select></div>
+                        <div class="field"><label for="staffFormActive">Active</label><select id="staffFormActive"><option value="Yes">Yes</option><option value="No">No</option></select></div>
+                    </div>
+                    <div class="field"><label for="staffFormScheduleDates">Assign Shift Dates</label><textarea id="staffFormScheduleDates" placeholder="2026-06-01, 2026-06-03, 2026-06-05"></textarea></div>
+                    <div class="field"><label for="staffFormScheduleNote">Schedule Note</label><textarea id="staffFormScheduleNote" placeholder="Optional schedule note"></textarea></div>
+                    <div class="history-filter-actions">
+                        <button type="submit" id="saveStaffFormBtn" class="receipt-btn primary">Save Staff Member</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="bulkScheduleModal" class="history-modal" aria-hidden="true">
+            <div class="history-dialog schedule-editor-dialog" role="dialog" aria-modal="true" aria-labelledby="bulkScheduleTitle">
+                <div class="history-toolbar">
+                    <div>
+                        <strong id="bulkScheduleTitle">Bulk Add Shifts</strong>
+                        <span>Create the same shift for one staff member across multiple dates.</span>
+                    </div>
+                    <div class="history-actions">
+                        <button type="button" id="closeBulkScheduleBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
+                <form id="bulkScheduleForm" class="schedule-editor-form">
+                    <div class="field">
+                        <label for="bulkScheduleStaff">Staff Member</label>
+                        <select id="bulkScheduleStaff" required></select>
+                    </div>
+                    <div class="field">
+                        <label for="bulkScheduleDates">Dates</label>
+                        <textarea id="bulkScheduleDates" placeholder="2026-06-01, 2026-06-03, 2026-06-05" required></textarea>
+                    </div>
+                    <div class="schedule-editor-grid">
+                        <div class="field">
+                            <label for="bulkScheduleStartTime">Start Time</label>
+                            <input type="time" id="bulkScheduleStartTime" required>
+                        </div>
+                        <div class="field">
+                            <label for="bulkScheduleEndTime">End Time</label>
+                            <input type="time" id="bulkScheduleEndTime" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="bulkScheduleLocation">Location</label>
+                        <select id="bulkScheduleLocation" required>
+                            <option value="Tampa">Tampa</option>
+                            <option value="Zephyrhills">Zephyrhills</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="bulkScheduleNotes">Notes</label>
+                        <textarea id="bulkScheduleNotes" placeholder="Optional notes"></textarea>
+                    </div>
+                    <div class="history-filter-actions">
+                        <button type="submit" id="saveBulkScheduleBtn" class="receipt-btn primary">Create Shifts</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="scheduleEditorModal" class="history-modal" aria-hidden="true">
+            <div class="history-dialog schedule-editor-dialog" role="dialog" aria-modal="true" aria-labelledby="scheduleEditorTitle">
+                <div class="history-toolbar">
+                    <div>
+                        <strong id="scheduleEditorTitle">Schedule Shift</strong>
+                        <span>Add, edit, resize times, or delete a shared schedule entry.</span>
+                    </div>
+                    <div class="history-actions">
+                        <button type="button" id="deleteScheduleEntryBtn" class="receipt-btn">Delete</button>
+                        <button type="button" id="closeScheduleEditorBtn" class="receipt-btn">Close</button>
+                    </div>
+                </div>
+                <form id="scheduleEditorForm" class="schedule-editor-form">
+                    <input type="hidden" id="scheduleEntryId">
+                    <div class="field">
+                        <label for="scheduleEditorStaff">Staff Member</label>
+                        <select id="scheduleEditorStaff" required></select>
+                    </div>
+                    <div class="schedule-editor-grid">
+                        <div class="field">
+                            <label for="scheduleEditorStartDate">Start Date</label>
+                            <input type="date" id="scheduleEditorStartDate" required>
+                        </div>
+                        <div class="field">
+                            <label for="scheduleEditorEndDate">End Date</label>
+                            <input type="date" id="scheduleEditorEndDate" required>
+                        </div>
+                        <div class="field">
+                            <label for="scheduleEditorStartTime">Start Time</label>
+                            <input type="time" id="scheduleEditorStartTime" required>
+                        </div>
+                        <div class="field">
+                            <label for="scheduleEditorEndTime">End Time</label>
+                            <input type="time" id="scheduleEditorEndTime" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="scheduleEditorLocation">Location</label>
+                        <select id="scheduleEditorLocation" required>
+                            <option value="Tampa">Tampa</option>
+                            <option value="Zephyrhills">Zephyrhills</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="scheduleEditorNotes">Notes</label>
+                        <textarea id="scheduleEditorNotes" placeholder="Optional notes"></textarea>
+                    </div>
+                    <div class="history-filter-actions">
+                        <button type="submit" id="saveScheduleEntryBtn" class="receipt-btn primary">Save Shift</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 
 <script>
@@ -2123,8 +3166,101 @@ const receiptDepartment = document.getElementById("receiptDepartment");
 const receiptService = document.getElementById("receiptService");
 const receiptAmount = document.getElementById("receiptAmount");
 const receiptMethod = document.getElementById("receiptMethod");
+const openStaffListBtn = document.getElementById("openStaffListBtn");
+const staffListModal = document.getElementById("staffListModal");
+const closeStaffListBtn = document.getElementById("closeStaffListBtn");
+const refreshStaffListBtn = document.getElementById("refreshStaffListBtn");
+const addStaffColumnBtn = document.getElementById("addStaffColumnBtn");
+const manageStaffColumnsBtn = document.getElementById("manageStaffColumnsBtn");
+const staffListSearchInput = document.getElementById("staffListSearchInput");
+const staffListPageSize = document.getElementById("staffListPageSize");
+const staffListStatus = document.getElementById("staffListStatus");
+const staffListTableHead = document.getElementById("staffListTableHead");
+const staffListTableBody = document.getElementById("staffListTableBody");
+const staffListPageInfo = document.getElementById("staffListPageInfo");
+const staffListPrevPageBtn = document.getElementById("staffListPrevPageBtn");
+const staffListNextPageBtn = document.getElementById("staffListNextPageBtn");
+const staffColumnModal = document.getElementById("staffColumnModal");
+const staffColumnForm = document.getElementById("staffColumnForm");
+const staffColumnId = document.getElementById("staffColumnId");
+const staffColumnName = document.getElementById("staffColumnName");
+const staffColumnType = document.getElementById("staffColumnType");
+const staffColumnOptions = document.getElementById("staffColumnOptions");
+const saveStaffColumnBtn = document.getElementById("saveStaffColumnBtn");
+const closeStaffColumnBtn = document.getElementById("closeStaffColumnBtn");
+const staffColumnManageModal = document.getElementById("staffColumnManageModal");
+const staffColumnManageList = document.getElementById("staffColumnManageList");
+const closeStaffColumnManageBtn = document.getElementById("closeStaffColumnManageBtn");
+const openScheduleBtn = document.getElementById("openScheduleBtn");
+const scheduleModal = document.getElementById("scheduleModal");
+const scheduleBody = document.querySelector("#scheduleModal .schedule-body");
+const closeScheduleBtn = document.getElementById("closeScheduleBtn");
+const refreshScheduleBtn = document.getElementById("refreshScheduleBtn");
+const openStaffFormBtn = document.getElementById("openStaffFormBtn");
+const openBulkScheduleBtn = document.getElementById("openBulkScheduleBtn");
+const printTampaScheduleBtn = document.getElementById("printTampaScheduleBtn");
+const printZephyrhillsScheduleBtn = document.getElementById("printZephyrhillsScheduleBtn");
+const staffSearchInput = document.getElementById("staffSearchInput");
+const scheduleLocationFilter = document.getElementById("scheduleLocationFilter");
+const scheduleStaffFilter = document.getElementById("scheduleStaffFilter");
+const scheduleRangeStart = document.getElementById("scheduleRangeStart");
+const scheduleRangeEnd = document.getElementById("scheduleRangeEnd");
+const scheduleWeekViewBtn = document.getElementById("scheduleWeekViewBtn");
+const scheduleMonthViewBtn = document.getElementById("scheduleMonthViewBtn");
+const scheduleStatus = document.getElementById("scheduleStatus");
+const schedulePrevBtn = document.getElementById("schedulePrevBtn");
+const scheduleTodayBtn = document.getElementById("scheduleTodayBtn");
+const scheduleNextBtn = document.getElementById("scheduleNextBtn");
+const staffDirectoryCount = document.getElementById("staffDirectoryCount");
+const staffList = document.getElementById("staffList");
+const staffProfilePanel = document.getElementById("staffProfilePanel");
+const scheduleCalendarTitle = document.getElementById("scheduleCalendarTitle");
+const scheduleCalendarGrid = document.getElementById("scheduleCalendarGrid");
+const staffFormModal = document.getElementById("staffFormModal");
+const staffForm = document.getElementById("staffForm");
+const staffFormStaffId = document.getElementById("staffFormStaffId");
+const staffFormName = document.getElementById("staffFormName");
+const staffFormEmail = document.getElementById("staffFormEmail");
+const staffFormPhone = document.getElementById("staffFormPhone");
+const staffFormTitleInput = document.getElementById("staffFormTitleInput");
+const staffFormSpecialty = document.getElementById("staffFormSpecialty");
+const staffFormVerifiedDate = document.getElementById("staffFormVerifiedDate");
+const staffFormShiftStart = document.getElementById("staffFormShiftStart");
+const staffFormShiftEnd = document.getElementById("staffFormShiftEnd");
+const staffFormTimeZone = document.getElementById("staffFormTimeZone");
+const staffFormAthenaUser = document.getElementById("staffFormAthenaUser");
+const staffFormLocation = document.getElementById("staffFormLocation");
+const staffFormActive = document.getElementById("staffFormActive");
+const staffFormScheduleDates = document.getElementById("staffFormScheduleDates");
+const staffFormScheduleNote = document.getElementById("staffFormScheduleNote");
+const saveStaffFormBtn = document.getElementById("saveStaffFormBtn");
+const closeStaffFormBtn = document.getElementById("closeStaffFormBtn");
+const bulkScheduleModal = document.getElementById("bulkScheduleModal");
+const closeBulkScheduleBtn = document.getElementById("closeBulkScheduleBtn");
+const bulkScheduleForm = document.getElementById("bulkScheduleForm");
+const bulkScheduleStaff = document.getElementById("bulkScheduleStaff");
+const bulkScheduleDates = document.getElementById("bulkScheduleDates");
+const bulkScheduleStartTime = document.getElementById("bulkScheduleStartTime");
+const bulkScheduleEndTime = document.getElementById("bulkScheduleEndTime");
+const bulkScheduleLocation = document.getElementById("bulkScheduleLocation");
+const bulkScheduleNotes = document.getElementById("bulkScheduleNotes");
+const saveBulkScheduleBtn = document.getElementById("saveBulkScheduleBtn");
+const scheduleEditorModal = document.getElementById("scheduleEditorModal");
+const scheduleEditorForm = document.getElementById("scheduleEditorForm");
+const scheduleEntryId = document.getElementById("scheduleEntryId");
+const scheduleEditorStaff = document.getElementById("scheduleEditorStaff");
+const scheduleEditorStartDate = document.getElementById("scheduleEditorStartDate");
+const scheduleEditorEndDate = document.getElementById("scheduleEditorEndDate");
+const scheduleEditorStartTime = document.getElementById("scheduleEditorStartTime");
+const scheduleEditorEndTime = document.getElementById("scheduleEditorEndTime");
+const scheduleEditorLocation = document.getElementById("scheduleEditorLocation");
+const scheduleEditorNotes = document.getElementById("scheduleEditorNotes");
+const saveScheduleEntryBtn = document.getElementById("saveScheduleEntryBtn");
+const deleteScheduleEntryBtn = document.getElementById("deleteScheduleEntryBtn");
+const closeScheduleEditorBtn = document.getElementById("closeScheduleEditorBtn");
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7_fk9ZEWMAhshDDSdLsMABsUyJHRykJuLNjClSZxy1Fl454TBa4vg37JO9dtL5qdY/exec";
 const MAX_RECEIPT_HISTORY_ITEMS = 120;
+const SCHEDULE_CACHE_TTL_MS = 5 * 60 * 1000;
 const serviceOptions = Array.from(serviceSelect.options)
     .map((option, index) => ({
         index,
@@ -2142,6 +3278,24 @@ let serviceSearchDebounceId = null;
 let activeServiceSuggestionPosition = -1;
 let currentServiceMatches = [];
 let currentServiceMatchCount = 0;
+let staffListRows = [];
+let staffListCustomColumns = [];
+let staffListCurrentPage = 1;
+let staffListSortKey = "name";
+let staffListSortDirection = "asc";
+let staffListRenderTimerId = 0;
+let staffListDataLoaded = false;
+let scheduleStaff = [];
+let scheduleEntries = [];
+let scheduleViewMode = "month";
+let scheduleCurrentDate = new Date();
+let scheduleSelectedStaffId = "";
+let scheduleStaffCache = null;
+let scheduleEntriesCache = new Map();
+let scheduleActiveLoadId = 0;
+let scheduleRenderFrameId = 0;
+let staffSearchRenderTimerId = 0;
+let scheduleMutationRefreshTimerId = 0;
 
 function normalizeServiceQuery(value) {
     return value.trim().toLowerCase();
@@ -2566,7 +3720,7 @@ function requestSharedData(action, params = {}) {
         const timeoutId = window.setTimeout(() => {
             cleanup();
             reject(new Error("Timed out while loading shared data."));
-        }, 12000);
+        }, 25000);
 
         function cleanup() {
             window.clearTimeout(timeoutId);
@@ -3270,6 +4424,948 @@ async function loadSharedHistory() {
     }
 }
 
+
+
+const STAFF_LIST_DEFAULT_COLUMNS = [
+    { key: "name", label: "Name", type: "text" },
+    { key: "email", label: "Email", type: "email" },
+    { key: "title", label: "Title", type: "text" },
+    { key: "athenaUser", label: "Athena User", type: "text" },
+    { key: "location", label: "Location", type: "text" },
+    { key: "phone", label: "Phone Number", type: "phone" }
+];
+
+function getStaffListColumns(includeHidden = false) {
+    const customColumns = staffListCustomColumns
+        .filter((column) => includeHidden || !column.hidden)
+        .map((column) => ({
+            key: column.columnId,
+            label: column.name,
+            type: column.type || "text",
+            custom: true,
+            options: column.options || ""
+        }));
+    return [...STAFF_LIST_DEFAULT_COLUMNS, ...customColumns];
+}
+
+function hydrateStaffListRow(staff) {
+    return {
+        staffId: String(staff.staffId || ""),
+        name: String(staff.name || ""),
+        email: String(staff.email || ""),
+        title: String(staff.title || ""),
+        athenaUser: String(staff.athenaUser || ""),
+        location: String(staff.location || ""),
+        phone: String(staff.phone || ""),
+        customValues: staff.customValues || {}
+    };
+}
+
+function setStaffListStatus(message) {
+    staffListStatus.textContent = message;
+}
+
+function getStaffListCellValue(row, column) {
+    return column.custom ? String(row.customValues?.[column.key] || "") : String(row[column.key] || "");
+}
+
+function getFilteredStaffListRows() {
+    const query = staffListSearchInput.value.trim().toLowerCase();
+    const columns = getStaffListColumns(true);
+    return staffListRows
+        .filter((row) => {
+            if (!query) return true;
+            return columns.some((column) => getStaffListCellValue(row, column).toLowerCase().includes(query));
+        })
+        .sort((left, right) => {
+            const column = getStaffListColumns(true).find((item) => item.key === staffListSortKey) || STAFF_LIST_DEFAULT_COLUMNS[0];
+            const leftValue = getStaffListCellValue(left, column).toLowerCase();
+            const rightValue = getStaffListCellValue(right, column).toLowerCase();
+            const result = leftValue.localeCompare(rightValue, undefined, { numeric: true });
+            return staffListSortDirection === "asc" ? result : -result;
+        });
+}
+
+function renderStaffListTable() {
+    const columns = getStaffListColumns();
+    const rows = getFilteredStaffListRows();
+    const pageSize = parseInt(staffListPageSize.value, 10) || 25;
+    const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+    staffListCurrentPage = Math.min(Math.max(staffListCurrentPage, 1), totalPages);
+    const start = (staffListCurrentPage - 1) * pageSize;
+    const pageRows = rows.slice(start, start + pageSize);
+
+    staffListTableHead.innerHTML = `<tr>${columns.map((column) => `<th data-staff-sort="${escapeHtml(column.key)}">${escapeHtml(column.label)}${staffListSortKey === column.key ? (staffListSortDirection === "asc" ? " ↑" : " ↓") : ""}</th>`).join("")}</tr>`;
+    staffListTableBody.innerHTML = pageRows.length
+        ? pageRows.map((row) => `<tr>${columns.map((column) => getStaffListCellMarkup(row, column)).join("")}</tr>`).join("")
+        : `<tr><td colspan="${columns.length}">No staff matched your search.</td></tr>`;
+    staffListPageInfo.textContent = `${rows.length} staff | Page ${staffListCurrentPage} of ${totalPages}`;
+    staffListPrevPageBtn.disabled = staffListCurrentPage <= 1;
+    staffListNextPageBtn.disabled = staffListCurrentPage >= totalPages;
+}
+
+function getStaffListCellMarkup(row, column) {
+    const value = getStaffListCellValue(row, column);
+
+    if (!column.custom) {
+        if (column.type === "phone" && value) {
+            return `<td><a href="tel:${escapeHtml(normalizePhoneForLink(value))}">${escapeHtml(value)}</a></td>`;
+        }
+        if (column.type === "email" && value) {
+            return `<td><a href="mailto:${escapeHtml(value)}">${escapeHtml(value)}</a></td>`;
+        }
+        return `<td>${escapeHtml(value || "--")}</td>`;
+    }
+
+    const safeValue = escapeHtml(value);
+    const dataAttrs = `data-staff-id="${escapeHtml(row.staffId)}" data-column-id="${escapeHtml(column.key)}"`;
+    if (column.type === "dropdown") {
+        const options = String(column.options || "").split(/\n|,/).map((item) => item.trim()).filter(Boolean);
+        return `<td><select class="staff-custom-cell" ${dataAttrs}><option value=""></option>${options.map((option) => `<option value="${escapeHtml(option)}" ${option === value ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}</select></td>`;
+    }
+    const inputType = column.type === "number" ? "number" : column.type === "date" ? "date" : column.type === "email" ? "email" : column.type === "phone" ? "tel" : "text";
+    return `<td><input class="staff-custom-cell" type="${inputType}" value="${safeValue}" ${dataAttrs}></td>`;
+}
+
+function scheduleStaffListRender() {
+    window.clearTimeout(staffListRenderTimerId);
+    staffListRenderTimerId = window.setTimeout(renderStaffListTable, 80);
+}
+
+async function loadStaffListData(force = false) {
+    if (!force && staffListDataLoaded) {
+        renderStaffListTable();
+        return;
+    }
+    setStaffListStatus("Loading staff list...");
+    const result = await requestSharedDataWithRetry("staffList");
+    if (!result || result.status !== "success") {
+        throw new Error(result?.message || "Staff list did not load.");
+    }
+    staffListRows = Array.isArray(result.staff) ? result.staff.map(hydrateStaffListRow) : [];
+    staffListCustomColumns = Array.isArray(result.customColumns) ? result.customColumns : [];
+    staffListDataLoaded = true;
+    renderStaffListTable();
+    setStaffListStatus(`${staffListRows.length} staff loaded.`);
+}
+
+function toggleStaffListModal(isOpen) {
+    staffListModal.classList.toggle("show", isOpen);
+    staffListModal.setAttribute("aria-hidden", String(!isOpen));
+}
+
+function toggleStaffColumnModal(isOpen, column = null) {
+    staffColumnModal.classList.toggle("show", isOpen);
+    staffColumnModal.setAttribute("aria-hidden", String(!isOpen));
+    if (isOpen) {
+        staffColumnForm.reset();
+        staffColumnId.value = column?.columnId || "";
+        staffColumnName.value = column?.name || "";
+        staffColumnType.value = column?.type || "text";
+        staffColumnOptions.value = column?.options || "";
+        document.getElementById("staffColumnTitle").textContent = column ? "Edit Custom Column" : "Add Custom Column";
+    }
+}
+
+function toggleStaffColumnManageModal(isOpen) {
+    staffColumnManageModal.classList.toggle("show", isOpen);
+    staffColumnManageModal.setAttribute("aria-hidden", String(!isOpen));
+    if (isOpen) renderStaffColumnManager();
+}
+
+function renderStaffColumnManager() {
+    staffColumnManageList.innerHTML = staffListCustomColumns.length
+        ? staffListCustomColumns.map((column, index) => `
+            <div class="staff-column-item" data-column-id="${escapeHtml(column.columnId)}">
+                <strong>${escapeHtml(column.name)}</strong>
+                <span>${escapeHtml(column.type)}</span>
+                <button type="button" class="receipt-btn" data-column-action="edit">Edit</button>
+                <button type="button" class="receipt-btn" data-column-action="hide">${column.hidden ? "Show" : "Hide"}</button>
+                <button type="button" class="receipt-btn" data-column-action="up" ${index === 0 ? "disabled" : ""}>Up</button>
+                <button type="button" class="receipt-btn" data-column-action="down" ${index === staffListCustomColumns.length - 1 ? "disabled" : ""}>Down</button>
+                <button type="button" class="receipt-btn" data-column-action="delete">Delete</button>
+            </div>
+        `).join("")
+        : `<div class="schedule-empty-state">No custom columns yet.</div>`;
+}
+
+function toLocalDate(value) {
+    if (value instanceof Date) {
+        return new Date(value.getFullYear(), value.getMonth(), value.getDate());
+    }
+
+    const [year, month, day] = String(value).split("-").map(Number);
+    return new Date(year, month - 1, day);
+}
+
+function toIsoDate(date) {
+    const localDate = toLocalDate(date);
+    const year = localDate.getFullYear();
+    const month = String(localDate.getMonth() + 1).padStart(2, "0");
+    const day = String(localDate.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function addDays(date, days) {
+    const nextDate = toLocalDate(date);
+    nextDate.setDate(nextDate.getDate() + days);
+    return nextDate;
+}
+
+function getStartOfWeek(date) {
+    const start = toLocalDate(date);
+    const mondayOffset = (start.getDay() + 6) % 7;
+    start.setDate(start.getDate() - mondayOffset);
+    return start;
+}
+
+function getScheduleRange() {
+    if (scheduleViewMode === "month") {
+        const firstOfMonth = new Date(scheduleCurrentDate.getFullYear(), scheduleCurrentDate.getMonth(), 1);
+        const lastOfMonth = new Date(scheduleCurrentDate.getFullYear(), scheduleCurrentDate.getMonth() + 1, 0);
+        return {
+            start: getStartOfWeek(firstOfMonth),
+            end: addDays(getStartOfWeek(lastOfMonth), 6)
+        };
+    }
+
+    const start = getStartOfWeek(scheduleCurrentDate);
+    return {
+        start,
+        end: addDays(start, 6)
+    };
+}
+
+function getScheduleVisibleDays() {
+    const range = getScheduleRange();
+    const days = [];
+    let cursor = range.start;
+
+    while (cursor <= range.end) {
+        days.push(toLocalDate(cursor));
+        cursor = addDays(cursor, 1);
+    }
+
+    return days;
+}
+
+function getScheduleFilteredEntries(entries = scheduleEntries) {
+    const locationFilter = scheduleLocationFilter.value || "all";
+    const staffFilter = scheduleStaffFilter.value || "all";
+    const startFilter = scheduleRangeStart.value;
+    const endFilter = scheduleRangeEnd.value;
+
+    return entries.filter((entry) => {
+        if (locationFilter !== "all" && entry.location !== locationFilter) {
+            return false;
+        }
+
+        if (staffFilter !== "all" && entry.staffId !== staffFilter) {
+            return false;
+        }
+
+        if (startFilter && entry.startDate < startFilter) {
+            return false;
+        }
+
+        if (endFilter && entry.startDate > endFilter) {
+            return false;
+        }
+
+        return true;
+    });
+}
+
+function formatScheduleDateLabel(date) {
+    return toLocalDate(date).toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+    });
+}
+
+function formatScheduleTitle() {
+    const range = getScheduleRange();
+
+    if (scheduleViewMode === "month") {
+        return scheduleCurrentDate.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric"
+        });
+    }
+
+    return `${formatScheduleDateLabel(range.start)} - ${formatScheduleDateLabel(range.end)}`;
+}
+
+function getStaffById(staffId) {
+    return scheduleStaff.find((staff) => staff.staffId === staffId) || null;
+}
+
+function createClientStaffId() {
+    return `staff-client-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function normalizePhoneForLink(phone) {
+    return String(phone || "").replace(/[^\d+]/g, "");
+}
+
+function setScheduleStatus(message) {
+    scheduleStatus.innerHTML = `<span class="schedule-status-inline">${escapeHtml(message)}</span>`;
+}
+
+function setScheduleStatusState(message, state = "ok") {
+    const stateClass = state === "error" ? " is-error" : state === "stale" ? " is-stale" : "";
+    scheduleStatus.innerHTML = `<span class="schedule-status-inline${stateClass}">${escapeHtml(message)}</span>`;
+}
+
+function syncScheduleRangeInputs() {
+    const range = getScheduleRange();
+    scheduleRangeStart.value = toIsoDate(range.start);
+    scheduleRangeEnd.value = toIsoDate(range.end);
+}
+
+function getScheduleRangeCacheKey(range = getScheduleRange()) {
+    return `${toIsoDate(range.start)}|${toIsoDate(range.end)}`;
+}
+
+function getScheduleRequestRange() {
+    const baseRange = getScheduleRange();
+    return {
+        start: scheduleRangeStart.value ? toLocalDate(scheduleRangeStart.value) : baseRange.start,
+        end: scheduleRangeEnd.value ? toLocalDate(scheduleRangeEnd.value) : baseRange.end
+    };
+}
+
+function isScheduleCacheFresh(cacheEntry) {
+    return Boolean(cacheEntry) && Date.now() - cacheEntry.savedAt < SCHEDULE_CACHE_TTL_MS;
+}
+
+function renderScheduleWorkspace() {
+    if (scheduleRenderFrameId) {
+        window.cancelAnimationFrame(scheduleRenderFrameId);
+    }
+
+    scheduleRenderFrameId = window.requestAnimationFrame(() => {
+        populateScheduleStaffSelects();
+        renderStaffDirectory();
+        renderScheduleCalendar();
+        renderStaffProfile();
+        scheduleRenderFrameId = 0;
+    });
+}
+
+async function requestSharedDataWithRetry(action, params = {}, retryCount = 1) {
+    try {
+        return await requestSharedData(action, params);
+    } catch (error) {
+        if (retryCount <= 0) {
+            throw error;
+        }
+
+        await new Promise((resolve) => window.setTimeout(resolve, 650));
+        return requestSharedDataWithRetry(action, params, retryCount - 1);
+    }
+}
+
+function updateScheduleEntryCacheForCurrentRange() {
+    const cacheKey = getScheduleRangeCacheKey(getScheduleRequestRange());
+    scheduleEntriesCache.set(cacheKey, {
+        savedAt: Date.now(),
+        entries: scheduleEntries
+    });
+}
+
+function queueScheduleBackgroundRefresh(delay = 1700) {
+    window.clearTimeout(scheduleMutationRefreshTimerId);
+    scheduleMutationRefreshTimerId = window.setTimeout(() => {
+        clearScheduleCache();
+        loadScheduleData({ force: true });
+    }, delay);
+}
+
+function clearScheduleCache() {
+    scheduleStaffCache = null;
+    scheduleEntriesCache.clear();
+}
+
+function createOptimisticScheduleEntry(staff, targetDate) {
+    return {
+        entryId: `entry-pending-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        staffId: staff.staffId,
+        staffName: staff.name,
+        title: staff.title || "Staff",
+        location: staff.location || "Unassigned",
+        startDate: targetDate,
+        startTime: staff.shiftStart || "08:00",
+        endDate: targetDate,
+        endTime: staff.shiftEnd || "17:00",
+        notes: "Saving to Google Sheets..."
+    };
+}
+
+function renderOptimisticScheduleChange(message) {
+    updateScheduleEntryCacheForCurrentRange();
+    renderScheduleCalendar();
+    renderStaffProfile();
+    setScheduleStatusState(message, "stale");
+}
+
+function hydrateScheduleStaff(staff) {
+    return {
+        staffId: String(staff.staffId || ""),
+        name: String(staff.name || ""),
+        email: String(staff.email || ""),
+        phone: String(staff.phone || ""),
+        title: String(staff.title || ""),
+        specialty: String(staff.specialty || ""),
+        verifiedDate: String(staff.verifiedDate || ""),
+        shiftStart: String(staff.shiftStart || "08:00"),
+        shiftEnd: String(staff.shiftEnd || "17:00"),
+        timeZone: String(staff.timeZone || "EST"),
+        athenaUser: String(staff.athenaUser || ""),
+        location: String(staff.location || "Unassigned"),
+        scheduleNote: String(staff.scheduleNote || ""),
+        active: String(staff.active || "Yes")
+    };
+}
+
+function hydrateScheduleEntry(entry) {
+    return {
+        entryId: String(entry.entryId || ""),
+        staffId: String(entry.staffId || ""),
+        staffName: String(entry.staffName || ""),
+        title: String(entry.title || ""),
+        location: String(entry.location || "Unassigned"),
+        startDate: String(entry.startDate || ""),
+        startTime: String(entry.startTime || ""),
+        endDate: String(entry.endDate || entry.startDate || ""),
+        endTime: String(entry.endTime || ""),
+        notes: String(entry.notes || "")
+    };
+}
+
+function populateScheduleStaffSelects() {
+    const options = scheduleStaff
+        .map((staff) => `<option value="${escapeHtml(staff.staffId)}">${escapeHtml(staff.name)} - ${escapeHtml(staff.title || "Staff")}</option>`)
+        .join("");
+    const filterOptions = `<option value="all">All Staff</option>${options}`;
+
+    scheduleEditorStaff.innerHTML = options;
+    bulkScheduleStaff.innerHTML = options;
+    scheduleStaffFilter.innerHTML = filterOptions;
+    scheduleStaffFilter.value = scheduleSelectedStaffId || "all";
+}
+
+function renderStaffDirectory() {
+    const query = staffSearchInput.value.trim().toLowerCase();
+    const filteredStaff = scheduleStaff.filter((staff) => {
+        const haystack = [staff.name, staff.title, staff.specialty, staff.location, staff.email, staff.athenaUser].join(" ").toLowerCase();
+        return !query || haystack.includes(query);
+    });
+
+    staffDirectoryCount.textContent = `${filteredStaff.length} staff`;
+
+    if (!filteredStaff.length) {
+        staffList.innerHTML = `<div class="schedule-empty-state">No staff matched that search.</div>`;
+        return;
+    }
+
+    staffList.innerHTML = filteredStaff.map((staff) => {
+        const phoneLink = normalizePhoneForLink(staff.phone);
+        const phoneMarkup = phoneLink
+            ? `<a href="tel:${escapeHtml(phoneLink)}">${escapeHtml(staff.phone)}</a>`
+            : "";
+
+        return `
+            <article class="staff-card ${staff.staffId === scheduleSelectedStaffId ? "is-selected" : ""}" draggable="true" data-staff-id="${escapeHtml(staff.staffId)}">
+                <strong>${escapeHtml(staff.name)}</strong>
+                <span>${escapeHtml(staff.title || "Staff")}${staff.specialty ? ` | ${escapeHtml(staff.specialty)}` : ""}</span>
+                <div class="staff-card-grid">
+                    <span class="staff-info-line"><b>Email</b>${escapeHtml(staff.email || "No email listed")}</span>
+                    <span class="staff-info-line"><b>Phone</b>${phoneMarkup || "No phone"}</span>
+                    <span class="staff-info-line"><b>Verified</b>${escapeHtml(staff.verifiedDate || "--")}</span>
+                    <span class="staff-info-line"><b>Athena</b>${escapeHtml(staff.athenaUser || "--")}</span>
+                    <span class="staff-info-line"><b>Time Zone</b>${escapeHtml(staff.timeZone || "EST")}</span>
+                    <span class="staff-info-line"><b>Location</b>${escapeHtml(staff.location || "Unassigned")}</span>
+                </div>
+                <div class="staff-card-tags">
+                    <em>${escapeHtml(staff.location || "Unassigned")}</em>
+                    <em>${escapeHtml(staff.shiftStart)}-${escapeHtml(staff.shiftEnd)}</em>
+                </div>
+            </article>
+        `;
+    }).join("");
+}
+
+function renderStaffProfile() {
+    const staff = scheduleSelectedStaffId ? getStaffById(scheduleSelectedStaffId) : null;
+
+    if (!staff) {
+        staffProfilePanel.innerHTML = `<div class="schedule-empty-state">Select a staff member to view their profile and assigned shifts.</div>`;
+        return;
+    }
+
+    const phoneLink = normalizePhoneForLink(staff.phone);
+    const staffEntries = getScheduleFilteredEntries(scheduleEntries)
+        .filter((entry) => entry.staffId === staff.staffId)
+        .sort((left, right) => `${left.startDate}${left.startTime}`.localeCompare(`${right.startDate}${right.startTime}`));
+    const shiftMarkup = staffEntries.length
+        ? staffEntries.map((entry) => `
+            <article class="staff-profile-shift" data-entry-id="${escapeHtml(entry.entryId)}">
+                <strong>${escapeHtml(entry.startDate)} | ${escapeHtml(entry.startTime)}-${escapeHtml(entry.endTime)}</strong>
+                <span><span class="schedule-location-dot ${escapeHtml(entry.location.toLowerCase())}"></span>${escapeHtml(entry.location)} ${entry.notes ? `| ${escapeHtml(entry.notes)}` : ""}</span>
+            </article>
+        `).join("")
+        : `<div class="schedule-empty-state">No shifts are assigned in the loaded range.</div>`;
+
+    staffProfilePanel.innerHTML = `
+        <div class="shift-report-section-header">
+            <div>
+                <strong>${escapeHtml(staff.name)}</strong>
+                <span>${escapeHtml(staff.title || "Staff")}${staff.specialty ? ` | ${escapeHtml(staff.specialty)}` : ""}</span>
+            </div>
+        </div>
+        <div class="staff-profile-actions">
+            ${phoneLink ? `<a class="receipt-btn primary" href="tel:${escapeHtml(phoneLink)}">Call</a>` : ""}
+            <button type="button" class="receipt-btn" data-staff-profile-action="edit">Edit Staff</button>
+            <button type="button" class="receipt-btn" data-staff-profile-action="add-shift">Add Shift</button>
+        </div>
+        <div class="staff-profile-grid">
+            <div class="staff-info-line"><b>Email</b>${escapeHtml(staff.email || "--")}</div>
+            <div class="staff-info-line"><b>Phone</b>${escapeHtml(staff.phone || "--")}</div>
+            <div class="staff-info-line"><b>Verified Date</b>${escapeHtml(staff.verifiedDate || "--")}</div>
+            <div class="staff-info-line"><b>Default Shift</b>${escapeHtml(staff.shiftStart)}-${escapeHtml(staff.shiftEnd)}</div>
+            <div class="staff-info-line"><b>Time Zone</b>${escapeHtml(staff.timeZone || "EST")}</div>
+            <div class="staff-info-line"><b>Athena User</b>${escapeHtml(staff.athenaUser || "--")}</div>
+            <div class="staff-info-line"><b>Location</b>${escapeHtml(staff.location || "Unassigned")}</div>
+            <div class="staff-info-line"><b>Specialty</b>${escapeHtml(staff.specialty || "--")}</div>
+        </div>
+        <div>
+            <div class="shift-report-section-header"><strong>Assigned Shifts</strong><span>${staffEntries.length} in loaded range</span></div>
+            <div class="staff-profile-shifts">${shiftMarkup}</div>
+        </div>
+    `;
+}
+
+function getEntryLocationClass(location) {
+    const normalized = String(location || "").toLowerCase();
+
+    if (normalized.includes("zephyr")) {
+        return "location-zephyrhills";
+    }
+
+    if (normalized.includes("remote")) {
+        return "location-remote";
+    }
+
+    return "location-tampa";
+}
+
+function renderScheduleCalendar() {
+    const days = getScheduleVisibleDays();
+    const todayIso = toIsoDate(new Date());
+    const currentMonth = scheduleCurrentDate.getMonth();
+    const headers = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        .map((day) => `<div class="schedule-day-header">${day}</div>`)
+        .join("");
+
+    scheduleCalendarTitle.textContent = formatScheduleTitle();
+    scheduleWeekViewBtn.classList.toggle("is-active", scheduleViewMode === "week");
+    scheduleMonthViewBtn.classList.toggle("is-active", scheduleViewMode === "month");
+
+    const dayCells = days.map((day) => {
+        const isoDate = toIsoDate(day);
+        const entries = getScheduleFilteredEntries()
+            .filter((entry) => entry.startDate === isoDate)
+            .sort((left, right) => `${left.startTime}${left.staffName}`.localeCompare(`${right.startTime}${right.staffName}`));
+        const entryMarkup = entries.map((entry) => `
+            <article class="schedule-entry-card ${getEntryLocationClass(entry.location)}" draggable="true" data-entry-id="${escapeHtml(entry.entryId)}">
+                <strong>${escapeHtml(entry.staffName || "Unassigned Staff")}</strong>
+                <span>${escapeHtml(entry.startTime)}-${escapeHtml(entry.endTime)} | ${escapeHtml(entry.location)}</span>
+                <span>${escapeHtml(entry.title || "Staff")}</span>
+            </article>
+        `).join("");
+        const classes = [
+            "schedule-day-cell",
+            scheduleViewMode === "month" && day.getMonth() !== currentMonth ? "is-muted" : "",
+            isoDate === todayIso ? "is-today" : ""
+        ].filter(Boolean).join(" ");
+
+        return `
+            <div class="${classes}" data-date="${escapeHtml(isoDate)}">
+                <div class="schedule-day-number">
+                    <span>${escapeHtml(formatScheduleDateLabel(day))}</span>
+                    <span>${entries.length || ""}</span>
+                </div>
+                ${entryMarkup || `<div class="schedule-empty-state">Drop staff here</div>`}
+            </div>
+        `;
+    }).join("");
+
+    scheduleCalendarGrid.innerHTML = headers + dayCells;
+}
+
+async function loadScheduleData(options = {}) {
+    const shouldForce = Boolean(options.force);
+    const range = getScheduleRequestRange();
+    const cacheKey = getScheduleRangeCacheKey(range);
+    const cachedStaff = scheduleStaffCache;
+    const cachedEntries = scheduleEntriesCache.get(cacheKey);
+    const canUseCache = cachedStaff && cachedEntries;
+    const hasFreshCache = isScheduleCacheFresh(cachedStaff) && isScheduleCacheFresh(cachedEntries);
+    const loadId = ++scheduleActiveLoadId;
+
+    if (canUseCache) {
+        scheduleStaff = cachedStaff.staff;
+        scheduleEntries = cachedEntries.entries;
+        renderScheduleWorkspace();
+        setScheduleStatusState(
+            hasFreshCache && !shouldForce
+                ? `${scheduleEntries.length} shifts ready for ${formatScheduleTitle()}.`
+                : `Showing saved schedule while refreshing Google Sheets...`,
+            hasFreshCache && !shouldForce ? "ok" : "stale"
+        );
+
+        if (hasFreshCache && !shouldForce) {
+            return;
+        }
+    } else {
+        setScheduleStatusState("Loading shared staff schedule from Google Sheets...");
+    }
+
+    scheduleBody.classList.add("is-loading");
+
+    try {
+        const staffResult = !shouldForce && isScheduleCacheFresh(cachedStaff)
+            ? { status: "success", staff: cachedStaff.staff }
+            : await requestSharedDataWithRetry("staffList");
+
+        if (!staffResult || staffResult.status !== "success") {
+            throw new Error(staffResult?.message || "Staff list did not return successfully.");
+        }
+
+        const scheduleResult = !shouldForce && isScheduleCacheFresh(cachedEntries)
+            ? { status: "success", entries: cachedEntries.entries }
+            : await requestSharedDataWithRetry("scheduleGet", {
+                start: toIsoDate(range.start),
+                end: toIsoDate(range.end)
+            });
+
+        if (!scheduleResult || scheduleResult.status !== "success") {
+            throw new Error(scheduleResult?.message || "Schedule entries did not return successfully.");
+        }
+
+        if (loadId !== scheduleActiveLoadId) {
+            return;
+        }
+
+        scheduleStaff = Array.isArray(staffResult.staff) ? staffResult.staff.map(hydrateScheduleStaff) : [];
+        scheduleEntries = Array.isArray(scheduleResult.entries) ? scheduleResult.entries.map(hydrateScheduleEntry) : [];
+        scheduleStaffCache = {
+            savedAt: Date.now(),
+            staff: scheduleStaff
+        };
+        scheduleEntriesCache.set(cacheKey, {
+            savedAt: Date.now(),
+            entries: scheduleEntries
+        });
+        renderScheduleWorkspace();
+        setScheduleStatusState(`${scheduleEntries.length} shifts loaded for ${formatScheduleTitle()}.`);
+    } catch (error) {
+        if (loadId !== scheduleActiveLoadId) {
+            return;
+        }
+
+        if (canUseCache) {
+            setScheduleStatusState("Google Sheets was slow, so the saved schedule is still displayed. Use Refresh to try again.", "stale");
+            return;
+        }
+
+        setScheduleStatusState("The staff schedule could not be loaded from Google Sheets. Please try Refresh.", "error");
+        showBanner("The staff schedule could not be loaded from Google Sheets.", "error");
+    } finally {
+        if (loadId === scheduleActiveLoadId) {
+            scheduleBody.classList.remove("is-loading");
+        }
+    }
+}
+
+async function submitScheduleAction(action, payload) {
+    await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        keepalive: true,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            action,
+            ...payload
+        })
+    });
+}
+
+function toggleScheduleModal(isOpen) {
+    scheduleModal.classList.toggle("show", isOpen);
+    scheduleModal.setAttribute("aria-hidden", String(!isOpen));
+    document.body.classList.toggle("schedule-open", isOpen);
+}
+
+function toggleStaffFormModal(isOpen) {
+    staffFormModal.classList.toggle("show", isOpen);
+    staffFormModal.setAttribute("aria-hidden", String(!isOpen));
+    document.body.classList.toggle("schedule-editor-open", isOpen);
+}
+
+function toggleBulkScheduleModal(isOpen) {
+    bulkScheduleModal.classList.toggle("show", isOpen);
+    bulkScheduleModal.setAttribute("aria-hidden", String(!isOpen));
+    document.body.classList.toggle("schedule-editor-open", isOpen);
+}
+
+function toggleScheduleEditorModal(isOpen) {
+    scheduleEditorModal.classList.toggle("show", isOpen);
+    scheduleEditorModal.setAttribute("aria-hidden", String(!isOpen));
+    document.body.classList.toggle("schedule-editor-open", isOpen);
+}
+
+function openStaffForm(staff = null) {
+    staffForm.reset();
+    staffFormStaffId.value = staff?.staffId || "";
+    staffFormName.value = staff?.name || "";
+    staffFormEmail.value = staff?.email || "";
+    staffFormPhone.value = staff?.phone || "";
+    staffFormTitleInput.value = staff?.title || "";
+    staffFormSpecialty.value = staff?.specialty || "";
+    staffFormVerifiedDate.value = staff?.verifiedDate || "";
+    staffFormShiftStart.value = staff?.shiftStart || "08:00";
+    staffFormShiftEnd.value = staff?.shiftEnd || "17:00";
+    staffFormTimeZone.value = staff?.timeZone || "EST";
+    staffFormAthenaUser.value = staff?.athenaUser || "";
+    staffFormLocation.value = staff?.location || "Tampa";
+    staffFormActive.value = staff?.active || "Yes";
+    staffFormScheduleDates.value = "";
+    staffFormScheduleNote.value = staff?.scheduleNote || "";
+    document.getElementById("staffFormTitle").textContent = staff ? "Edit Staff Member" : "Add New Staff Member";
+    toggleStaffFormModal(true);
+}
+
+function getStaffFormPayload() {
+    return {
+        staffId: staffFormStaffId.value,
+        name: staffFormName.value.trim(),
+        email: staffFormEmail.value.trim(),
+        phone: staffFormPhone.value.trim(),
+        title: staffFormTitleInput.value.trim(),
+        specialty: staffFormSpecialty.value.trim(),
+        verifiedDate: staffFormVerifiedDate.value,
+        shiftStart: staffFormShiftStart.value,
+        shiftEnd: staffFormShiftEnd.value,
+        timeZone: staffFormTimeZone.value.trim() || "EST",
+        athenaUser: staffFormAthenaUser.value.trim(),
+        location: staffFormLocation.value,
+        active: staffFormActive.value,
+        scheduleNote: staffFormScheduleNote.value.trim()
+    };
+}
+
+function openScheduleEditor(options = {}) {
+    const staff = options.staffId ? getStaffById(options.staffId) : null;
+    const entry = options.entry || null;
+    const startDate = options.date || entry?.startDate || toIsoDate(scheduleCurrentDate);
+
+    scheduleEntryId.value = entry?.entryId || "";
+    scheduleEditorStaff.value = entry?.staffId || staff?.staffId || scheduleStaff[0]?.staffId || "";
+    scheduleEditorStartDate.value = startDate;
+    scheduleEditorEndDate.value = entry?.endDate || startDate;
+    scheduleEditorStartTime.value = entry?.startTime || staff?.shiftStart || "08:00";
+    scheduleEditorEndTime.value = entry?.endTime || staff?.shiftEnd || "17:00";
+    scheduleEditorLocation.value = entry?.location || staff?.location || "Tampa";
+    scheduleEditorNotes.value = entry?.notes || "";
+    deleteScheduleEntryBtn.hidden = !entry;
+    toggleScheduleEditorModal(true);
+}
+
+function getScheduleEditorPayload() {
+    return {
+        entryId: scheduleEntryId.value,
+        staffId: scheduleEditorStaff.value,
+        location: scheduleEditorLocation.value,
+        startDate: scheduleEditorStartDate.value,
+        startTime: scheduleEditorStartTime.value,
+        endDate: scheduleEditorEndDate.value || scheduleEditorStartDate.value,
+        endTime: scheduleEditorEndTime.value,
+        notes: scheduleEditorNotes.value.trim()
+    };
+}
+
+function parseBulkScheduleDates(value) {
+    return Array.from(new Set(String(value)
+        .split(/[,\n]+/)
+        .map((dateText) => dateText.trim())
+        .filter((dateText) => /^\d{4}-\d{2}-\d{2}$/.test(dateText))));
+}
+
+function getSchedulePrintDays(monthDate) {
+    const first = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
+    const last = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0);
+    const start = getStartOfWeek(first);
+    const end = addDays(getStartOfWeek(last), 6);
+    const days = [];
+    let cursor = start;
+
+    while (cursor <= end) {
+        days.push(toLocalDate(cursor));
+        cursor = addDays(cursor, 1);
+    }
+
+    return days;
+}
+
+function getSchedulePrintMarkup(location) {
+    const monthDate = scheduleCurrentDate;
+    const monthLabel = monthDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+    const days = getSchedulePrintDays(monthDate);
+    const rows = [];
+
+    for (let i = 0; i < days.length; i += 7) {
+        rows.push(days.slice(i, i + 7));
+    }
+
+    const bodyRows = rows.map((week) => `
+        <tr>
+            ${week.map((day) => {
+                const isoDate = toIsoDate(day);
+                const entries = scheduleEntries
+                    .filter((entry) => entry.location === location && entry.startDate === isoDate)
+                    .sort((left, right) => left.staffName.localeCompare(right.staffName));
+                return `
+                    <td>
+                        <span class="print-day">${escapeHtml(String(day.getDate()))}</span>
+                        ${entries.map((entry) => {
+                            const timeLabel = entry.startTime && entry.endTime && (entry.startTime !== "08:00" || entry.endTime !== "17:00")
+                                ? ` (${entry.startTime}-${entry.endTime})`
+                                : "";
+                            return `<div>${escapeHtml(entry.staffName)}${escapeHtml(timeLabel)}</div>`;
+                        }).join("")}
+                    </td>
+                `;
+            }).join("")}
+        </tr>
+    `).join("");
+    const footer = location === "Tampa"
+        ? "Sabiha Office Team Lead Mondays through Thursdays 8:00AM to 6:00PM"
+        : "Monday to Friday - 7:30AM to 6PM, Saturday - 7:30AM to 2PM";
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>${escapeHtml(location)} ${escapeHtml(monthLabel)} Schedule</title>
+<style>
+    @page { size: landscape; margin: 0.35in; }
+    body { margin: 0; background: #fff; }
+    ${document.querySelector("style").textContent.match(/\.schedule-print-template[\s\S]*?\.schedule-print-template \.print-footer \{[\s\S]*?\}/)?.[0] || ""}
+</style>
+</head>
+<body>
+    <div class="schedule-print-template">
+        <div class="print-heading">
+            <div class="print-location">${escapeHtml(location)}</div>
+            <div class="print-month">${escapeHtml(monthLabel)}</div>
+        </div>
+        <table>
+            <thead><tr><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th></tr></thead>
+            <tbody>${bodyRows}</tbody>
+        </table>
+        <div class="print-footer">${escapeHtml(footer)}</div>
+    </div>
+</body>
+</html>`;
+}
+
+function printMonthlySchedule(location) {
+    const printWindow = window.open("", "_blank", "width=1200,height=850");
+
+    if (!printWindow) {
+        showBanner("Popup blocked. Please allow popups to print the schedule.", "error");
+        return;
+    }
+
+    printWindow.document.open();
+    printWindow.document.write(getSchedulePrintMarkup(location));
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => printWindow.print(), 250);
+}
+
+function addScheduleEntryOptimistically(staffId, targetDate) {
+    const staff = getStaffById(staffId);
+
+    if (!staff) {
+        return;
+    }
+
+    const optimisticEntry = createOptimisticScheduleEntry(staff, targetDate);
+    scheduleEntries = [...scheduleEntries, optimisticEntry];
+    scheduleSelectedStaffId = staff.staffId;
+    scheduleStaffFilter.value = staff.staffId;
+    renderStaffDirectory();
+    renderOptimisticScheduleChange("Shift added instantly. Syncing to Google Sheets...");
+
+    submitScheduleAction("scheduleAdd", {
+        entry: {
+            staffId: optimisticEntry.staffId,
+            location: optimisticEntry.location,
+            startDate: optimisticEntry.startDate,
+            startTime: optimisticEntry.startTime,
+            endDate: optimisticEntry.endDate,
+            endTime: optimisticEntry.endTime,
+            notes: ""
+        }
+    }).then(() => {
+        queueScheduleBackgroundRefresh();
+    }).catch(() => {
+        scheduleEntries = scheduleEntries.filter((entry) => entry.entryId !== optimisticEntry.entryId);
+        renderOptimisticScheduleChange("The shift could not be saved. Please try again.");
+        showBanner("The schedule entry could not be saved.", "error");
+    });
+}
+
+function moveScheduleEntry(entryId, targetDate) {
+    const entryIndex = scheduleEntries.findIndex((item) => item.entryId === entryId);
+
+    if (entryIndex < 0) {
+        return;
+    }
+
+    const originalEntry = { ...scheduleEntries[entryIndex] };
+    const movedEntry = {
+        ...scheduleEntries[entryIndex],
+        startDate: targetDate,
+        endDate: targetDate,
+        notes: scheduleEntries[entryIndex].notes === "Saving to Google Sheets..." ? "" : scheduleEntries[entryIndex].notes
+    };
+    scheduleEntries = [
+        ...scheduleEntries.slice(0, entryIndex),
+        movedEntry,
+        ...scheduleEntries.slice(entryIndex + 1)
+    ];
+    renderOptimisticScheduleChange("Shift moved instantly. Syncing to Google Sheets...");
+
+    submitScheduleAction("scheduleUpdate", {
+        entry: movedEntry
+    }).then(() => {
+        queueScheduleBackgroundRefresh();
+    }).catch(() => {
+        scheduleEntries = [
+            ...scheduleEntries.slice(0, entryIndex),
+            originalEntry,
+            ...scheduleEntries.slice(entryIndex + 1)
+        ];
+        renderOptimisticScheduleChange("The shift move could not be saved. Please try again.");
+        showBanner("The schedule entry could not be saved.", "error");
+    });
+}
+
 function addReceiptToHistory(receiptData) {
     const historyEntry = {
         id: createReceiptHistoryId(),
@@ -3821,6 +5917,518 @@ shiftReportDepartmentFilter.addEventListener("change", function() {
 printShiftReportBtn.addEventListener("click", printShiftReport);
 exportShiftReportBtn.addEventListener("click", downloadShiftReportCsv);
 
+
+
+openStaffListBtn.addEventListener("click", async function() {
+    clearBanner();
+    toggleStaffListModal(true);
+    try {
+        await loadStaffListData();
+    } catch (error) {
+        setStaffListStatus("Staff list could not be loaded. Please try Refresh.");
+        showBanner("The staff list could not be loaded from Google Sheets.", "error");
+    }
+});
+
+closeStaffListBtn.addEventListener("click", function() {
+    toggleStaffListModal(false);
+});
+
+refreshStaffListBtn.addEventListener("click", async function() {
+    staffListDataLoaded = false;
+    await loadStaffListData(true);
+});
+
+staffListSearchInput.addEventListener("input", function() {
+    staffListCurrentPage = 1;
+    scheduleStaffListRender();
+});
+
+staffListPageSize.addEventListener("change", function() {
+    staffListCurrentPage = 1;
+    renderStaffListTable();
+});
+
+staffListPrevPageBtn.addEventListener("click", function() {
+    staffListCurrentPage--;
+    renderStaffListTable();
+});
+
+staffListNextPageBtn.addEventListener("click", function() {
+    staffListCurrentPage++;
+    renderStaffListTable();
+});
+
+staffListTableHead.addEventListener("click", function(event) {
+    const sortHeader = event.target.closest("[data-staff-sort]");
+    if (!sortHeader) return;
+    const nextKey = sortHeader.dataset.staffSort;
+    if (staffListSortKey === nextKey) {
+        staffListSortDirection = staffListSortDirection === "asc" ? "desc" : "asc";
+    } else {
+        staffListSortKey = nextKey;
+        staffListSortDirection = "asc";
+    }
+    renderStaffListTable();
+});
+
+staffListTableBody.addEventListener("change", async function(event) {
+    const field = event.target.closest(".staff-custom-cell");
+    if (!field) return;
+    const staffId = field.dataset.staffId;
+    const columnId = field.dataset.columnId;
+    const row = staffListRows.find((item) => item.staffId === staffId);
+    if (row) row.customValues[columnId] = field.value;
+    await submitScheduleAction("staffCustomValueSave", { staffId, columnId, value: field.value });
+    staffListDataLoaded = false;
+});
+
+addStaffColumnBtn.addEventListener("click", function() {
+    toggleStaffColumnModal(true);
+});
+
+manageStaffColumnsBtn.addEventListener("click", function() {
+    toggleStaffColumnManageModal(true);
+});
+
+closeStaffColumnBtn.addEventListener("click", function() {
+    toggleStaffColumnModal(false);
+});
+
+closeStaffColumnManageBtn.addEventListener("click", function() {
+    toggleStaffColumnManageModal(false);
+});
+
+staffColumnForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const column = {
+        columnId: staffColumnId.value,
+        name: staffColumnName.value.trim(),
+        type: staffColumnType.value,
+        options: staffColumnOptions.value.trim()
+    };
+    saveStaffColumnBtn.disabled = true;
+    saveStaffColumnBtn.textContent = "Saving...";
+    try {
+        await submitScheduleAction(column.columnId ? "staffColumnUpdate" : "staffColumnAdd", { column });
+        toggleStaffColumnModal(false);
+        staffListDataLoaded = false;
+        await loadStaffListData(true);
+        renderStaffColumnManager();
+    } finally {
+        saveStaffColumnBtn.disabled = false;
+        saveStaffColumnBtn.textContent = "Save Column";
+    }
+});
+
+staffColumnManageList.addEventListener("click", async function(event) {
+    const button = event.target.closest("[data-column-action]");
+    const item = event.target.closest("[data-column-id]");
+    if (!button || !item) return;
+    const columnId = item.dataset.columnId;
+    const column = staffListCustomColumns.find((entry) => entry.columnId === columnId);
+    if (!column) return;
+    const action = button.dataset.columnAction;
+    if (action === "edit") {
+        toggleStaffColumnModal(true, column);
+        return;
+    }
+    if (action === "delete") {
+        await submitScheduleAction("staffColumnDelete", { columnId });
+    } else {
+        const index = staffListCustomColumns.findIndex((entry) => entry.columnId === columnId);
+        if (action === "hide") column.hidden = !column.hidden;
+        if (action === "up" && index > 0) {
+            staffListCustomColumns[index].sortOrder--;
+            staffListCustomColumns[index - 1].sortOrder++;
+        }
+        if (action === "down" && index < staffListCustomColumns.length - 1) {
+            staffListCustomColumns[index].sortOrder++;
+            staffListCustomColumns[index + 1].sortOrder--;
+        }
+        await Promise.all(staffListCustomColumns.map((entry) => submitScheduleAction("staffColumnUpdate", { column: entry })));
+    }
+    staffListDataLoaded = false;
+    await loadStaffListData(true);
+    renderStaffColumnManager();
+});
+
+staffListModal.addEventListener("click", function(event) {
+    if (event.target === staffListModal) toggleStaffListModal(false);
+});
+
+staffColumnModal.addEventListener("click", function(event) {
+    if (event.target === staffColumnModal) toggleStaffColumnModal(false);
+});
+
+staffColumnManageModal.addEventListener("click", function(event) {
+    if (event.target === staffColumnManageModal) toggleStaffColumnManageModal(false);
+});
+
+openScheduleBtn.addEventListener("click", async function() {
+    clearBanner();
+    syncScheduleRangeInputs();
+    toggleScheduleModal(true);
+    await loadScheduleData();
+});
+
+closeScheduleBtn.addEventListener("click", function() {
+    toggleScheduleModal(false);
+});
+
+refreshScheduleBtn.addEventListener("click", function() {
+    loadScheduleData({ force: true });
+});
+
+openStaffFormBtn.addEventListener("click", function() {
+    openStaffForm();
+});
+
+printTampaScheduleBtn.addEventListener("click", function() {
+    printMonthlySchedule("Tampa");
+});
+
+printZephyrhillsScheduleBtn.addEventListener("click", function() {
+    printMonthlySchedule("Zephyrhills");
+});
+
+openBulkScheduleBtn.addEventListener("click", function() {
+    const selectedStaff = scheduleStaff[0];
+    bulkScheduleStaff.value = selectedStaff?.staffId || "";
+    bulkScheduleStartTime.value = selectedStaff?.shiftStart || "08:00";
+    bulkScheduleEndTime.value = selectedStaff?.shiftEnd || "17:00";
+    bulkScheduleLocation.value = selectedStaff?.location || "Tampa";
+    bulkScheduleDates.value = toIsoDate(scheduleCurrentDate);
+    bulkScheduleNotes.value = "";
+    toggleBulkScheduleModal(true);
+});
+
+closeBulkScheduleBtn.addEventListener("click", function() {
+    toggleBulkScheduleModal(false);
+});
+
+closeScheduleEditorBtn.addEventListener("click", function() {
+    toggleScheduleEditorModal(false);
+});
+
+staffSearchInput.addEventListener("input", function() {
+    window.clearTimeout(staffSearchRenderTimerId);
+    staffSearchRenderTimerId = window.setTimeout(renderStaffDirectory, 90);
+});
+scheduleLocationFilter.addEventListener("change", function() {
+    renderScheduleCalendar();
+    renderStaffProfile();
+});
+scheduleStaffFilter.addEventListener("change", function() {
+    scheduleSelectedStaffId = this.value === "all" ? "" : this.value;
+    renderStaffDirectory();
+    renderScheduleCalendar();
+    renderStaffProfile();
+});
+scheduleRangeStart.addEventListener("change", function() {
+    renderScheduleCalendar();
+    renderStaffProfile();
+});
+scheduleRangeEnd.addEventListener("change", function() {
+    renderScheduleCalendar();
+    renderStaffProfile();
+});
+
+scheduleWeekViewBtn.addEventListener("click", function() {
+    scheduleViewMode = "week";
+    syncScheduleRangeInputs();
+    loadScheduleData();
+});
+
+scheduleMonthViewBtn.addEventListener("click", function() {
+    scheduleViewMode = "month";
+    syncScheduleRangeInputs();
+    loadScheduleData();
+});
+
+schedulePrevBtn.addEventListener("click", function() {
+    scheduleCurrentDate = scheduleViewMode === "month"
+        ? new Date(scheduleCurrentDate.getFullYear(), scheduleCurrentDate.getMonth() - 1, 1)
+        : addDays(scheduleCurrentDate, -7);
+    syncScheduleRangeInputs();
+    loadScheduleData();
+});
+
+scheduleTodayBtn.addEventListener("click", function() {
+    scheduleCurrentDate = new Date();
+    syncScheduleRangeInputs();
+    loadScheduleData();
+});
+
+scheduleNextBtn.addEventListener("click", function() {
+    scheduleCurrentDate = scheduleViewMode === "month"
+        ? new Date(scheduleCurrentDate.getFullYear(), scheduleCurrentDate.getMonth() + 1, 1)
+        : addDays(scheduleCurrentDate, 7);
+    syncScheduleRangeInputs();
+    loadScheduleData();
+});
+
+staffList.addEventListener("click", function(event) {
+    const staffCard = event.target.closest(".staff-card");
+
+    if (!staffCard) {
+        return;
+    }
+
+    scheduleSelectedStaffId = staffCard.dataset.staffId;
+    scheduleStaffFilter.value = scheduleSelectedStaffId;
+    renderStaffDirectory();
+    renderScheduleCalendar();
+    renderStaffProfile();
+});
+
+staffProfilePanel.addEventListener("click", function(event) {
+    const actionButton = event.target.closest("[data-staff-profile-action]");
+    const shiftCard = event.target.closest(".staff-profile-shift");
+
+    if (actionButton) {
+        const staff = getStaffById(scheduleSelectedStaffId);
+
+        if (actionButton.dataset.staffProfileAction === "edit") {
+            openStaffForm(staff);
+        } else if (actionButton.dataset.staffProfileAction === "add-shift") {
+            openScheduleEditor({ staffId: scheduleSelectedStaffId, date: toIsoDate(scheduleCurrentDate) });
+        }
+        return;
+    }
+
+    if (shiftCard) {
+        const entry = scheduleEntries.find((item) => item.entryId === shiftCard.dataset.entryId);
+        if (entry) {
+            openScheduleEditor({ entry });
+        }
+    }
+});
+
+staffList.addEventListener("dragstart", function(event) {
+    const staffCard = event.target.closest(".staff-card");
+
+    if (!staffCard) {
+        return;
+    }
+
+    event.dataTransfer.setData("text/plain", JSON.stringify({
+        type: "staff",
+        staffId: staffCard.dataset.staffId
+    }));
+});
+
+scheduleCalendarGrid.addEventListener("dragstart", function(event) {
+    const entryCard = event.target.closest(".schedule-entry-card");
+
+    if (!entryCard) {
+        return;
+    }
+
+    event.dataTransfer.setData("text/plain", JSON.stringify({
+        type: "entry",
+        entryId: entryCard.dataset.entryId
+    }));
+});
+
+scheduleCalendarGrid.addEventListener("dragover", function(event) {
+    const dayCell = event.target.closest(".schedule-day-cell");
+
+    if (!dayCell) {
+        return;
+    }
+
+    event.preventDefault();
+    dayCell.classList.add("is-drop-target");
+});
+
+scheduleCalendarGrid.addEventListener("dragleave", function(event) {
+    const dayCell = event.target.closest(".schedule-day-cell");
+
+    if (dayCell) {
+        dayCell.classList.remove("is-drop-target");
+    }
+});
+
+scheduleCalendarGrid.addEventListener("drop", async function(event) {
+    const dayCell = event.target.closest(".schedule-day-cell");
+
+    if (!dayCell) {
+        return;
+    }
+
+    event.preventDefault();
+    dayCell.classList.remove("is-drop-target");
+
+    try {
+        const payload = JSON.parse(event.dataTransfer.getData("text/plain") || "{}");
+
+        if (payload.type === "staff") {
+            addScheduleEntryOptimistically(payload.staffId, dayCell.dataset.date);
+            return;
+        }
+
+        if (payload.type === "entry") {
+            moveScheduleEntry(payload.entryId, dayCell.dataset.date);
+        }
+    } catch (error) {
+        showBanner("That schedule drag action could not be completed.", "error");
+    }
+});
+
+scheduleCalendarGrid.addEventListener("click", function(event) {
+    const entryCard = event.target.closest(".schedule-entry-card");
+
+    if (!entryCard) {
+        return;
+    }
+
+    const entry = scheduleEntries.find((item) => item.entryId === entryCard.dataset.entryId);
+
+    if (entry) {
+        openScheduleEditor({ entry });
+    }
+});
+
+scheduleEditorStaff.addEventListener("change", function() {
+    const staff = getStaffById(this.value);
+
+    if (!scheduleEntryId.value && staff) {
+        scheduleEditorStartTime.value = staff.shiftStart || scheduleEditorStartTime.value;
+        scheduleEditorEndTime.value = staff.shiftEnd || scheduleEditorEndTime.value;
+        scheduleEditorLocation.value = staff.location || scheduleEditorLocation.value;
+    }
+});
+
+bulkScheduleStaff.addEventListener("change", function() {
+    const staff = getStaffById(this.value);
+
+    if (staff) {
+        bulkScheduleStartTime.value = staff.shiftStart || bulkScheduleStartTime.value;
+        bulkScheduleEndTime.value = staff.shiftEnd || bulkScheduleEndTime.value;
+        bulkScheduleLocation.value = staff.location || bulkScheduleLocation.value;
+    }
+});
+
+staffForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const staffPayload = getStaffFormPayload();
+    if (!staffPayload.staffId) {
+        staffPayload.staffId = createClientStaffId();
+    }
+    const dates = parseBulkScheduleDates(staffFormScheduleDates.value);
+    saveStaffFormBtn.disabled = true;
+    saveStaffFormBtn.textContent = "Saving...";
+
+    try {
+        await submitScheduleAction("staffSave", { staff: staffPayload });
+        if (dates.length) {
+            const entries = dates.map((date) => ({
+                staffId: staffPayload.staffId,
+                location: staffPayload.location,
+                startDate: date,
+                startTime: staffPayload.shiftStart,
+                endDate: date,
+                endTime: staffPayload.shiftEnd,
+                notes: staffPayload.scheduleNote
+            }));
+            await submitScheduleAction("scheduleAdd", { entries });
+        }
+        toggleStaffFormModal(false);
+        setScheduleStatus("Staff member saved. Refreshing...");
+        clearScheduleCache();
+        window.setTimeout(() => loadScheduleData({ force: true }), 900);
+    } catch (error) {
+        showBanner("The staff member could not be saved.", "error");
+    } finally {
+        saveStaffFormBtn.disabled = false;
+        saveStaffFormBtn.textContent = "Save Staff Member";
+    }
+});
+
+scheduleEditorForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const payload = getScheduleEditorPayload();
+    const action = payload.entryId ? "scheduleUpdate" : "scheduleAdd";
+    saveScheduleEntryBtn.disabled = true;
+    saveScheduleEntryBtn.textContent = "Saving...";
+
+    try {
+        await submitScheduleAction(action, {
+            entry: payload
+        });
+        toggleScheduleEditorModal(false);
+        setScheduleStatus("Schedule update sent to Google Sheets. Refreshing...");
+        clearScheduleCache();
+        window.setTimeout(() => loadScheduleData({ force: true }), 900);
+    } catch (error) {
+        showBanner("The schedule entry could not be saved.", "error");
+    } finally {
+        saveScheduleEntryBtn.disabled = false;
+        saveScheduleEntryBtn.textContent = "Save Shift";
+    }
+});
+
+deleteScheduleEntryBtn.addEventListener("click", async function() {
+    const entryId = scheduleEntryId.value;
+
+    if (!entryId) {
+        return;
+    }
+
+    deleteScheduleEntryBtn.disabled = true;
+    deleteScheduleEntryBtn.textContent = "Deleting...";
+
+    try {
+        await submitScheduleAction("scheduleDelete", { entryId });
+        toggleScheduleEditorModal(false);
+        setScheduleStatus("Schedule deletion sent to Google Sheets. Refreshing...");
+        clearScheduleCache();
+        window.setTimeout(() => loadScheduleData({ force: true }), 900);
+    } catch (error) {
+        showBanner("The schedule entry could not be deleted.", "error");
+    } finally {
+        deleteScheduleEntryBtn.disabled = false;
+        deleteScheduleEntryBtn.textContent = "Delete";
+    }
+});
+
+bulkScheduleForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const dates = parseBulkScheduleDates(bulkScheduleDates.value);
+
+    if (!dates.length) {
+        showBanner("Enter at least one date in YYYY-MM-DD format for bulk schedule creation.", "error");
+        return;
+    }
+
+    const entries = dates.map((date) => ({
+        staffId: bulkScheduleStaff.value,
+        location: bulkScheduleLocation.value,
+        startDate: date,
+        startTime: bulkScheduleStartTime.value,
+        endDate: date,
+        endTime: bulkScheduleEndTime.value,
+        notes: bulkScheduleNotes.value.trim()
+    }));
+
+    saveBulkScheduleBtn.disabled = true;
+    saveBulkScheduleBtn.textContent = "Creating...";
+
+    try {
+        await submitScheduleAction("scheduleAdd", { entries });
+        toggleBulkScheduleModal(false);
+        setScheduleStatus("Bulk shifts sent to Google Sheets. Refreshing...");
+        clearScheduleCache();
+        window.setTimeout(() => loadScheduleData({ force: true }), 900);
+    } catch (error) {
+        showBanner("The bulk schedule entries could not be saved.", "error");
+    } finally {
+        saveBulkScheduleBtn.disabled = false;
+        saveBulkScheduleBtn.textContent = "Create Shifts";
+    }
+});
+
 receiptModal.addEventListener("click", function(event) {
     if (event.target === receiptModal) {
         toggleReceiptModal(false);
@@ -3836,6 +6444,34 @@ historyModal.addEventListener("click", function(event) {
 shiftReportModal.addEventListener("click", function(event) {
     if (event.target === shiftReportModal) {
         toggleShiftReportModal(false);
+    }
+});
+
+scheduleModal.addEventListener("click", function(event) {
+    if (event.target === scheduleModal) {
+        toggleScheduleModal(false);
+    }
+});
+
+staffFormModal.addEventListener("click", function(event) {
+    if (event.target === staffFormModal) {
+        toggleStaffFormModal(false);
+    }
+});
+
+closeStaffFormBtn.addEventListener("click", function() {
+    toggleStaffFormModal(false);
+});
+
+bulkScheduleModal.addEventListener("click", function(event) {
+    if (event.target === bulkScheduleModal) {
+        toggleBulkScheduleModal(false);
+    }
+});
+
+scheduleEditorModal.addEventListener("click", function(event) {
+    if (event.target === scheduleEditorModal) {
+        toggleScheduleEditorModal(false);
     }
 });
 
@@ -3856,6 +6492,41 @@ document.addEventListener("keydown", function(event) {
 
     if (shiftReportModal.classList.contains("show")) {
         toggleShiftReportModal(false);
+        return;
+    }
+
+    if (staffColumnModal.classList.contains("show")) {
+        toggleStaffColumnModal(false);
+        return;
+    }
+
+    if (staffColumnManageModal.classList.contains("show")) {
+        toggleStaffColumnManageModal(false);
+        return;
+    }
+
+    if (staffListModal.classList.contains("show")) {
+        toggleStaffListModal(false);
+        return;
+    }
+
+    if (staffFormModal.classList.contains("show")) {
+        toggleStaffFormModal(false);
+        return;
+    }
+
+    if (scheduleEditorModal.classList.contains("show")) {
+        toggleScheduleEditorModal(false);
+        return;
+    }
+
+    if (bulkScheduleModal.classList.contains("show")) {
+        toggleBulkScheduleModal(false);
+        return;
+    }
+
+    if (scheduleModal.classList.contains("show")) {
+        toggleScheduleModal(false);
     }
 });
 
