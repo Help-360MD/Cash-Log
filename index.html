@@ -2877,14 +2877,18 @@ function getSharedRequestUrl(action, params = {}) {
     return { callbackName, url: url.toString() };
 }
 
-function requestSharedData(action, params = {}) {
+function requestSharedData(action, params = {}, retries = 1) {
     return new Promise((resolve, reject) => {
         const { callbackName, url } = getSharedRequestUrl(action, params);
         const script = document.createElement("script");
         const timeoutId = window.setTimeout(() => {
             cleanup();
-            reject(new Error("Timed out while loading shared data."));
-        }, 12000);
+            if (retries > 0) {
+                requestSharedData(action, params, retries - 1).then(resolve).catch(reject);
+            } else {
+                reject(new Error("Timed out while loading shared data."));
+            }
+        }, 25000);
 
         function cleanup() {
             window.clearTimeout(timeoutId);
@@ -2899,7 +2903,11 @@ function requestSharedData(action, params = {}) {
 
         script.onerror = function() {
             cleanup();
-            reject(new Error("The shared Google Sheets service could not be reached."));
+            if (retries > 0) {
+                requestSharedData(action, params, retries - 1).then(resolve).catch(reject);
+            } else {
+                reject(new Error("The shared Google Sheets service could not be reached."));
+            }
         };
 
         script.src = url;
@@ -3538,7 +3546,7 @@ function printShiftReport() {
 
 async function loadSharedDashboard() {
     try {
-        setSharedDataStatus("Refreshing today's shared totals from Google Sheets...");
+        setSharedDataStatus("Syncing today's shared totals from Google Sheets...");
         const result = await requestSharedData("dashboard", {
             paymentDate: paymentDateInput.value || getDateTimeParts().paymentDate
         });
@@ -3550,7 +3558,7 @@ async function loadSharedDashboard() {
         setSharedDashboard(result.totals || { cashTotal: 0, zelleTotal: 0, entryCount: 0 });
         setSharedDataStatus(`Shared totals synced from Google Sheets. Last refresh: ${formatHistoryTimestampLabel(result.generatedAt || new Date().toISOString())}`);
     } catch (error) {
-        setSharedDataStatus("Shared totals are unavailable until the Apps Script shared dashboard is updated.");
+        setSharedDataStatus("Shared totals temporarily unavailable (connection timeout). Click 'Refresh' to sync again.");
     }
 }
 
