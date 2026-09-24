@@ -1227,86 +1227,323 @@
     }
 
     .receipt-paper-wrap {
-        padding: 26px;
+        padding: 24px 20px;
+        background: #f1f5f9;
+        display: flex;
+        justify-content: center;
     }
 
     .receipt-paper {
         width: 100%;
-        background: #fff;
-        border-radius: 10px;
-        min-height: 780px;
-        padding: 38px 56px 46px;
-        color: #111827;
-        font-family: "Courier New", Courier, monospace;
-        box-shadow: 0 22px 40px rgba(15, 23, 42, 0.09);
+        max-width: 820px;
+        background: #ffffff;
+        border-radius: 18px;
+        min-height: auto;
+        padding: 32px 36px;
+        color: #0f172a;
+        font-family: "Manrope", "Segoe UI", sans-serif;
+        box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12);
+        border: 1px solid rgba(226, 232, 240, 0.9);
     }
 
-    .receipt-topline {
+    .receipt-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 18px;
+        margin-bottom: 20px;
+    }
+
+    .receipt-brand-col {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        max-width: 480px;
+    }
+
+    .receipt-logo-img {
+        max-height: 48px;
+        width: auto;
+        max-width: 220px;
+        object-fit: contain;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .receipt-clinic-name {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.01em;
+    }
+
+    .receipt-clinic-address {
+        font-size: 0.85rem;
+        color: #475569;
+        line-height: 1.45;
+        font-weight: 500;
+    }
+
+    .receipt-clinic-links {
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-top: 2px;
+    }
+
+    .receipt-clinic-links a {
+        color: var(--brand-blue);
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .receipt-clinic-links a:hover {
+        text-decoration: underline;
+    }
+
+    .receipt-meta-col {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+    }
+
+    .receipt-title-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 12px;
+        border-radius: 999px;
+        background: rgba(25, 173, 232, 0.12);
+        color: #0284c7;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .receipt-paid-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: #ecfdf5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 2px;
+    }
+
+    .receipt-datetime {
+        font-size: 0.84rem;
+        color: #64748b;
+        font-weight: 600;
+        margin-top: 4px;
+    }
+
+    .receipt-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .receipt-info-card {
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+    }
+
+    .receipt-info-card-title {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #edf2f7;
+        padding-bottom: 4px;
+    }
+
+    .receipt-info-row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 14px;
-        font-size: 1rem;
-        margin-bottom: 74px;
+        gap: 10px;
+        font-size: 0.86rem;
+        padding: 3px 0;
     }
 
-    .receipt-topline span:last-child {
-        text-align: center;
-        flex: 1;
-        margin-right: 80px;
+    .receipt-info-label {
+        color: #64748b;
+        font-weight: 600;
     }
 
-    .receipt-brand {
-        text-align: center;
-        font-size: clamp(2.1rem, 4vw, 2.8rem);
+    .receipt-info-value {
+        color: #0f172a;
         font-weight: 700;
-        letter-spacing: 0.03em;
-        margin-bottom: 8px;
-    }
-
-    .receipt-divider {
-        text-align: center;
-        font-size: clamp(1.4rem, 3vw, 2.1rem);
-        letter-spacing: 0.02em;
-        margin-bottom: 34px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    .receipt-divider::before {
-        content: "----------------------------------------";
-    }
-
-    .receipt-rows {
-        width: min(780px, 100%);
-        margin: 0 auto 26px;
-        display: grid;
-        gap: 22px;
-        font-size: clamp(1.1rem, 2.1vw, 1.45rem);
-        line-height: 1.35;
-    }
-
-    .receipt-row {
-        display: grid;
-        grid-template-columns: 240px 1fr;
-        gap: 24px;
-        align-items: start;
-    }
-
-    .receipt-label {
-        font-weight: 700;
-    }
-
-    .receipt-value {
         text-align: right;
         word-break: break-word;
     }
 
-    .receipt-thank-you {
-        text-align: center;
-        font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    .receipt-table-shell {
+        margin-bottom: 18px;
+        overflow-x: auto;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .receipt-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+    }
+
+    .receipt-table th {
+        background: #f1f5f9;
+        padding: 10px 14px;
+        color: #475569;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .receipt-table th:last-child {
+        text-align: right;
+    }
+
+    .receipt-table td {
+        padding: 14px 14px;
+        color: #0f172a;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+    }
+
+    .receipt-table td:last-child {
+        text-align: right;
+        font-weight: 800;
+        font-size: 1rem;
+        color: #0f172a;
+    }
+
+    .receipt-total-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(25, 173, 232, 0.08), rgba(255, 255, 255, 0.96));
+        border: 1px solid rgba(25, 173, 232, 0.22);
+        margin-bottom: 20px;
+    }
+
+    .receipt-total-bar-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
         font-weight: 700;
-        margin-top: 8px;
+        color: #0f172a;
+    }
+
+    .receipt-total-bar-right {
+        text-align: right;
+    }
+
+    .receipt-total-label {
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #64748b;
+        margin-bottom: 2px;
+    }
+
+    .receipt-total-value {
+        font-size: 1.45rem;
+        font-weight: 800;
+        color: #0f172a;
+        font-family: "Space Grotesk", sans-serif;
+        letter-spacing: -0.02em;
+    }
+
+    .receipt-footer-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding: 16px 20px;
+        border-radius: 14px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+    }
+
+    .receipt-footer-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+    }
+
+    .receipt-footer-thanks {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    .receipt-footer-url {
+        font-size: 0.84rem;
+        color: #0f172a;
+        font-weight: 600;
+    }
+
+    .receipt-footer-url a {
+        color: var(--brand-blue);
+        text-decoration: none;
+        font-weight: 800;
+    }
+
+    .receipt-footer-disclaimer {
+        font-size: 0.74rem;
+        color: #94a3b8;
+        line-height: 1.4;
+        margin-top: 2px;
+    }
+
+    .receipt-qr-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        text-align: center;
+    }
+
+    .receipt-qr-image {
+        width: 76px;
+        height: 76px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        padding: 4px;
+        display: block;
+    }
+
+    .receipt-qr-text {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #475569;
+        letter-spacing: 0.02em;
     }
 
     @media (min-width: 1680px) {
@@ -1485,32 +1722,52 @@
         }
 
         .receipt-paper-wrap {
-            padding: 14px;
+            padding: 12px;
         }
 
         .receipt-paper {
-            min-height: auto;
-            padding: 24px 20px 28px;
+            padding: 20px 16px;
         }
 
-        .receipt-topline {
+        .receipt-header {
             flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 40px;
+            align-items: stretch;
+            gap: 14px;
         }
 
-        .receipt-topline span:last-child {
-            margin-right: 0;
-            flex: none;
-        }
-
-        .receipt-row {
-            grid-template-columns: 1fr;
-            gap: 8px;
-        }
-
-        .receipt-value {
+        .receipt-meta-col {
             text-align: left;
+            align-items: flex-start;
+        }
+
+        .receipt-info-grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .receipt-total-bar {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .receipt-total-bar-right {
+            text-align: left;
+        }
+
+        .receipt-footer-box {
+            flex-direction: column-reverse;
+            text-align: center;
+            gap: 16px;
+        }
+
+        .receipt-footer-info {
+            text-align: center;
+        }
+
+        .receipt-table th,
+        .receipt-table td {
+            padding: 10px 8px;
         }
     }
 
@@ -1810,47 +2067,103 @@
 
                 <div class="receipt-paper-wrap">
                     <div id="receiptPaper" class="receipt-paper">
-                        <div class="receipt-topline">
-                            <span id="receiptDateTime">--</span>
-                            <span>Receipt</span>
+                        <header class="receipt-header">
+                            <div class="receipt-brand-col">
+                                <img src="logo.png" alt="Stetho MD Primary Care & Walk-In" class="receipt-logo-img">
+                                <div class="receipt-clinic-name">STETHO MD Primary Care &amp; Walk-In</div>
+                                <div id="receiptClinicAddress" class="receipt-clinic-address">1707 East Bearss Avenue, Tampa, Florida 33613</div>
+                                <div class="receipt-clinic-links">
+                                    Official Website: <a href="https://stethomd.com/" target="_blank" rel="noopener noreferrer">https://stethomd.com/</a>
+                                </div>
+                            </div>
+                            <div class="receipt-meta-col">
+                                <div class="receipt-title-badge">Official Payment Receipt</div>
+                                <div class="receipt-paid-badge">&#10003; Paid In Full</div>
+                                <div class="receipt-datetime">Date &amp; Time: <strong id="receiptDateTime">--</strong></div>
+                            </div>
+                        </header>
+
+                        <div class="receipt-info-grid">
+                            <div class="receipt-info-card">
+                                <div class="receipt-info-card-title">Patient Details</div>
+                                <div class="receipt-info-row">
+                                    <span class="receipt-info-label">Patient ID:</span>
+                                    <span id="receiptPatientId" class="receipt-info-value">--</span>
+                                </div>
+                                <div class="receipt-info-row" id="receiptPatientNameRow" hidden>
+                                    <span class="receipt-info-label">Patient Name:</span>
+                                    <span id="receiptPatientName" class="receipt-info-value">--</span>
+                                </div>
+                                <div class="receipt-info-row">
+                                    <span class="receipt-info-label">Date of Service (DOS):</span>
+                                    <span id="receiptDos" class="receipt-info-value">--</span>
+                                </div>
+                            </div>
+
+                            <div class="receipt-info-card">
+                                <div class="receipt-info-card-title">Transaction Details</div>
+                                <div class="receipt-info-row">
+                                    <span class="receipt-info-label">Clinic Location:</span>
+                                    <span id="receiptDepartment" class="receipt-info-value">--</span>
+                                </div>
+                                <div class="receipt-info-row">
+                                    <span class="receipt-info-label">Payment Method:</span>
+                                    <span id="receiptMethod" class="receipt-info-value">--</span>
+                                </div>
+                                <div class="receipt-info-row" id="receiptStaffRow" hidden>
+                                    <span class="receipt-info-label">Collected By:</span>
+                                    <span id="receiptStaffName" class="receipt-info-value">--</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="receipt-brand">STETHO MD Cash Receipt</div>
-                        <div class="receipt-divider" aria-hidden="true"></div>
+                        <div class="receipt-table-shell">
+                            <table class="receipt-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%;">Description / Service</th>
+                                        <th style="width: 25%;">Payment Method</th>
+                                        <th style="width: 25%;">Amount Paid</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong id="receiptService">--</strong>
+                                        </td>
+                                        <td id="receiptTableMethod">--</td>
+                                        <td id="receiptAmount">--</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                        <div class="receipt-rows">
-                            <div class="receipt-row">
-                                <div class="receipt-label">Patient ID:</div>
-                                <div id="receiptPatientId" class="receipt-value">--</div>
+                        <div class="receipt-total-bar">
+                            <div class="receipt-total-bar-left">
+                                <div class="receipt-paid-badge">&#10003; Payment Received</div>
+                                <span>Thank you for your payment!</span>
                             </div>
-                            <div id="receiptPatientNameRow" class="receipt-row" hidden>
-                                <div class="receipt-label">Patient Name:</div>
-                                <div id="receiptPatientName" class="receipt-value">--</div>
-                            </div>
-                            <div class="receipt-row">
-                                <div class="receipt-label">DOS:</div>
-                                <div id="receiptDos" class="receipt-value">--</div>
-                            </div>
-                            <div class="receipt-row">
-                                <div class="receipt-label">Department:</div>
-                                <div id="receiptDepartment" class="receipt-value">--</div>
-                            </div>
-                            <div class="receipt-row">
-                                <div class="receipt-label">Service:</div>
-                                <div id="receiptService" class="receipt-value">--</div>
-                            </div>
-                            <div class="receipt-row">
-                                <div class="receipt-label">Amount Paid:</div>
-                                <div id="receiptAmount" class="receipt-value">--</div>
-                            </div>
-                            <div class="receipt-row">
-                                <div class="receipt-label">Method:</div>
-                                <div id="receiptMethod" class="receipt-value">--</div>
+                            <div class="receipt-total-bar-right">
+                                <div class="receipt-total-label">Total Amount Paid</div>
+                                <div id="receiptTotalAmount" class="receipt-total-value">--</div>
                             </div>
                         </div>
 
-                        <div class="receipt-divider" aria-hidden="true"></div>
-                        <div class="receipt-thank-you">Thank You!</div>
+                        <footer class="receipt-footer-box">
+                            <div class="receipt-footer-info">
+                                <div class="receipt-footer-thanks">Thank you for trusting Stetho MD with your healthcare!</div>
+                                <div class="receipt-footer-url">
+                                    Website: <a href="https://stethomd.com/" target="_blank" rel="noopener noreferrer">https://stethomd.com/</a>
+                                </div>
+                                <div class="receipt-footer-disclaimer">
+                                    Please keep this receipt for your personal health records, insurance claims, or tax / HSA / FSA reimbursement.
+                                </div>
+                            </div>
+                            <div class="receipt-qr-section">
+                                <img src="qrcode.png" alt="QR Code to visit https://stethomd.com/" class="receipt-qr-image">
+                                <span class="receipt-qr-text">Scan to Book</span>
+                            </div>
+                        </footer>
                     </div>
                 </div>
             </div>
@@ -2120,9 +2433,14 @@ const receiptPatientNameRow = document.getElementById("receiptPatientNameRow");
 const receiptPatientName = document.getElementById("receiptPatientName");
 const receiptDos = document.getElementById("receiptDos");
 const receiptDepartment = document.getElementById("receiptDepartment");
+const receiptClinicAddress = document.getElementById("receiptClinicAddress");
+const receiptStaffRow = document.getElementById("receiptStaffRow");
+const receiptStaffName = document.getElementById("receiptStaffName");
 const receiptService = document.getElementById("receiptService");
+const receiptTableMethod = document.getElementById("receiptTableMethod");
 const receiptAmount = document.getElementById("receiptAmount");
 const receiptMethod = document.getElementById("receiptMethod");
+const receiptTotalAmount = document.getElementById("receiptTotalAmount");
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7_fk9ZEWMAhshDDSdLsMABsUyJHRykJuLNjClSZxy1Fl454TBa4vg37JO9dtL5qdY/exec";
 const MAX_RECEIPT_HISTORY_ITEMS = 120;
 const serviceOptions = Array.from(serviceSelect.options)
@@ -3371,16 +3689,45 @@ function openReceiptPreview(receiptData) {
     toggleReceiptModal(true);
 }
 
+function getDepartmentAddress(department) {
+    const dept = String(department || "").trim().toLowerCase();
+    if (dept.includes("tampa")) {
+        return "1707 East Bearss Avenue, Tampa, Florida 33613";
+    }
+    if (dept.includes("zephyrhills")) {
+        return "38010 Medical Center Avenue, Zephyrhills, 33540";
+    }
+    return "1707 East Bearss Avenue, Tampa, Florida 33613";
+}
+
 function populateReceipt(receiptData) {
-    receiptDateTime.textContent = receiptData.dateTime;
-    receiptPatientId.textContent = receiptData.patientId;
+    receiptDateTime.textContent = receiptData.dateTime || "--";
+    receiptPatientId.textContent = receiptData.patientId || "--";
     receiptPatientName.textContent = receiptData.patientName || "--";
     receiptPatientNameRow.hidden = !receiptData.patientName;
-    receiptDos.textContent = receiptData.dos;
-    receiptDepartment.textContent = receiptData.department;
-    receiptService.textContent = receiptData.service;
-    receiptAmount.textContent = receiptData.amount;
-    receiptMethod.textContent = receiptData.method;
+    receiptDos.textContent = receiptData.dos || "--";
+    receiptDepartment.textContent = receiptData.department || "--";
+    receiptService.textContent = receiptData.service || "--";
+    receiptAmount.textContent = receiptData.amount || "--";
+    receiptMethod.textContent = receiptData.method || "--";
+
+    if (receiptClinicAddress) {
+        receiptClinicAddress.textContent = getDepartmentAddress(receiptData.department);
+    }
+    if (receiptTableMethod) {
+        receiptTableMethod.textContent = receiptData.method || "--";
+    }
+    if (receiptTotalAmount) {
+        receiptTotalAmount.textContent = receiptData.amount || "--";
+    }
+    if (receiptStaffRow && receiptStaffName) {
+        if (receiptData.staffName) {
+            receiptStaffName.textContent = receiptData.staffName;
+            receiptStaffRow.hidden = false;
+        } else {
+            receiptStaffRow.hidden = true;
+        }
+    }
 }
 
 function toggleReceiptModal(isOpen) {
@@ -3396,122 +3743,389 @@ function toggleHistoryModal(isOpen) {
 }
 
 function getReceiptPrintMarkup(receiptData) {
-    const patientNameRowMarkup = receiptData.patientName
-        ? `<div class="row"><div class="label">Patient Name:</div><div class="value">${escapeHtml(receiptData.patientName)}</div></div>`
+    const logoUrl = new URL("logo.png", window.location.href).href;
+    const qrCodeUrl = new URL("qrcode.png", window.location.href).href;
+    const clinicAddress = getDepartmentAddress(receiptData.department);
+    const patientNameMarkup = receiptData.patientName
+        ? `<div class="info-row"><span class="info-label">Patient Name:</span><span class="info-val">${escapeHtml(receiptData.patientName)}</span></div>`
+        : "";
+    const staffNameMarkup = receiptData.staffName
+        ? `<div class="info-row"><span class="info-label">Collected By:</span><span class="info-val">${escapeHtml(receiptData.staffName)}</span></div>`
         : "";
 
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Receipt</title>
+<base href="${window.location.href}">
+<title>Receipt - Patient ${escapeHtml(receiptData.patientId)}</title>
 <style>
-    body {
-        margin: 0;
-        padding: 22px;
-        background: #ffffff;
-        color: #111827;
-        font-family: "Courier New", Courier, monospace;
+    @page {
+        size: A4 portrait;
+        margin: 12mm 15mm;
     }
-
-    .paper {
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 34px 52px 44px;
-        min-height: 720px;
+    * {
         box-sizing: border-box;
     }
-
-    .topline {
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: #ffffff;
+        color: #0f172a;
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.45;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .a4-page {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 24px 28px;
+        background: #ffffff;
+    }
+    @media print {
+        body {
+            padding: 0;
+        }
+        .a4-page {
+            max-width: 100%;
+            padding: 0;
+            border: none;
+        }
+    }
+    .receipt-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        border-bottom: 2px solid #0284c7;
+        padding-bottom: 16px;
+        margin-bottom: 18px;
+    }
+    .brand-col {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        max-width: 480px;
+    }
+    .logo-img {
+        max-height: 52px;
+        width: auto;
+        max-width: 220px;
+        object-fit: contain;
+        display: block;
+        margin-bottom: 6px;
+    }
+    .clinic-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.01em;
+    }
+    .clinic-address {
+        font-size: 12px;
+        color: #334155;
+        font-weight: 600;
+        line-height: 1.4;
+    }
+    .clinic-web {
+        font-size: 12px;
+        color: #0284c7;
+        font-weight: 700;
+    }
+    .meta-col {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+    }
+    .receipt-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: #e0f2fe;
+        color: #0369a1;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+    .paid-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: #ecfdf5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+    .meta-date {
+        font-size: 12px;
+        color: #475569;
+        margin-top: 4px;
+    }
+    .meta-date strong {
+        color: #0f172a;
+    }
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+    .info-card {
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+    }
+    .info-card-title {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 4px;
+    }
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 12px;
+        padding: 2px 0;
+    }
+    .info-label {
+        color: #64748b;
+        font-weight: 600;
+    }
+    .info-val {
+        color: #0f172a;
+        font-weight: 700;
+        text-align: right;
+    }
+    .table-wrap {
+        margin-bottom: 18px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+    th {
+        background: #f1f5f9;
+        padding: 10px 12px;
+        color: #334155;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-align: left;
+        border-top: 1px solid #cbd5e1;
+        border-bottom: 2px solid #cbd5e1;
+    }
+    th:last-child {
+        text-align: right;
+    }
+    td {
+        padding: 14px 12px;
+        color: #0f172a;
+        border-bottom: 1px solid #e2e8f0;
+        vertical-align: top;
+    }
+    td:last-child {
+        text-align: right;
+        font-weight: 800;
+        font-size: 14px;
+    }
+    .total-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 12px;
-        font-size: 18px;
-        margin-bottom: 76px;
+        padding: 14px 18px;
+        border-radius: 10px;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        margin-bottom: 22px;
     }
-
-    .topline span:last-child {
-        flex: 1;
-        text-align: center;
-        margin-right: 84px;
-    }
-
-    .brand {
-        text-align: center;
-        font-size: 36px;
+    .total-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
         font-weight: 700;
-        margin-bottom: 10px;
+        color: #065f46;
     }
-
-    .divider {
-        text-align: center;
-        font-size: 30px;
-        margin-bottom: 34px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    .divider::before {
-        content: "----------------------------------------";
-    }
-
-    .rows {
-        width: min(780px, 100%);
-        margin: 0 auto 28px;
-        display: grid;
-        gap: 24px;
-        font-size: 28px;
-        line-height: 1.35;
-    }
-
-    .row {
-        display: grid;
-        grid-template-columns: 240px 1fr;
-        gap: 28px;
-        align-items: start;
-    }
-
-    .label {
-        font-weight: 700;
-    }
-
-    .value {
+    .total-right {
         text-align: right;
-        word-break: break-word;
     }
-
-    .thanks {
+    .total-label {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+    }
+    .total-val {
+        font-size: 22px;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+    }
+    .footer-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        padding: 16px 18px;
+        border-radius: 10px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+    }
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+    }
+    .footer-thanks {
+        font-size: 13px;
+        font-weight: 800;
+        color: #0f172a;
+    }
+    .footer-url {
+        font-size: 12px;
+        color: #0f172a;
+        font-weight: 600;
+    }
+    .footer-url a {
+        color: #0284c7;
+        font-weight: 800;
+        text-decoration: none;
+    }
+    .footer-note {
+        font-size: 11px;
+        color: #64748b;
+        line-height: 1.4;
+    }
+    .qr-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
         text-align: center;
-        font-size: 30px;
+    }
+    .qr-img {
+        width: 76px;
+        height: 76px;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        padding: 3px;
+        display: block;
+    }
+    .qr-text {
+        font-size: 9.5px;
         font-weight: 700;
-        margin-top: 10px;
+        color: #475569;
     }
 </style>
 </head>
 <body>
-    <div class="paper">
-        <div class="topline">
-            <span>${escapeHtml(receiptData.dateTime)}</span>
-            <span>Receipt</span>
+    <div class="a4-page">
+        <div class="receipt-header">
+            <div class="brand-col">
+                <img src="${escapeHtml(logoUrl)}" alt="Stetho MD" class="logo-img">
+                <div class="clinic-title">STETHO MD Primary Care &amp; Walk-In</div>
+                <div class="clinic-address">${escapeHtml(clinicAddress)}</div>
+                <div class="clinic-web">Official Website: <a href="https://stethomd.com/" target="_blank">https://stethomd.com/</a></div>
+            </div>
+            <div class="meta-col">
+                <div class="receipt-badge">Payment Receipt</div>
+                <div class="paid-badge">&#10003; Paid In Full</div>
+                <div class="meta-date">Date &amp; Time: <strong>${escapeHtml(receiptData.dateTime)}</strong></div>
+                <div class="meta-date">DOS: <strong>${escapeHtml(receiptData.dos)}</strong></div>
+            </div>
         </div>
 
-        <div class="brand">STETHO MD Cash Receipt</div>
-        <div class="divider"></div>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-card-title">Patient Information</div>
+                <div class="info-row">
+                    <span class="info-label">Patient ID:</span>
+                    <span class="info-val">${escapeHtml(receiptData.patientId)}</span>
+                </div>
+                ${patientNameMarkup}
+                <div class="info-row">
+                    <span class="info-label">Date of Service (DOS):</span>
+                    <span class="info-val">${escapeHtml(receiptData.dos)}</span>
+                </div>
+            </div>
 
-        <div class="rows">
-            <div class="row"><div class="label">Patient ID:</div><div class="value">${escapeHtml(receiptData.patientId)}</div></div>
-            ${patientNameRowMarkup}
-            <div class="row"><div class="label">DOS:</div><div class="value">${escapeHtml(receiptData.dos)}</div></div>
-            <div class="row"><div class="label">Department:</div><div class="value">${escapeHtml(receiptData.department)}</div></div>
-            <div class="row"><div class="label">Service:</div><div class="value">${escapeHtml(receiptData.service)}</div></div>
-            <div class="row"><div class="label">Amount Paid:</div><div class="value">${escapeHtml(receiptData.amount)}</div></div>
-            <div class="row"><div class="label">Method:</div><div class="value">${escapeHtml(receiptData.method)}</div></div>
+            <div class="info-card">
+                <div class="info-card-title">Transaction Details</div>
+                <div class="info-row">
+                    <span class="info-label">Location / Department:</span>
+                    <span class="info-val">${escapeHtml(receiptData.department || "--")}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Payment Method:</span>
+                    <span class="info-val">${escapeHtml(receiptData.method || "--")}</span>
+                </div>
+                ${staffNameMarkup}
+            </div>
         </div>
 
-        <div class="divider"></div>
-        <div class="thanks">Thank You!</div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 50%;">Description / Service</th>
+                        <th style="width: 25%;">Payment Method</th>
+                        <th style="width: 25%;">Amount Paid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>${escapeHtml(receiptData.service)}</strong>
+                        </td>
+                        <td>${escapeHtml(receiptData.method)}</td>
+                        <td>${escapeHtml(receiptData.amount)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total-bar">
+            <div class="total-left">
+                <div class="paid-badge">&#10003; Verified Paid</div>
+                <span>Thank you for choosing Stetho MD!</span>
+            </div>
+            <div class="total-right">
+                <div class="total-label">Total Amount Paid</div>
+                <div class="total-val">${escapeHtml(receiptData.amount)}</div>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <div class="footer-info">
+                <div class="footer-thanks">Thank you for trusting Stetho MD with your healthcare!</div>
+                <div class="footer-url">Website: <a href="https://stethomd.com/" target="_blank">https://stethomd.com/</a></div>
+                <div class="footer-note">Please retain this official receipt for your medical records, insurance claims, or HSA/FSA tax reimbursement.</div>
+            </div>
+            <div class="qr-col">
+                <img src="${escapeHtml(qrCodeUrl)}" alt="QR Code to stethomd.com" class="qr-img">
+                <span class="qr-text">Scan for Website</span>
+            </div>
+        </div>
     </div>
 </body>
 </html>`;
@@ -3530,7 +4144,7 @@ function printReceipt(receiptData = lastReceiptData) {
 
     lastReceiptData = cloneReceiptData(receiptToPrint);
 
-    const printWindow = window.open("", "_blank", "width=1100,height=900");
+    const printWindow = window.open("", "_blank", "width=900,height=1100");
 
     if (!printWindow) {
         showBanner("Popup blocked. Please allow popups to print the receipt.", "error");
@@ -3540,11 +4154,42 @@ function printReceipt(receiptData = lastReceiptData) {
     printWindow.document.open();
     printWindow.document.write(getReceiptPrintMarkup(lastReceiptData));
     printWindow.document.close();
-    printWindow.focus();
 
-    setTimeout(() => {
-        printWindow.print();
-    }, 250);
+    const doPrint = () => {
+        try {
+            printWindow.focus();
+            printWindow.print();
+        } catch (e) {
+            console.error("Print error:", e);
+        }
+    };
+
+    const images = printWindow.document.images;
+    if (images && images.length > 0) {
+        let loaded = 0;
+        const total = images.length;
+        const onDone = () => {
+            loaded++;
+            if (loaded >= total) {
+                setTimeout(doPrint, 150);
+            }
+        };
+        for (let i = 0; i < total; i++) {
+            if (images[i].complete) {
+                loaded++;
+            } else {
+                images[i].onload = onDone;
+                images[i].onerror = onDone;
+            }
+        }
+        if (loaded >= total) {
+            setTimeout(doPrint, 200);
+        } else {
+            setTimeout(doPrint, 1000);
+        }
+    } else {
+        setTimeout(doPrint, 250);
+    }
 }
 
 function validatePatientId() {
